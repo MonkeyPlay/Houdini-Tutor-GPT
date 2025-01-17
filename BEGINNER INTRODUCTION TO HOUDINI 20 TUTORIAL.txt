@@ -1,0 +1,535 @@
+# tactiq.io free youtube transcript
+# BEGINNER INTRODUCTION TO HOUDINI 20 TUTORIAL ( Tools & User Interface)
+# https://www.youtube.com/watch/uk21-YNhycY
+
+00:00:00.040 so here we are inside of Houdini
+00:00:02.719 20 before we start I'd just like to give
+00:00:05.240 you a quick tip something that helped me
+00:00:07.319 a lot I didn't implement it in the
+00:00:09.440 beginning but I wish I did so I'd like
+00:00:11.519 to share it with you and that is to just
+00:00:14.360 get a piece of paper and a pen and write
+00:00:17.199 down all the things that are going to
+00:00:19.560 help you navigate through Houdini if you
+00:00:23.199 don't want to do that I have a PDF on
+00:00:25.680 patreon that you can just download for
+00:00:28.080 five bucks it's not much and that will
+00:00:31.119 help you just uh navigate your way
+00:00:33.280 through and not forget certain keys so
+00:00:35.760 you won't be in in a situation where
+00:00:38.120 basically you'll be like oh what is that
+00:00:39.760 key that I need how do I get back to
+00:00:42.039 this viewport and essentially it will
+00:00:44.680 just streamline your learning process
+00:00:47.280 the one thing that you need to
+00:00:48.719 understand is you're going to need to
+00:00:50.559 learn the basics before you can get into
+00:00:52.960 the cool stuff and unfortunately we all
+00:00:55.879 had to do it but it is really worth
+00:00:58.440 doing so let's get into it and let's
+00:01:01.399 learn Houdini interface the first thing
+00:01:04.040 you're going to be greeted with when you
+00:01:05.680 open Houdini for the first time is these
+00:01:09.479 three panels over here where you have
+00:01:12.320 your main viewport over here and this is
+00:01:14.799 going to be a visual representation of
+00:01:17.159 all the things that you create inside of
+00:01:20.159 your network view which you can find in
+00:01:22.400 the bottom right hand corner and just
+00:01:25.360 above that you are going to find all
+00:01:27.920 your settings parameters is inside of
+00:01:30.799 your parameter view which is your top
+00:01:33.360 right hand corner over here so to best
+00:01:36.040 explain this we are going to jump
+00:01:37.880 straight in and we are going to create
+00:01:40.079 our first piece of geometry inside of
+00:01:43.320 Houdini to do that we can press either
+00:01:46.360 tab or you can right click whichever one
+00:01:49.040 is easier for you at the moment I'm just
+00:01:51.159 going to click with my right Mouse
+00:01:53.640 button and I'm just going to type goo
+00:01:57.960 and that's going to give us a geom
+00:01:59.920 ometry node so this geometry node is
+00:02:03.560 essentially like a folder a placeholder
+00:02:07.479 something that is used to work inside of
+00:02:12.760 everything that we are going to create
+00:02:15.319 is going to be inside of folders so it
+00:02:17.959 doesn't matter if it's
+00:02:19.480 geometry or if it's a camera or if it's
+00:02:23.160 a light each one of them is going to
+00:02:26.080 have a folder like this and it's going
+00:02:29.120 to be inside of this network view over
+00:02:32.840 here so if you created a camera at this
+00:02:35.800 point in time it would create a camera
+00:02:38.599 node so to get into this node what you
+00:02:42.959 can press is you can press I and that is
+00:02:45.519 going to go in or you can press the U
+00:02:48.400 that's going to go up for example or you
+00:02:51.159 can just double click on it or press
+00:02:54.280 back so that's how you get in and out of
+00:02:57.239 your noes we are going to double click
+00:02:59.760 click on it jump inside and once again
+00:03:03.280 either tab or right click and start to
+00:03:06.840 type for example
+00:03:09.120 box and that's going to give us our
+00:03:11.920 first node that's going to actually
+00:03:14.680 represent a geometry inside of our
+00:03:18.440 viewport every time you create a new
+00:03:20.760 node you are going to be given a choice
+00:03:23.840 of what to do with it with these flags
+00:03:27.360 and to best explain that I will just
+00:03:30.599 create another node and as I did before
+00:03:33.480 it's tab or right click and we are going
+00:03:37.080 to
+00:03:38.799 select
+00:03:41.400 Mountain there we go and click over here
+00:03:45.280 to connect the nodes we just click and
+00:03:47.480 drag and that will connect the nodes but
+00:03:50.239 now you see that for example nothing is
+00:03:53.280 happening and why is nothing happening
+00:03:56.079 the reason why nothing is happening is
+00:03:58.239 because in houd you have to actually
+00:04:00.920 specify for each node that you want to
+00:04:03.959 view what it is actually doing so to do
+00:04:07.879 that you need to click on this eyeball
+00:04:10.519 over here or click on the blue flag on
+00:04:14.079 the right hand
+00:04:15.720 side so there we have a deformation
+00:04:19.560 happening on top of our geometry and now
+00:04:22.520 we see it because we have actually
+00:04:25.120 enabled the display flag over here so
+00:04:27.960 just to go through what all of the Flags
+00:04:30.280 actually
+00:04:31.320 do I will just add another
+00:04:39.479 one and we'll just add that in there and
+00:04:42.720 once again we are going to enable the
+00:04:44.919 display flag over there and for that to
+00:04:47.960 work we just need to add a few more
+00:04:50.199 segments to our box over here so if we
+00:04:53.199 just select our box and go to our
+00:04:55.600 parameter view which is essentially our
+00:04:57.720 settings for whichever node is selected
+00:05:00.800 we can just add in there so we can go
+00:05:04.639 20 20 and
+00:05:08.440 20 and that is going to give us our
+00:05:12.600 deformation over here and I'm just going
+00:05:15.320 to you see when I selected this one it
+00:05:17.560 gives me different settings so if I just
+00:05:20.440 reduce the amplitude of that that is
+00:05:22.840 going to give us our box and to get back
+00:05:26.000 to what I was talking about earlier the
+00:05:28.360 display Flags
+00:05:30.319 we go over here and we just adjust this
+00:05:34.880 so we know that it's working so if we go
+00:05:37.919 back to our display flag over here it's
+00:05:40.160 going to show us what this node is doing
+00:05:43.000 and everything before it and if we click
+00:05:46.479 over here it's going to show us what
+00:05:48.440 this node is doing and everything before
+00:05:50.639 it so if we go here for example we've
+00:05:53.560 learned what the blue flag is and that's
+00:05:55.919 the display flag and over here we have a
+00:05:58.759 bypass for for example so when you
+00:06:01.639 enable the bypass one it's going to
+00:06:04.280 bypass this mountain node and it's going
+00:06:06.800 to go straight into the bend node so
+00:06:09.440 it's going to disregard it so if we
+00:06:11.360 click on it you can see that the
+00:06:14.400 mountain node has been disregarded and
+00:06:16.759 we only have a bend that is affecting
+00:06:19.560 our box so if we switch that off we go
+00:06:23.720 back to that next thing over here we
+00:06:26.240 have our information node and that is
+00:06:28.599 used to
+00:06:29.960 uh to find uh errors inside of our
+00:06:33.759 geometry and give us information about
+00:06:37.319 what is actually happening inside of our
+00:06:41.440 node and what attributes are also
+00:06:44.400 applied to this
+00:06:45.960 node in addition we can also add a note
+00:06:49.599 so for example you can say um this node
+00:06:56.919 is not working
+00:07:01.800 and explain what is going on with that
+00:07:04.199 node and you can leave that for someone
+00:07:06.360 else that's going to pick up your file
+00:07:08.319 or you can leave it for yourself if you
+00:07:11.280 come back to this project file in a few
+00:07:14.400 months it's just a good way to explain
+00:07:18.479 what's going on with each node so you
+00:07:21.479 need to just enable this to show it next
+00:07:23.759 to your node okay then we can go to this
+00:07:28.080 freeze node and that is essentially just
+00:07:31.160 like a merge down so if you've ever
+00:07:34.240 worked in Photoshop you merge layers
+00:07:36.680 down so if we came over here and we
+00:07:41.080 detached this note for example and we
+00:07:43.919 broke our Network and you can break your
+00:07:47.800 network by either pressing Y and that's
+00:07:51.199 going to give you these scissors and you
+00:07:53.039 can just cut the network off or if you
+00:07:57.000 reconnect it you can click on it it and
+00:07:59.800 just shake it and that will also
+00:08:02.280 disconnect the
+00:08:03.960 nodes so you can see that when it was
+00:08:07.400 disconnected nothing was visible because
+00:08:09.759 the network was disconnected so if we
+00:08:13.280 wanted for example just to keep this
+00:08:15.440 node we could say lock and it's
+00:08:19.240 essentially freezes this and merges
+00:08:22.080 everything down and now when we detach
+00:08:24.879 it it stays there you could
+00:08:27.720 even delete is and you have everything
+00:08:31.520 within one node so it's essentially
+00:08:33.440 collapsing everything into one node so
+00:08:36.159 if you just press control Z that will
+00:08:38.320 undo that and we remove this press okay
+00:08:43.559 and now it disappears because it's not
+00:08:45.720 connected correctly so we can reconnect
+00:08:48.360 that and now it's working
+00:08:52.240 correctly finally we can have a template
+00:08:56.720 so for example if we want want to see
+00:08:59.880 what our Mountain was doing before we
+00:09:03.160 can click on the template and that is
+00:09:05.320 going to show us this node
+00:09:09.519 before the bend was applied to it so
+00:09:13.040 essentially if
+00:09:15.160 we bypass this one now we don't see the
+00:09:18.920 template because it's templated exactly
+00:09:22.760 what we have over here okay so we'll
+00:09:26.519 just switch that off so you can see
+00:09:28.440 template is on there it just shows you
+00:09:31.079 essentially a ghosted view of the
+00:09:33.880 previous
+00:09:35.079 node okay another good thing to know
+00:09:38.040 inside of your network view is that if
+00:09:41.640 everything gets messed up you can press
+00:09:45.000 the L key and that will automatically
+00:09:48.200 try to align everything that's inside of
+00:09:51.519 your network view because sometimes it
+00:09:53.440 can get really messy with you when you
+00:09:55.320 have a lot of nodes and they're all in
+00:09:57.560 different places gets crazy you can
+00:10:00.480 literally just press the L key and that
+00:10:03.839 will try to align everything nicely also
+00:10:08.120 if you have everything like this and you
+00:10:10.360 want it to align it vertically you can
+00:10:13.200 select your nodes and press a and just
+00:10:18.399 drag like that or drag them down and
+00:10:22.680 that will align them vertically or
+00:10:24.839 horizontally so that's just selecting
+00:10:26.959 your not many many different notes you
+00:10:29.360 can get an overview of what's going on
+00:10:31.839 inside of your network View and that's
+00:10:33.680 by pressing the o button that's just
+00:10:35.839 going to give you an overview of what's
+00:10:37.760 Happening inside so we'll switch that
+00:10:40.240 off for the moment another thing that
+00:10:41.959 you can do is you can also create some
+00:10:45.800 Network boxes so essentially you can
+00:10:48.360 have this by Alt click you can copy
+00:10:51.839 these so you have a few different
+00:10:54.720 networks that are going around and say
+00:10:57.760 for instance you wanted to group group
+00:10:59.360 them you can just come over here and you
+00:11:02.959 create a network box and that way you
+00:11:05.120 can move them all at
+00:11:07.200 once and you can have change colors over
+00:11:10.240 here you can add an image into the
+00:11:13.079 background and just a few simple things
+00:11:16.399 there but main thing that you need to
+00:11:18.200 know is just that you can add a n to a
+00:11:20.040 box you can rename it and that kind of
+00:11:23.440 stuff what I'd like to show you now is
+00:11:25.720 that in these
+00:11:27.079 settings you can adjust the parameters
+00:11:30.519 in a few different ways so you can
+00:11:33.120 either select it and actually type
+00:11:35.600 something in here or you can middle
+00:11:39.720 click inside and that's going to give
+00:11:41.440 you this ladder so essentially you can
+00:11:44.120 adjust your geometry or any settings of
+00:11:46.959 any node in the
+00:11:49.440 increments of 10 or the power of 10
+00:11:53.440 which you move left or right and that
+00:11:57.440 will give you these adjust ments in
+00:12:00.160 increments so essentially you use this
+00:12:03.399 .1 for smaller increments and the powers
+00:12:07.600 of 110 and 100 if you have something
+00:12:11.200 large like a landscape or something
+00:12:13.839 another good thing to remember is that
+00:12:16.399 Houdini worked in meters so over here it
+00:12:19.839 is 1 m 2 m 3 m and so on so it's just
+00:12:24.160 good to know that you are actually
+00:12:25.680 working in increments of one meter
+00:12:30.360 okay so remember middle click ladder and
+00:12:35.600 you can adjust your settings like that
+00:12:39.240 next thing we're going to do is we are
+00:12:40.920 going to figure out how we can move
+00:12:44.079 around and select things okay so the
+00:12:47.040 simple thing to do over here is just
+00:12:49.519 left click and that allows you to Tumble
+00:12:52.279 around anything that's inside of your
+00:12:55.240 scene mle Mouse button pretty standard
+00:12:59.000 zoom in zoom out and middle Mouse button
+00:13:02.720 if you click it you can pan around your
+00:13:07.000 object like that okay that's looking
+00:13:10.760 good just in case you get into a
+00:13:14.040 position where you are not happy with it
+00:13:17.959 you can always press the G key and that
+00:13:20.040 is going to bring you back to your
+00:13:21.839 standard position so when you open
+00:13:24.279 Houdini your viewport is always going to
+00:13:26.639 be uh in this orientation also what you
+00:13:29.680 can do is if you have something like
+00:13:33.240 this you can hit space bar F and that is
+00:13:37.079 going to frame whatever is uh selected
+00:13:40.519 or in your scene and for example if you
+00:13:43.639 have two things in your scene and we'll
+00:13:46.800 just drop a merge in here one more
+00:13:56.079 time so now we have two things in US
+00:13:58.880 scene and we want to Center everything
+00:14:01.160 that is in our scene we can just press
+00:14:04.240 space bar and H and that is going to
+00:14:07.839 bring us back to our home view but it's
+00:14:10.320 got both things inside of our
+00:14:14.079 viewport Okay so we've learned that so
+00:14:17.279 we can just delete the second object
+00:14:19.440 that we have over here and we are back
+00:14:22.000 with our first one so once again if we
+00:14:25.000 just want to view this one we can press
+00:14:28.079 Base Bar F and is going to bring us back
+00:14:30.680 there so over here on your left hand
+00:14:32.800 side you can see that we have this
+00:14:34.199 camera selected so when this camera is
+00:14:36.720 selected you can move around by clicking
+00:14:39.360 with your left Mouse button or your
+00:14:42.040 middle Mouse button or the ones that we
+00:14:44.079 learned before but if you press s or you
+00:14:47.560 come to the selection icon over here and
+00:14:50.839 you click on it when you do the same
+00:14:53.240 thing now with your left Mouse button
+00:14:56.720 you are actually selecting things
+00:14:59.199 so you can't move around but if you are
+00:15:03.560 in this mode and you still want to move
+00:15:05.480 around you can still do that if you
+00:15:07.240 press space bar so now we're pressing
+00:15:09.759 space bar and you can see it it's coming
+00:15:12.120 back to this camera icon so space bar
+00:15:15.920 and now we can tumble around again and
+00:15:18.560 use the movement controls
+00:15:22.360 like
+00:15:24.519 before okay so over here we have
+00:15:27.800 essentially our selection option so this
+00:15:30.040 is to select an entire object so you can
+00:15:33.160 see the outline of an entire object and
+00:15:36.199 then the next icon is to select certain
+00:15:39.240 things like points edges Primitives
+00:15:42.160 vertices so now if you select that you
+00:15:44.279 can select just the polygons for example
+00:15:47.120 so that's how you select either the
+00:15:48.639 whole object or just certain things or
+00:15:51.360 certain parts of one object the next
+00:15:54.240 thing we are going to do is we are going
+00:15:56.519 to explore these few things so these are
+00:15:59.160 your movement icon where you can
+00:16:01.880 basically just move anything over here
+00:16:05.120 but don't forget that most of your
+00:16:07.240 things you can just adjust over here so
+00:16:10.120 you have your rotation your scale and
+00:16:11.959 your translate controls over here and
+00:16:15.759 that is exactly the same thing as you
+00:16:18.079 have on this side so then we have our
+00:16:22.560 rotation controls our scale
+00:16:26.680 controls this is just rag do so that's
+00:16:29.240 for example for animation when someone
+00:16:31.880 has a character and they get shot and
+00:16:34.519 they just fall down the stairs like a
+00:16:36.600 rag doll so that's for that and then
+00:16:38.880 over here we have an interesting thing
+00:16:40.759 it is the combination of all three of
+00:16:45.199 these so you have your movement your
+00:16:47.680 rotation and your scale Allin one so you
+00:16:51.079 can choose whether or not you want to
+00:16:52.920 use that I don't really use it but you
+00:16:56.759 might find a use for it okay and then
+00:16:59.759 you have your snaps just like in any
+00:17:02.279 other software it's good to know that
+00:17:04.760 they there and they are very useful but
+00:17:07.280 for the moment we're not going to use
+00:17:08.760 them so we are going to jump back into
+00:17:11.240 our camera by just click on the camera
+00:17:13.760 and you are back inside of inside of
+00:17:17.119 your movement options over here so s key
+00:17:22.039 it takes you into selection mode and
+00:17:24.559 this camera you are in your pan and
+00:17:28.480 movement modes so as we move down we are
+00:17:31.559 going to see that we have a animation
+00:17:34.559 timeline at the bottom over here the
+00:17:37.360 most important things you need to know
+00:17:39.200 over here is just the basic uh play
+00:17:42.679 buttons and stop and the standard stuff
+00:17:47.120 but over here this real time toggle is
+00:17:49.240 something that I think should be on by
+00:17:51.440 default so this is essentially something
+00:17:55.039 that allows you to play back your
+00:17:57.440 animation in real real time and not at
+00:18:00.960 full speed because if this is not uh
+00:18:03.760 enabled your animation will play at the
+00:18:06.760 fastest possible speed that the computer
+00:18:09.080 can manage and if it is enabled it will
+00:18:12.480 play it at 24 frames a second or as
+00:18:14.880 close to 24 frames a second as the
+00:18:17.240 computer can
+00:18:18.559 calculate and the other stuff is just
+00:18:20.760 standard stuff like uh simple settings
+00:18:24.520 and sound settings but for the moment
+00:18:26.720 you don't need to know the most
+00:18:27.880 important things you need to know as a
+00:18:29.679 beginner is just the basic settings here
+00:18:32.960 and this clock because that's very
+00:18:35.039 important also you can adjust your
+00:18:38.760 timeline length over here so you just
+00:18:41.600 drop in 150 and then you have 150 frames
+00:18:45.600 over here is nothing too important you
+00:18:49.880 can just sometimes if your animation is
+00:18:54.360 continuously loading you can this a Able
+00:18:58.720 Auto update and click on
+00:19:01.559 manual so but that you'll learn once you
+00:19:04.520 start to do different kinds of
+00:19:07.840 simulations next thing we are going to
+00:19:10.039 come up to is these settings over here
+00:19:14.159 uh the first one is just the grid so you
+00:19:16.159 can just switch the Grid on and off and
+00:19:20.640 over here you have essentially it shows
+00:19:23.320 you
+00:19:24.400 what uh viewport you are in so at the
+00:19:27.520 moment we are in inside of the
+00:19:29.080 perspective
+00:19:30.240 viewport and to change viewports all you
+00:19:33.000 need to do is press 1 2 3 4 5 so if we
+00:19:37.120 press one that keeps us inside of our
+00:19:39.960 perspective viewport if we press two it
+00:19:43.360 goes into the top view if we press three
+00:19:46.240 front view four Right View and five the
+00:19:49.799 UV view so one thing I just want to
+00:19:52.760 point out is that if you go to say for
+00:19:55.799 example number two and you click it
+00:19:58.280 twice it's going to go to the opposite
+00:20:00.440 view so if you press
+00:20:02.520 two top bottom top bottom and that's
+00:20:06.440 pressing the same key just pressing two
+00:20:08.760 twice the same thing with number three
+00:20:11.720 three so it's back front back front and
+00:20:15.280 that's just pressing the same
+00:20:17.760 key so that's how you change your
+00:20:20.880 viewports and if you're not sure in
+00:20:22.880 which viewport you are just come over
+00:20:24.840 here and you'll know straight away
+00:20:27.559 another thing that you can do is you can
+00:20:29.679 work in a perspective viewport so if we
+00:20:32.559 go and press one we are inside of our
+00:20:35.240 perspective viewport I'm just going to
+00:20:37.000 press G one more time to center it and
+00:20:41.360 if we wanted to work in for example the
+00:20:44.240 perspective View and a top view or a
+00:20:47.520 side view left or right doesn't matter
+00:20:50.360 what you can do is you can press control
+00:20:52.760 2 and that's going to divide your
+00:20:55.960 workspace into two separate viewports s
+00:20:59.200 and inside of this one we have our
+00:21:02.120 perspective and this one is our top so
+00:21:05.200 when you inside of this view you can do
+00:21:07.200 exactly the same thing you can press the
+00:21:09.320 same buttons and that is going to set it
+00:21:13.159 into the viewport of your choice so if
+00:21:16.039 we press control 3 it's going to give us
+00:21:18.320 three if it's four four and so on so
+00:21:21.520 that's just something that's useful to
+00:21:23.880 know we are going to just jump back to
+00:21:26.080 our standard one view port for the
+00:21:28.640 moment okay so another important thing
+00:21:31.080 to know is how to create a
+00:21:33.840 camera so so you just press control and
+00:21:37.880 camera and that's going to create a
+00:21:40.159 camera from the perspective viewport
+00:21:44.000 okay one thing that you need to realize
+00:21:46.520 so when the lock is on you'll be locked
+00:21:49.360 inside of your camera and you can move
+00:21:51.200 around inside of your
+00:21:53.000 camera but if the lock is unlocked and
+00:21:56.080 you pay attention to this uh little spot
+00:21:58.840 over here you're going to be outside of
+00:22:01.320 your camera you are essentially inside
+00:22:03.600 of your perspective mode we can do the
+00:22:06.880 same thing and create a light so if we
+00:22:10.760 find an interesting spot we have our
+00:22:12.919 camera over here and we want a backlight
+00:22:16.200 that's lighting this geometry we can
+00:22:18.960 press control and create a light okay so
+00:22:22.240 that's how you create the camera and
+00:22:24.039 lights and over here if you come up over
+00:22:27.120 here you have just a few different
+00:22:28.799 panels your render view this is where
+00:22:30.840 you're actually going to be rendering
+00:22:32.360 stuff if you render it inside of hudini
+00:22:36.120 if not you'll be exporting it here by
+00:22:39.039 via a limic file and you can render it
+00:22:42.159 inside of any other
+00:22:46.960 software so at the moment it doesn't
+00:22:49.159 look really spectacular but I can assure
+00:22:51.159 you that once we get into building
+00:22:54.159 proper uh projects we will be creating
+00:22:57.960 some really awesome stuff so here's just
+00:23:00.600 composite motion effects View and
+00:23:02.480 geometry spreadsheets for the moment you
+00:23:04.480 don't need to worry about those things
+00:23:07.240 uh we'll be learning them as we go along
+00:23:10.520 one last thing is that when you're
+00:23:12.080 inside of selection view once again by
+00:23:14.360 pressing s and for example this you just
+00:23:17.919 need to remember that inside of hini Y
+00:23:20.880 is up because in for example 3ds Max Z
+00:23:24.640 is up so it's just something to keep in
+00:23:27.120 mind over here we have the overview just
+00:23:31.480 press o to switch that off and we are
+00:23:34.960 back over
+00:23:36.480 here all right guys so that's more or
+00:23:39.880 less Houdini interface in a nutshell
+00:23:43.440 over here you just have a few uh
+00:23:45.880 shortcuts
+00:23:47.360 to simulations but you don't need to
+00:23:50.480 know that for the
+00:23:56.880 moment
+00:24:00.159 all right guys so there's just one last
+00:24:01.960 thing that we're going to go through and
+00:24:04.120 this is this toolbar over here and it's
+00:24:08.919 really quite simple it's just
+00:24:11.240 essentially display options of how you
+00:24:13.640 can display different things inside of
+00:24:16.840 your
+00:24:17.720 viewport and
+00:24:20.200 it's you can just play around with it
+00:24:22.799 going you don't even need to change
+00:24:24.720 anything default settings are more than
+00:24:27.399 enough but you can just explore what you
+00:24:29.720 have over here one thing that I would um
+00:24:34.039 like to talk about is just that you can
+00:24:37.000 display the points you can display the
+00:24:40.440 normals you can display Point Trails
+00:24:43.399 this is when you have actually velocity
+00:24:45.640 inside of your stuff and display Point
+00:24:49.120 numbers and these kind of things but
+00:24:51.960 this will kind of come into play once
+00:24:54.159 we're doing different kinds of
+00:24:56.080 simulations and that kind kind of stuff
+00:24:58.919 so you can just kind of click on these
+00:25:00.880 and just go through them but the as I
+00:25:03.799 said the defaults are fine and I think
+00:25:07.159 we've covered most of the things over
+00:25:09.000 here you can just check out these
+00:25:10.760 options but again those are not uh
+00:25:14.640 critical um so feel free to go through
+00:25:18.440 the interface like I showed you play
+00:25:21.159 around drop a few notes in and I'll see
+00:25:24.720 you in the next lesson thanks guys and
+00:25:27.320 have a good good evening
