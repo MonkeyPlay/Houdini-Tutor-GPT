@@ -1,0 +1,476 @@
+# tactiq.io free youtube transcript
+# Free Houdini Tutorial: Sci Fi Panel Deformer with OpenSubDiv Patches
+# https://www.youtube.com/watch/Qro8zmy60VI
+
+00:00:02.679 in today's video I want to rebuild a
+00:00:05.160 tool from an addon this tissue addon for
+00:00:07.839 blender and this is an add-on that I'm
+00:00:10.160 quite fond of because back in the day
+00:00:12.120 when I didn't know Houdini and blender
+00:00:14.320 geometry notes wasn't a thing this is
+00:00:16.320 the tool I used to create organic shapes
+00:00:19.000 for my Works organic shapes that looked
+00:00:21.240 somewhat like this and the main tool
+00:00:23.680 from this addon that I'm interested in
+00:00:26.080 works a bit like this we can build a
+00:00:28.359 square patch of ch ometry a component
+00:00:31.880 and we can have some base mesh and what
+00:00:34.200 we can do with the add-on is we can take
+00:00:36.280 this component this patch and simply
+00:00:38.360 copy it onto every phase of our base mes
+00:00:41.840 and in the end this results in this new
+00:00:44.079 a lot more interesting geomety right
+00:00:45.800 here so if you want to rebuild this in
+00:00:47.800 Houdini is there any geometry concept
+00:00:51.399 any technique that we can use to make
+00:00:53.280 our life easier and well there is and
+00:00:55.920 that technique is called pruv
+00:00:58.000 coordinates this is something that that
+00:01:00.440 we tackled a bit in previous tutorials
+00:01:04.080 however we didn't spend much time here
+00:01:06.439 so I want to use the first part of this
+00:01:08.840 tutorial to build some intuition into
+00:01:11.439 how those premu V coordinates actually
+00:01:13.759 work so first of all let's start in an
+00:01:16.200 mty scene let's drop down a geonode
+00:01:18.960 let's dive inside and first of all as a
+00:01:21.479 test object I just want to drop down a
+00:01:23.560 platonic and for now let's simply set
+00:01:26.000 this to cube now those pruv coordinates
+00:01:28.759 that I talked about are in some ways
+00:01:31.400 similar to traditional UV coordinates
+00:01:34.320 however there are still some differences
+00:01:35.880 and I first of all want to visualize
+00:01:37.600 them to visualize those I first of all
+00:01:40.640 want to drop down simply a null as an
+00:01:43.640 input let's call it in and first of all
+00:01:46.280 I want to scatter points on my Cube here
+00:01:48.880 and I want to use those points to later
+00:01:51.840 sample the premier V coordinates that I
+00:01:54.119 talked about for this we need a whole
+00:01:56.320 lot of points so in this case let's just
+00:01:59.000 turn off the relax iterations and let's
+00:02:01.399 just up the number of points to a
+00:02:03.240 million like this and now let's drop
+00:02:05.759 down a point Wrangle and let's use this
+00:02:08.479 to look up the closest Prem V coordinate
+00:02:10.959 on each phase of a base G for each point
+00:02:13.959 that we're working on here so let's we
+00:02:15.840 of points in the first input and our
+00:02:17.519 main geometry in the second input now to
+00:02:19.840 sample the prier coordinates there is a
+00:02:22.599 function that we can use and it's called
+00:02:24.599 XYZ dist this expects first of all a GS
+00:02:27.680 stream this will be GS stream one for
+00:02:29.360 the second input then a position to
+00:02:31.640 sample from this is our VP the position
+00:02:34.080 of a point and then this is a function
+00:02:36.840 that won't return a value that we can
+00:02:39.159 later save inside a variable that we
+00:02:41.640 write in front of this function this
+00:02:43.400 expects to have some variables in here
+00:02:46.680 that this function can simply write to
+00:02:48.480 and this will be first of all the
+00:02:50.159 Primitive face that is closest to the
+00:02:52.440 point and the UV coordinate that we're
+00:02:55.040 interested in the Premier V coordinate
+00:02:57.120 we need to create those variables that
+00:02:59.040 we passed in so first of all let's
+00:03:01.239 create an in variable called Prim and
+00:03:03.840 then also a vector variable called UV
+00:03:07.280 like this and what I want to do with
+00:03:09.680 this UV coordinate that I sampled is I
+00:03:12.040 simply want to write it out to a UV
+00:03:14.599 attribute so V add UV is equal to a UV
+00:03:19.159 variable that we created something like
+00:03:21.400 this to make this visible I want to use
+00:03:23.920 an ad from map to Simply color our
+00:03:26.280 points with a simple UV grid and if we
+00:03:28.480 drop this down as we can see what our
+00:03:30.720 Prim UV coordinates are are essentially
+00:03:33.120 a unwrapped UV Square for each face of
+00:03:36.000 our object we can maybe make this a bit
+00:03:38.879 more intuitive a bit better to see if we
+00:03:41.760 drop down just another Point triangle
+00:03:43.840 and we simply use this to lur from a
+00:03:46.400 position in 3D space to a position in UV
+00:03:48.720 space so to do this let's write V at p
+00:03:51.879 is equal to a lurb a linear
+00:03:54.200 interpolation from a VDP position to a v
+00:03:57.879 UV position and let's learn with a
+00:04:00.280 simple slider and if we move our slider
+00:04:02.400 here every phas of a cube simply moves
+00:04:05.280 to its UV position like this this is for
+00:04:07.519 qus let's maybe try triangles as well so
+00:04:10.760 let's set a platonic from Cube to
+00:04:12.879 tetrahedron now UV coordinates look a
+00:04:15.200 bit strange let's see what's happening
+00:04:17.160 here let's move them to UV space and as
+00:04:20.238 we can see each triangle face and a mesh
+00:04:23.120 is simply a u v Square in here cut in
+00:04:25.919 half and let's take a look at anons as
+00:04:28.240 well let's turn this maybe into a doic
+00:04:30.759 aedon no Premier V coordinates look like
+00:04:33.639 this and at this point it's a bit hard
+00:04:36.520 to see so let's maybe introduce in front
+00:04:39.199 of input object a blast node and simply
+00:04:41.680 blast everything but the first primitive
+00:04:44.680 something like this and if we now
+00:04:47.320 transform this to UV space we can see
+00:04:49.520 that a UV Square gets simply wrapped
+00:04:51.960 around the center of our angon and what
+00:04:55.120 we could imagine if we take a look at
+00:04:57.120 this lur function here is instead of
+00:04:59.560 taking simply a lot of points that form
+00:05:01.759 a UV grid we could build a patch of
+00:05:04.080 geometry in this UV space and then also
+00:05:07.360 use a function to transform it to the
+00:05:09.720 primu V Space which would move it to
+00:05:11.639 each face of our object and this is
+00:05:14.000 exactly what we want to do today there
+00:05:16.120 is one thing that I want to change in
+00:05:18.120 here because right now I'm using the
+00:05:20.120 prim UV coordinates of Houdini and
+00:05:23.120 there's another set of Premier V
+00:05:25.080 coordinates that we can use that I think
+00:05:27.319 is a bit better suited for our needs and
+00:05:29.800 this is the Optive patch coordinates we
+00:05:32.880 can get an idea how they look if we
+00:05:35.759 translate from udini Prim UV coordinates
+00:05:38.960 to this new set of UV coordinates first
+00:05:41.280 of all let's turn off the blast note
+00:05:43.240 again let's take a look at the full
+00:05:44.440 geometry and now in here the function
+00:05:47.280 that we want to use in this case is
+00:05:49.240 called OSD for Optive and look up patch
+00:05:53.520 like this and this should be on GS3
+00:05:56.080 Monon we have to put in the Primitive
+00:05:58.160 that we found up here with XY zist
+00:06:00.440 function let's put in Prim right here
+00:06:03.120 then we have to put in the UV
+00:06:04.919 coordinates that we found with this
+00:06:06.400 function so this will be UV dox and UV
+00:06:11.280 doy and then again we want to write what
+00:06:14.319 we found here out to some variables and
+00:06:17.000 in this case let's make this a bit
+00:06:18.479 larger this will be instead of a prim
+00:06:21.039 this will be a UV patch and this will be
+00:06:24.120 a float called patch U for the U
+00:06:26.960 coordinate and float called patch V for
+00:06:31.080 the V coordinate like this and again
+00:06:34.120 we'll have to create those variables so
+00:06:36.720 let's create an end variable called
+00:06:39.039 patch and a float variable called patch
+00:06:42.280 U and Patch V like this and again we
+00:06:45.479 want to write this out to our UV
+00:06:47.440 coordinates so in this case let's use a
+00:06:50.599 set function and set this to patch U
+00:06:53.599 patch V and zero like this and now our
+00:06:56.520 patch coordinates have changed and let's
+00:06:59.240 say take a look at how they are changed
+00:07:00.960 let's maybe first of all switch to a
+00:07:02.599 simpler solid let's switch back to our
+00:07:05.039 tetraedron and if we know use a blend
+00:07:08.639 slider on the last Wrangle there's stuff
+00:07:12.080 happening it's still a bit much let's
+00:07:14.440 maybe just focus on one phas let's see
+00:07:17.080 what's happening here again and now we
+00:07:19.280 can see how those open stive coordinates
+00:07:21.360 work essentially each phase gets split
+00:07:24.199 into a number of quads depending on how
+00:07:27.160 many points are around these faces and
+00:07:29.560 this is also true for angon so let's
+00:07:32.080 take a look at the do aedon again we can
+00:07:34.599 see the same pattern here The Only
+00:07:36.840 Exception is the cube or a quad because
+00:07:40.599 in this case we still get our normal UV
+00:07:42.840 grid and I think this tessellation is a
+00:07:45.520 lot nicer than the default one with
+00:07:47.639 Houdini and also we get an extra bit of
+00:07:50.000 functionality by using those OSD
+00:07:52.919 functions in Houdini because OSD has a
+00:07:55.720 neat feature again this is built around
+00:07:57.960 the Optive but workflow and open subti
+00:08:00.840 gives us the possibility to also write
+00:08:03.919 back attributes for example the P
+00:08:05.840 attribute but write them back in a way
+00:08:07.960 as if our geometry would be infinitely
+00:08:10.759 subdivided so to quickly demonstrate
+00:08:13.000 this I can create a vector pause for my
+00:08:16.240 points position and I can look up this
+00:08:18.759 Vector PA again with a OSD function so
+00:08:21.800 in this case OSD limit surface and this
+00:08:24.520 will take in continue stream the name of
+00:08:28.039 the attribute that we want to sample
+00:08:30.319 then uh OSD patch that we found earlier
+00:08:33.200 then our patch U and our patch V and
+00:08:36.479 finally the variable that we want to
+00:08:37.839 write to in this case pause and now
+00:08:39.919 let's write this back to a position so V
+00:08:42.240 ATP is equal to pause and now for this
+00:08:45.040 single face this doesn't change much so
+00:08:47.240 let's disable our blast node but now as
+00:08:49.640 we can see our Cube has turned into a
+00:08:52.160 sphere or something similar to a sphere
+00:08:54.640 basically a cube that is infinitely
+00:08:57.200 subdivided and we can also check this by
+00:08:59.839 dropping down a subdivide note and
+00:09:01.959 setting the level really really high a
+00:09:04.240 level of four and compare this to a
+00:09:06.959 point re angle in the end and the
+00:09:08.959 subdivide note and yes these are both
+00:09:11.320 the same shape so this will not only
+00:09:13.519 allow us to copy our patch geud to our
+00:09:15.720 faces but also to copy this in a very
+00:09:18.760 smooth way now those OSD tricks is
+00:09:21.120 something that I learned from constant
+00:09:23.480 in Markus he already published two great
+00:09:25.720 tutorials with some other techniques
+00:09:27.760 regarding those these are linked down in
+00:09:29.440 the description I can highly recommend
+00:09:31.600 those they are some really really handy
+00:09:34.160 techniques but now let's finally move on
+00:09:36.240 to our main setup and get building here
+00:09:38.959 first of all I want to bring in two
+00:09:40.839 files so let's drop down a file note and
+00:09:43.200 this will first of all be my patch and
+00:09:45.399 you can find this in the SC files that
+00:09:47.399 you can download and this will be patch
+00:09:50.480 o3b and this is simply a bit of geometri
+00:09:53.560 that I simply poly modeled in blender
+00:09:55.839 then I also want to bring in a base here
+00:09:58.680 that we want to copy on to and you can
+00:10:01.079 also find this in the scene files and
+00:10:03.240 you can also find the tea image scene
+00:10:05.880 file in there if you cares and how I did
+00:10:08.720 the preview animation or the teaser
+00:10:10.640 animation but this will be Target o03
+00:10:13.360 and this is this is simple piece of
+00:10:15.640 geometry right here and now let's work
+00:10:17.800 on getting this patch onto this target
+00:10:20.240 Geo and the first thing that I want to
+00:10:22.680 do is I want to set up a for Loop and a
+00:10:24.800 for Loop that should run as many times
+00:10:27.320 as we have subdivision Pat PES in our
+00:10:30.160 main geometry here so we should find
+00:10:32.560 first of all the total number of OSD
+00:10:34.680 patches for this let's simply drop down
+00:10:37.240 an attri rank let's s this onto our
+00:10:40.160 Target view let's call this maybe num
+00:10:43.440 patches let's set the run over to detail
+00:10:47.920 and I want to create an attribute called
+00:10:50.519 num patches as well and I can find the
+00:10:53.519 number of Patches by using the
+00:10:56.440 _ patch count function and this simply
+00:10:59.560 gets as an input the geostream so
+00:11:01.680 geostream zero and now if you go to our
+00:11:04.120 GE spreadsheet on to detail we have on
+00:11:06.720 num patches right here and crucially
+00:11:09.200 this number of patches is different to
+00:11:11.240 the number of Primitives in a mesh
+00:11:13.200 because again we're dividing each
+00:11:15.000 primitive up depending how many points
+00:11:17.160 or vertices that primitive has now let's
+00:11:19.680 set up a for Loop for this I want to use
+00:11:22.160 a for loop with feedback as a base
+00:11:25.800 however I want to modify this quite a
+00:11:27.760 bit first of all let byon geometry in
+00:11:31.000 here and I want to set first of all the
+00:11:33.120 number of iterations that this Loop runs
+00:11:35.440 equal to the number of patches that we
+00:11:38.200 found here so on the interations
+00:11:40.600 parameter right here I want to write an
+00:11:42.399 expression a detail expression I want to
+00:11:45.120 reference my num patches note right here
+00:11:48.519 like this the attribute that I want to
+00:11:50.720 grab is called num patches and finally I
+00:11:53.160 want to grab the first component of that
+00:11:54.800 attribute and I got some error here
+00:11:57.240 let's take a look and it's the this
+00:11:59.240 semicolon at the back we don't need this
+00:12:01.240 here no this should run like this next I
+00:12:04.480 want to set the Goa method of this Loop
+00:12:07.560 here not to feedback each iteration I
+00:12:10.000 simply want to merge each iteration I
+00:12:11.920 want to merge each patch that we're
+00:12:13.680 creating back into a whole mesh in the
+00:12:15.720 end then I want to move on to the begin
+00:12:18.839 note of a fall Loop right here and I
+00:12:21.160 want to set this not to fetch feedback I
+00:12:24.199 going to set this to fetch input so
+00:12:26.240 we're just referencing this geometry
+00:12:28.360 that we're putting in right here over
+00:12:30.160 and over and over again we also need the
+00:12:32.519 same node for our input patch so let's
+00:12:35.399 wi this in here as well and I also need
+00:12:38.680 a meta import node so let's click this
+00:12:41.680 button right here because I later want
+00:12:43.720 to reference the current Loops iteration
+00:12:46.000 like this and now if this done I can
+00:12:48.199 finally drop down a point Wrangle and
+00:12:50.760 start writing our deforma in here now
+00:12:53.120 for this point angle the first input
+00:12:55.240 should be the patch the second input
+00:12:57.920 should be the geometry that we're
+00:12:59.800 copying on to and the third node should
+00:13:02.240 be a meta import node of reference to
+00:13:04.959 the current Loops iteration and inside
+00:13:07.079 our patch I first of all want to grab
+00:13:09.399 the current Loop satation because this
+00:13:11.079 will be the patch that we're currently
+00:13:12.920 processing let's call and Patch is equal
+00:13:16.199 to a detail function that should look on
+00:13:19.000 G stream 2 and the attribute that we
+00:13:21.199 want to grab is called iteration like
+00:13:23.279 this and now what I simply want to do is
+00:13:25.560 I want to use the same as the limit
+00:13:28.320 surface function that we used earlier I
+00:13:30.639 want to use this to sample the position
+00:13:33.560 that we want to move each point to
+00:13:36.040 because as we can see with this patch
+00:13:38.320 this patch is already built inside the
+00:13:41.240 pruv space that we talked about earlier
+00:13:43.560 this Square from a point of 0 0 to 1 one
+00:13:47.399 and I want to Simply look up the point
+00:13:48.920 coordinates and find new coordinates in
+00:13:51.240 the space of the current patch that
+00:13:53.000 we're processing so to do this let's use
+00:13:55.839 our Rd limit surface function let's look
+00:13:58.240 on to your stream one we want to grab
+00:14:00.639 the P attribute we want to use the patch
+00:14:03.440 that we found and again we want to look
+00:14:05.680 for the UV coordinate of the piece of
+00:14:08.199 geometry that we created so this will be
+00:14:10.199 V ATP dox doy because we built that
+00:14:14.360 object in the UV space of our Prem V
+00:14:17.480 coordinates and finally we need the
+00:14:19.839 variable that we want to write to and in
+00:14:21.759 this case this will be a pause and we
+00:14:24.000 need to create pause let's create a
+00:14:26.279 vector called pause as a variable and
+00:14:28.360 now finally let's write this back out so
+00:14:30.959 V ATP is equal to pause and as soon as
+00:14:34.480 we do this we see stuff happening and
+00:14:37.199 this is already solder working we have a
+00:14:40.199 patch geometry now copied onto Each
+00:14:43.120 corner of our faces which is exactly
+00:14:45.680 what we want the only problems that I
+00:14:47.880 can see is that our geometry is quite
+00:14:50.240 flat because we're not taking into
+00:14:52.160 account the Z component of our position
+00:14:55.279 vector and also we have these Square
+00:14:57.959 patches in here here which use a
+00:14:59.639 different coordinate system and these
+00:15:01.600 look quite odd here as well so these are
+00:15:03.920 two problems that we need to fix let's
+00:15:06.199 maybe first of all work on making AET 3D
+00:15:09.880 and my idea here is to not only sample
+00:15:13.160 our position from a use the lookup patch
+00:15:16.480 but also the normal and then we can move
+00:15:18.959 each point that we're processing along
+00:15:20.800 this normal Vector the length of its own
+00:15:23.079 Z component let's try this first of all
+00:15:25.399 our chetry needs normals so let's simply
+00:15:27.639 drop down a normal node onto this second
+00:15:31.160 GS room right here and let's add normals
+00:15:33.800 to points like this and in here I want
+00:15:36.079 to look up the normal Vector the same
+00:15:38.880 way as I did with my position Vector so
+00:15:41.120 let's create a vector called Norm this
+00:15:43.240 should grab an attribute called n and
+00:15:45.600 this should write it to our Norm
+00:15:47.560 variable and now we need to update our
+00:15:50.560 VP function down here so WEP will now be
+00:15:54.560 our position plus our normal times our V
+00:15:58.759 at P do Z coordinate like this and now
+00:16:02.480 this gets a lot more 3D a bit too much
+00:16:05.000 3D let's turn this down a bit and in
+00:16:07.399 this case I want to simply just multiply
+00:16:10.319 it by some constant in my case a value
+00:16:12.839 of 02 like this and now this looks a lot
+00:16:15.800 better right now this geometry is turned
+00:16:17.800 inside out we can easily fix this by
+00:16:20.279 just inverting our constant right here
+00:16:22.839 minus two this looks now a bit better
+00:16:25.440 and we can drop down a normal node down
+00:16:28.079 here to fix our normals as well and now
+00:16:30.959 this is looking quite good and we're
+00:16:32.839 actually quite finished already we just
+00:16:35.279 have to fix those Square patches up here
+00:16:38.240 so what I want to do here to fix those
+00:16:40.399 is quite a simple and quick and dirty
+00:16:42.639 fix I want to just look up the square
+00:16:45.440 faces inside my mesh and I want to just
+00:16:47.600 divide them down the middle so to select
+00:16:50.160 our square faces let's drop down a group
+00:16:53.319 expression Noe let's create a group
+00:16:55.639 called quads and to find those quads the
+00:16:59.000 function that I can use is the prim
+00:17:02.120 vertex count function this needs a
+00:17:04.799 current T Stream So T stream zero and up
+00:17:08.359 Prim num and you want to Simply check if
+00:17:10.720 this is equal to four and we've got some
+00:17:13.480 error let's take a look and I got a typo
+00:17:16.640 here Prim vertex count like this and now
+00:17:19.839 this selects our square faces and we can
+00:17:22.439 simply turn this into triangles with a
+00:17:24.520 divide note let's drop this down and
+00:17:27.319 just work on our quads and now these are
+00:17:30.640 both triangles and if we now take a look
+00:17:33.520 at our geometry now this looks like the
+00:17:36.440 thing that we want now we're pretty much
+00:17:38.880 done here I just want to do some small
+00:17:41.840 simple things to make this tool a bit
+00:17:43.919 more usable first of all we should make
+00:17:46.600 sure that this input patch that we're
+00:17:49.120 putting into our tool right here always
+00:17:51.640 lives inside this Prem V coordinate
+00:17:54.640 space and we can do this with a match
+00:17:56.520 size function he match size size note
+00:17:59.120 let's drop this down let's use scale to
+00:18:01.919 fit and let's update the target position
+00:18:05.400 the target box position up here and this
+00:18:07.840 should go to a position of .5 in X and
+00:18:11.880 .5 in y and zero in Z so now it's
+00:18:15.520 definitely always inside that Prem V
+00:18:18.520 space and then another thing that we
+00:18:20.840 need to do is we need to fuse to gather
+00:18:23.200 those points along the edges in here
+00:18:25.360 because right now they're still just
+00:18:27.280 open points so open edges and for this
+00:18:30.080 down here we can use a group note where
+00:18:33.880 this below our match size let's call
+00:18:36.159 this group open let's set the group type
+00:18:38.640 to points let's disable our base group
+00:18:40.960 and include by edes and include by
+00:18:42.840 unshared edges this just select some
+00:18:45.440 points right here at the edges and then
+00:18:47.600 after our Loop down here we can drop
+00:18:49.960 down a fuse node where this in and
+00:18:53.280 simply work on open points and I think I
+00:18:57.400 may need to adjust just the snapping
+00:18:59.600 distance let's maybe add a zero in here
+00:19:02.000 and yeah now this looks better and now
+00:19:04.120 we should be able to drop down a
+00:19:05.880 subdivide note make our Mees a bit more
+00:19:07.880 smooth and yeah this is working so this
+00:19:10.520 is my take on rebuilding a bit of the
+00:19:13.360 functionality of the tissue addon inside
+00:19:16.000 hudini and also my tag on working with
+00:19:19.320 the OSD functions inside hudini because
+00:19:22.679 I think they are really really handy and
+00:19:25.480 not many people know about them again if
+00:19:27.400 you want to know more about the Prem
+00:19:29.280 functions you can also take a look at
+00:19:31.000 the tutorials by Conan marnus they are
+00:19:33.200 linked in the description and until next
+00:19:35.440 time it's cheers and goodbye and if you
+00:19:38.000 like us and want to support us or just
+00:19:40.480 want to learn more about hudini in in of
+00:19:42.640 courses consider becoming a patron of
+00:19:44.799 ours and to everyone already supporting
+00:19:47.400 us thank you so much guys without you
+00:19:49.799 and tagma would not be possible with a
+00:19:52.200 very special thank you going out to
+00:19:54.240 muhamed alabri Mia Ichigo Joseph Hardon
+00:19:57.720 and David D and thanks so much guys
