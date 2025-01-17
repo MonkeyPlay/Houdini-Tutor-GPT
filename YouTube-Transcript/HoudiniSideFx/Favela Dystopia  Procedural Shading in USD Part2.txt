@@ -1,0 +1,336 @@
+# tactiq.io free youtube transcript
+# Favela Dystopia | Procedural Shading in USD Part2
+# https://www.youtube.com/watch/w8Hjuu-DHNk
+
+00:00:03.020 thank you
+00:00:12.630 [Music]
+00:00:17.600 hello everyone and welcome back today I
+00:00:21.300 want to show you how I procedurally
+00:00:23.279 created all the shaders and textures for
+00:00:26.180 these lineup of shacks and I need to
+00:00:30.000 have them all to be unique because we
+00:00:33.059 are using them in a bigger scene and I
+00:00:36.180 don't want to have all the different
+00:00:37.860 variations so I want to make sure that
+00:00:41.040 they are all looking unique in my master
+00:00:44.520 scene
+00:00:45.540 and I'm using a couple of techniques to
+00:00:48.480 make sure that everything is varied in
+00:00:50.700 terms of placement in terms of color in
+00:00:53.940 terms of scale so everything will be
+00:00:55.739 adjusted and you can see we are now
+00:00:58.440 inside a stack somewhere in the scene
+00:01:00.420 but yeah just zooming in here on this
+00:01:03.539 area you are noticing that they're all
+00:01:06.360 different which is perfect this is what
+00:01:08.280 I'm what I'm after and this is then the
+00:01:11.159 bigger scene you can see
+00:01:12.840 they are all kind of Summer blue some
+00:01:16.080 are greenish and some are mental some
+00:01:18.600 are wood some are plastic or whatever
+00:01:20.400 they're all varied perfect
+00:01:23.700 so let me show you how I did that so
+00:01:28.259 this is my lineup scene before we get
+00:01:31.619 into it I just want to make sure that
+00:01:34.020 I'm cleaning things up a little because
+00:01:36.060 right now the Shader is we're just
+00:01:38.280 working on the wall Shader but right now
+00:01:40.799 we probably will do do want to just go
+00:01:45.000 to get rid of everything except the
+00:01:46.380 walls quick let's see if we can actually
+00:01:48.060 do it in a quick way
+00:01:51.240 uh yeah we should be able to what's it
+00:01:54.000 called we can't split it most probably
+00:01:56.880 splitted by walls
+00:02:01.740 and
+00:02:03.299 there we go we just have the walls so I
+00:02:07.259 go back up now we just have the walls
+00:02:09.419 and if I render we should be
+00:02:12.120 just dealing with these guys which is
+00:02:14.099 perfect so now I can actually go in and
+00:02:17.340 show you
+00:02:18.420 what was done to get this look
+00:02:22.140 and if I head into my material Network
+00:02:24.720 which is in here and on the walls this
+00:02:28.140 is the whole network and you can already
+00:02:29.520 see there's this random seed section
+00:02:32.700 and then there's a basic Shader here
+00:02:35.760 so let me recreate everything
+00:02:37.920 starting with the standard surface
+00:02:39.239 Shader which is the go-to Shader in
+00:02:41.519 Arnold you always use that because that
+00:02:43.200 is the Uber Shader which does pretty
+00:02:44.819 much everything
+00:02:46.140 and if I render now we've got Gray
+00:02:48.780 so the idea now is how do we get
+00:02:51.420 textures obviously there is no UVS
+00:02:52.980 because I I didn't feel the need to
+00:02:54.780 create UVS for this because we can use
+00:02:56.760 triplanar and triplanar is built for
+00:02:59.160 this exactly this and you will notice on
+00:03:02.879 the left I've got lots of input shaders
+00:03:05.640 textures painted metal
+00:03:08.340 whatever whatever and they all fit into
+00:03:11.220 a triplanar so let me get into it so if
+00:03:15.180 I create a triplaner it's just
+00:03:17.099 essentially one texture which is
+00:03:18.720 projected on X Y and Z and let me find a
+00:03:22.800 nice one maybe I actually don't know
+00:03:25.680 which one is nice let's go input and
+00:03:28.739 hook this up to for now just go to the
+00:03:31.739 surface and we can see that's the metal
+00:03:34.019 I don't like that too much
+00:03:37.459 so let me try this
+00:03:40.260 this will work concrete all right so
+00:03:43.379 this is now my triplanar projection you
+00:03:45.239 can see now each of them have exactly
+00:03:48.659 the same projection and as I said
+00:03:51.900 several times I don't want that so I
+00:03:53.879 want to make variations so one way to
+00:03:57.060 vary this is by offsetting it right so
+00:04:00.480 if I move this maybe
+00:04:03.060 um
+00:04:03.659 to two or whatever 50
+00:04:06.959 nothing happens maybe I need to change
+00:04:08.879 this guy
+00:04:10.260 why is it not updating maybe that's an
+00:04:13.019 update issue
+00:04:18.600 the rotation works I'm not sure why the
+00:04:20.279 offset doesn't work
+00:04:21.720 okay so it doesn't work because I
+00:04:23.880 actually have figured out that it's a
+00:04:25.020 seamless texture and it just doesn't
+00:04:26.220 want to rotate and offset but what we
+00:04:30.120 can use we can use the cell instead
+00:04:32.100 which is working just fine so the cell
+00:04:33.840 is essentially creating clusters which
+00:04:35.880 you then can rotate technically so I can
+00:04:38.940 make random cells that I can offset and
+00:04:42.660 create these random rotations and again
+00:04:44.820 we can still play with the with the
+00:04:46.919 scale
+00:04:48.199 if you go smaller and scale everything
+00:04:51.000 will be scaled up we don't want that so
+00:04:53.520 we probably want to go maybe a unit of
+00:04:55.199 five just to see what we're getting
+00:04:57.780 uh you can see now we're getting these
+00:04:59.940 cells you can see the structure
+00:05:02.100 all right and this will make things more
+00:05:05.040 randomized now because I can rotate them
+00:05:07.199 I can blend these clusters probably five
+00:05:10.259 is just too much so we should probably
+00:05:11.940 just go to two and and work with that
+00:05:14.160 this this will kind of work so but it's
+00:05:16.919 still now doing obviously the same
+00:05:18.419 pattern on everything and we want to
+00:05:20.220 randomize that somehow the idea is to
+00:05:23.460 use some kind of random ID to drive all
+00:05:25.320 of this and this is what's going on here
+00:05:27.180 and it's all coming from this user data
+00:05:30.479 integer and US ID is something I made up
+00:05:33.479 it is just it's a short for Unique stack
+00:05:36.900 ID and when I generated these Stacks I
+00:05:40.080 made sure that each of these individual
+00:05:42.600 Stacks has a unique number one two three
+00:05:46.080 four five fifteen whatever as many I
+00:05:48.660 have I have different numbers and based
+00:05:51.120 on that if I visualize this ID
+00:05:55.440 I just connect this up then to my
+00:05:58.259 Surface you won't see anything but if I
+00:06:00.900 use the random one which you which works
+00:06:03.060 on that integer color so if I just
+00:06:04.800 create a random node and connect the
+00:06:07.440 output of this usid into my integer
+00:06:10.740 input Coke that up you will now see we
+00:06:14.220 get a unique color per item and I can
+00:06:17.699 use this
+00:06:19.139 to drive certain values on the triplano
+00:06:22.199 for example
+00:06:24.000 so this gives me a random color RGB I
+00:06:27.900 can make it give me a random float so
+00:06:29.759 depending on what I need I could
+00:06:31.500 potentially drive maybe the scale factor
+00:06:33.900 why not right so the scale factor right
+00:06:36.240 now is a color and we can just hook up
+00:06:39.000 the color and and technically see what
+00:06:41.160 what we're getting it will probably look
+00:06:42.660 a little bit bizarre
+00:06:44.699 but it kind of will vary the scales and
+00:06:48.240 stretch things you can see now we've got
+00:06:49.919 longer ones here boxy ones there and
+00:06:52.800 everything is already
+00:06:54.600 just doing this random except the first
+00:06:57.900 today looks very similar but I can
+00:07:00.180 change the seed value and then we've got
+00:07:02.160 a completely different result you can
+00:07:03.660 see now
+00:07:04.680 completely different and if I if you
+00:07:06.960 want to control it a little bit you can
+00:07:08.460 do grayscale and now each XYZ component
+00:07:12.300 will get the same kind of scale and it
+00:07:15.240 will not be stretching in one axis and I
+00:07:18.000 can also do a range after that and
+00:07:20.160 forcing it to be a certain Min and
+00:07:22.979 maximum scale so let's use the output
+00:07:26.759 hook that up to scale nothing will
+00:07:28.800 change because we're not changing our
+00:07:30.300 outputs but now let's say we want to be
+00:07:33.539 one so everything should now get back to
+00:07:36.539 the same scale because we are not doing
+00:07:38.039 any variations but let's say we want a
+00:07:41.039 maximum of
+00:07:43.520 0.75 for our minimum scale and our
+00:07:46.440 maximum scale can be maybe 2.5 and now
+00:07:50.819 some are very high frequency and some
+00:07:54.900 should be a little bit lower frequency
+00:07:57.919 potentially these guys here so so this
+00:08:00.660 already works and we can use a similar
+00:08:03.240 idea now to drive the rotation of the
+00:08:06.120 cells potentially so now based on the
+00:08:07.979 cells if I enable cell
+00:08:10.199 should also we get random rotations and
+00:08:12.479 again we can change the amount randomly
+00:08:16.919 if we feel like it
+00:08:19.259 you can see everything is being rotated
+00:08:21.900 in the same way because it's right now
+00:08:23.759 doing the same thing but I could do a
+00:08:25.680 another random make it grayscale change
+00:08:28.500 a seat so it's it's different for for
+00:08:30.960 this kind of thing that we're trying to
+00:08:33.419 do
+00:08:34.140 and we definitely do want to change it
+00:08:37.140 like clamp the input outputs because we
+00:08:39.599 don't want to have it rotate that much
+00:08:43.440 so I'm hooking up the cell rotate to my
+00:08:46.980 range output and I'm just saying okay
+00:08:49.019 you will maximum will be may maybe minus
+00:08:52.860 0.5
+00:08:54.360 and your output Max will be 0.5 so
+00:08:58.200 that's that's a my rotation range so you
+00:09:00.779 can already see now it's very random
+00:09:03.540 it's it's obviously probably too much so
+00:09:05.339 maybe you could just go point one
+00:09:08.580 so they're they're almost they're more
+00:09:10.920 straight I can probably go even less
+00:09:16.980 so that's a way and now you might think
+00:09:19.320 okay I have now so many input textures I
+00:09:21.480 will obviously not replicate all of that
+00:09:22.920 but I have this switch switch rgba I'll
+00:09:26.760 showcase what that is doing so if I do
+00:09:29.220 another switch rgba
+00:09:32.339 switch rgba and I hook up my color
+00:09:36.180 to my input 0.
+00:09:38.700 and I hook the output back to my Surface
+00:09:43.019 nothing changes expected and then I'll
+00:09:46.800 pick another triplaner from one of these
+00:09:49.920 guys and hook that up here
+00:09:52.320 right still nothing changes because our
+00:09:54.540 index is still on zero if I change my
+00:09:56.399 index to one
+00:09:58.019 the textures are swapped all right that
+00:10:01.019 should give you a clue what I'm after so
+00:10:03.060 technically now I'm doing the same thing
+00:10:05.040 using this usid a random which will
+00:10:08.700 drive my index so if I drag this random
+00:10:11.339 with alt drag I I make a copy of the and
+00:10:14.100 keep the connections this will now
+00:10:16.320 create a random
+00:10:17.940 grayscale value between 0 and 1.
+00:10:21.240 depending on how many textures I have in
+00:10:24.000 in my filex result I've got seven
+00:10:26.700 Textures in this case I got just two so
+00:10:31.019 I want to create a range
+00:10:34.440 hook it up and I want to be zero or one
+00:10:40.560 I think if you hook up a
+00:10:43.320 load to an integer it will round it down
+00:10:46.800 I think so what you can do instead to be
+00:10:49.860 sure what's going on
+00:10:51.660 you can use a
+00:10:54.560 float was a flow to integer I believe so
+00:10:57.660 flow to integer
+00:11:00.600 and then you have a couple of options
+00:11:02.220 here
+00:11:03.300 so if I hook it this up now to my index
+00:11:07.620 and it's setting set to round so when
+00:11:10.079 it's 0.6 it will be one if it's 0.5 it
+00:11:14.399 will be one I think if it's 0.4
+00:11:17.339 if it's zero 0.49 it will be zero so
+00:11:21.600 that's it should be now 50 50 roughly
+00:11:24.060 the the swap if I've got more textures I
+00:11:27.120 would increase my output to two so this
+00:11:29.160 will now obviously you can see I don't
+00:11:31.200 have these textures that's why it's
+00:11:32.459 black but that is the idea so I'm the
+00:11:35.399 more textures I have the bigger I make
+00:11:37.079 my output Max and that's exactly what's
+00:11:39.120 going on here I've got the same flow to
+00:11:42.000 end and my range goes up to six and then
+00:11:45.000 it's swapping between those textures
+00:11:46.740 right it's pretty straightforward once
+00:11:48.959 you know how to do it if I hook up my
+00:11:51.420 output of this guy
+00:11:52.980 you can now see these are my random
+00:11:55.320 textures and whenever the US ID changes
+00:11:57.839 so if I make 100 like thousands of
+00:12:00.480 copies of this each unique Car people
+00:12:02.339 get a different usid based on that it
+00:12:04.860 will get a random orientation random
+00:12:06.959 texture random scale all of that happens
+00:12:10.560 and then for this section here
+00:12:13.079 or the bump and the and the the rest
+00:12:15.440 honestly I just use the diffuse color
+00:12:17.820 you can see I'm all going from the
+00:12:19.620 switch and I'm using a range to and
+00:12:23.220 color correct it slightly to create me a
+00:12:25.500 roughness map which will look like this
+00:12:27.300 it's based on the input texture so this
+00:12:29.399 is my roughness map very basic and
+00:12:31.860 similar to The Bump I'm actually just
+00:12:33.180 feeding the fuse to the bump to just get
+00:12:35.579 some breakup and if I visualize the
+00:12:38.339 Shader this is then in the end how it
+00:12:41.519 looks like and you can see if I zoom in
+00:12:43.260 a little bit
+00:12:45.600 where's my spec maybe here here's a
+00:12:48.779 little bit you will see that we do have
+00:12:51.660 pretty cool details there's like a bump
+00:12:53.700 going on and I also I use the color
+00:12:56.639 Jitter actually based on the same
+00:12:59.880 um this is just using object ID
+00:13:01.260 something different but very similar
+00:13:03.240 writing me at random mask and based on
+00:13:06.839 on that I'm I'm just color shifting them
+00:13:10.019 as well
+00:13:10.920 so it's not just a different texture
+00:13:13.740 it's also a different Hue and a
+00:13:15.839 different saturation per ID you can see
+00:13:18.480 if I crank up saturation this is
+00:13:19.920 obviously
+00:13:21.120 exaggerated but it will create me random
+00:13:24.120 colors for all of these stacks and it's
+00:13:27.600 a pretty cool setup to be honest and if
+00:13:30.899 if we go down now to our render section
+00:13:35.639 go down until here we should hopefully
+00:13:39.420 now see
+00:13:41.040 our buildings scattered again and you
+00:13:45.000 can now see that pretty much every
+00:13:47.880 building here is unique
+00:13:50.459 like obviously the color is not
+00:13:52.740 completely over saturated but you will
+00:13:55.260 notice that they're all pretty much
+00:13:57.480 random there's like a dark red here
+00:13:59.519 green and blue and they're all different
+00:14:02.040 based on where they are in space so it's
+00:14:04.260 pretty rad the setup so everything is
+00:14:06.360 unique and that allows me to make very
+00:14:09.480 sophisticated looking scenes quite
+00:14:11.940 easily so I hope this gave you some
+00:14:14.639 insights on how to do the procedural
+00:14:16.079 shading obviously I do very similar
+00:14:18.839 techniques to get the antennas or the
+00:14:21.120 cables or everything else is based on
+00:14:23.040 this us ID to break up the shapes and
+00:14:25.980 and make things a lot more interesting
+00:14:29.160 [Music]
+00:14:38.519 um
+00:14:40.910 [Music]

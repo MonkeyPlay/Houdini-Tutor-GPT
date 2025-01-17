@@ -1,0 +1,502 @@
+# tactiq.io free youtube transcript
+# Favela Dystopia | Single Shack Part1
+# https://www.youtube.com/watch/Rm4JX2l6PAY
+
+00:00:08.320 hello everyone and welcome back today I
+00:00:10.599 want to show you how to fully
+00:00:12.000 procedurally create this dystopian box
+00:00:14.599 like house it's very simply made just
+00:00:18.320 essentially Boolean operations very
+00:00:20.240 basic modeling techniques um as I said
+00:00:22.519 it's fully procedural so we can generate
+00:00:24.680 infinite amount of um different
+00:00:26.439 variations of this I am using this setup
+00:00:29.400 to instance it on a big environment with
+00:00:33.879 thousands of different stack houses like
+00:00:37.399 this this is an HDA I developed about a
+00:00:40.640 couple of days it took me to generate
+00:00:43.000 this and it has a couple of settings um
+00:00:46.160 I will not be going over how to create
+00:00:47.719 the HDA itself but I will definitely
+00:00:50.280 talk about how I created this procedural
+00:00:53.640 system the whole HDA essentially is this
+00:00:58.640 lots of individal streams they all come
+00:01:01.039 down together here and then everything
+00:01:03.480 is kind of connected there will be you
+00:01:05.799 can see there's lots of Expressions um
+00:01:08.640 going on so lots of linking but the main
+00:01:11.280 gist of this is fairly simple to be
+00:01:13.920 quite honest with you um it just the
+00:01:16.680 amount of items combined kind of makes
+00:01:19.960 it look very Advanced and first of all I
+00:01:22.960 want to thank Simon Houdini um for his
+00:01:26.720 approach how he tackled the placement of
+00:01:29.920 objects and I will show what I mean by
+00:01:32.799 that in a second also in this video
+00:01:34.520 today I will show how to procedurally
+00:01:37.079 shade instances of the same object that
+00:01:40.159 will be a more tutorial based style but
+00:01:42.840 this will be again another overview how
+00:01:44.880 to create this and again the hip file
+00:01:47.280 will be available on my patreon as well
+00:01:50.680 and I'm thinking of actually selling the
+00:01:53.159 HDA not sure yet but potentially it will
+00:01:56.320 go on a gumroad account here we start
+00:01:58.799 out with a simple box as usual we start
+00:02:01.479 out as simple as we can I'm just
+00:02:04.039 isolating the top group here I'm doing a
+00:02:06.880 point Jitter just to kind of get the top
+00:02:10.000 randomly jiggled so it's not straight
+00:02:12.480 you can see from the side there's
+00:02:13.959 definitely some offset to it and then
+00:02:17.200 I'm matching the size technically I'm
+00:02:18.760 just moving it um up to the origin line
+00:02:21.519 so it's not going negatively in y and
+00:02:24.800 then I think the first interesting thing
+00:02:26.640 is the props section and by the props I
+00:02:29.879 mean the elements that essentially go
+00:02:34.080 inside like Windows Doors and all of
+00:02:36.440 that and they are in a subnet and in the
+00:02:39.599 subnet I am creating even one more HDA
+00:02:43.519 that allows me to um proc sedually
+00:02:46.159 create window types like Windows or door
+00:02:49.159 frames and all of that so that's
+00:02:50.720 happening in here um maybe let's have a
+00:02:53.280 quick look how they look like so you can
+00:02:55.599 see there's another subnet one is doing
+00:02:58.120 doors one is doing windows and one is
+00:03:00.519 doing balconies right and you might be
+00:03:03.040 wondering why are these cubes um they
+00:03:05.519 are bounding boxes they will be needed
+00:03:08.040 to actually place them procedurally on a
+00:03:11.080 box right so let's dive into all of this
+00:03:14.040 into this main window HDA so we're
+00:03:16.400 starting out with a simple grid picking
+00:03:18.280 the outside edges matching the
+00:03:21.319 size and then I'm extruding it right so
+00:03:24.000 I'm just creating this Frame reversing
+00:03:26.599 the frame and then I'm giving it some
+00:03:28.760 depth like pushing it out further and
+00:03:31.200 then I'm exerting this to give me some
+00:03:33.560 kind of window framing on the left hand
+00:03:35.799 this is like an optional toggle you can
+00:03:37.920 see it's based driven by a switch to
+00:03:40.040 create these these blinds and these
+00:03:42.280 blinds again have options to make them
+00:03:45.040 thicker you can see this is my profile
+00:03:47.920 so this is then in the end the look of
+00:03:50.480 it and then as I said it's a optional
+00:03:53.319 toggle and then the bounds this is what
+00:03:56.200 I was saying this is why it looks like
+00:03:57.439 so boxy but I'm always using this bound
+00:04:00.040 object to create a perimeter around my
+00:04:03.040 shape this will go into a this will be
+00:04:05.640 merged and then I have my object and my
+00:04:08.079 Geo that's why I have this Geo Group and
+00:04:10.400 on the right I've got my bound so I've
+00:04:11.840 got two different meshes joined together
+00:04:14.599 and then I'm packing it and then we're
+00:04:16.040 going out and with with this single HDA
+00:04:19.478 I can generate quite a few different
+00:04:22.240 variations right if I just for now
+00:04:24.240 disable the blinds and you see this is
+00:04:26.600 my door it's a door frame big and then
+00:04:29.000 I've got a door frame small like it's a
+00:04:30.800 regular 2 m 2x1 m door frame and then
+00:04:35.759 I've got for instance the windows I've
+00:04:37.600 got several different windows but if I
+00:04:39.400 disable the bounce quickly you can see
+00:04:42.520 um got this window and it's just
+00:04:44.639 different settings so I can have more
+00:04:46.720 columns can have more rows and I just um
+00:04:50.199 you know varied these settings based on
+00:04:53.240 what I wanted to achieve so smaller
+00:04:56.280 window boxy window tall window you can
+00:04:59.280 see different
+00:05:00.520 variations I just cread them very
+00:05:02.680 quickly there's nothing crazy about it
+00:05:04.880 and then just make sure the bounds is
+00:05:06.720 there and all of these props they will
+00:05:10.000 be used to generate these windows and
+00:05:13.600 doors and balconies now let's talk how I
+00:05:16.960 was able to place them because that was
+00:05:18.720 the quite tricky part again thanks to
+00:05:20.960 Simon Houdini to help me figure out how
+00:05:24.440 to do it in a smart manner all right so
+00:05:27.600 from the base Geo I'm just getting the
+00:05:29.880 ground the floor converting that to a
+00:05:33.479 single polyline primitive splitting it
+00:05:35.639 to have individual lines from these and
+00:05:39.440 then I'm scaling it down just a regular
+00:05:43.120 scale factor local to each curve and
+00:05:47.319 this will give my my props the bounds of
+00:05:52.120 where it should be placed so they will
+00:05:53.680 be placed somewhere along these two
+00:05:56.360 lines then I'm resampling my curve which
+00:05:59.759 we created on the left stream right
+00:06:01.520 let's talk a little bit about the chain
+00:06:04.520 tool it's probably not designed for this
+00:06:08.639 specific use case but the cool thing
+00:06:11.160 about the chain it kind of knows based
+00:06:14.520 on the bounding boxes you are providing
+00:06:16.520 it how to align pieces next to each
+00:06:19.560 other and it will dynamically fit as
+00:06:22.720 many pieces in this on the line as there
+00:06:26.840 is space to it and you can if if I
+00:06:29.599 create a new chain operator like a new
+00:06:31.639 chain I'm just doing that because it's
+00:06:33.319 not linked to the HDA because a lot of
+00:06:35.360 this is just linked you will notice that
+00:06:38.280 I still have a lot of options here to
+00:06:41.479 actually place things and and offset
+00:06:44.199 them so there's alignment I can give it
+00:06:47.280 a fixed amount of space you can see I
+00:06:49.479 can move the pieces um left to right and
+00:06:51.960 if there's more space another object
+00:06:53.560 will just pop in
+00:06:55.039 automatically and the cool thing is I
+00:06:57.560 can also um force it like this is no
+00:07:00.080 cycling between all my objects I can do
+00:07:03.520 a random so this will just randomly pick
+00:07:05.879 any piece if finds in my input props on
+00:07:09.120 the top left here um but I can also use
+00:07:12.280 a weight of random which is pretty cool
+00:07:15.479 I can initialize the weights and what I
+00:07:17.720 can do now they are not named
+00:07:19.680 unfortunately but I can for instance Say
+00:07:22.680 Hey I want only 20% of P Zer I only want
+00:07:27.919 38% of this piece and this way I can be
+00:07:31.919 a little bit more art directed on what
+00:07:34.520 do we want to see in the end right and
+00:07:37.199 right now it's a little bit hard to see
+00:07:38.360 what is what so after the chain I'm
+00:07:40.759 unpacking everything because the chain
+00:07:42.919 packs the Geo and when I when it's
+00:07:45.400 unpack this this here will match the
+00:07:48.800 size of my incoming object so I'm just
+00:07:50.960 aligning it on the vertical and then I'm
+00:07:54.080 splitting it from um the windows and I
+00:07:57.120 just wanted to give the windows a random
+00:07:59.800 height offset which this is now
+00:08:01.560 currently loged to zero but in the end
+00:08:04.800 you can see they are being a I can
+00:08:07.000 actually offset them if I need to and
+00:08:08.879 here I'm splitting based on bounds my
+00:08:12.000 final output Geo so this will be my Geo
+00:08:16.240 that will be attached to the walls right
+00:08:19.039 so that's my props and all the props
+00:08:21.599 they will be merged somewhere here so
+00:08:23.720 now let's have a look how we deal with
+00:08:25.879 the uling so as you can see here at the
+00:08:28.840 split I'm splitting my Geo Group from
+00:08:31.720 Geo to bounds which we created in in
+00:08:34.519 this HDA section I'm going all the way
+00:08:37.479 back to my walls and I'm bringing in my
+00:08:41.880 pieces here as you can see that these
+00:08:43.839 are my bounding boxes similar thing as
+00:08:46.600 before I'm using the split print by
+00:08:48.600 normal to just get um the floor and the
+00:08:51.800 sides not this not the roof and then all
+00:08:54.880 it's doing the cut Geo is just a
+00:08:57.080 subtraction of my main booing and there
+00:08:59.480 we go and then we have these holes and
+00:09:01.880 that is it technically and then I'm just
+00:09:03.920 giving it some thickness this is my wall
+00:09:06.800 group I'm merging this back in um this
+00:09:09.959 is this already has has a roof but that
+00:09:11.800 doesn't matter and then you can see now
+00:09:14.839 this already looks very sophisticated
+00:09:16.640 right and I just used the chainsaw even
+00:09:19.680 though it's not fully aligned but we get
+00:09:21.560 a more interesting shape of things are
+00:09:23.480 protruding a little bit obviously I can
+00:09:25.959 could have spent way more time to make
+00:09:27.680 this even nicer and I just realized
+00:09:30.079 we're actually putting some air
+00:09:32.160 conditions on the inside fair enough
+00:09:33.959 maybe that's okay doesn't matter now
+00:09:35.880 let's have a quick look at the roof it's
+00:09:38.000 also I think a little bit interesting to
+00:09:39.959 see how I done that so again I'm just
+00:09:42.600 extracting the the roof um I'm
+00:09:45.560 transforming this this was a little bit
+00:09:47.640 tricky to solve because of it's not a
+00:09:50.600 uniform like a flat shape so I cannot
+00:09:52.880 just scale it uniformly I had to do some
+00:09:55.519 Matrix transformations to actually scale
+00:09:58.399 it and in a accurate fashion so Caren
+00:10:02.360 from the CG launch helped me a little
+00:10:04.040 bit to get this Matrix transformation
+00:10:06.240 working and now I have the option to
+00:10:08.360 just scale it properly as I need it to
+00:10:11.440 go then I have a line and it's a cool
+00:10:15.079 thing actually so I'm just creating a
+00:10:16.480 line I'm copying the line on the x-axis
+00:10:19.240 64 times I think it doesn't matter how
+00:10:21.120 many times and then I'm matching it to
+00:10:24.040 the size like I'm using um disabling the
+00:10:27.240 uniform scale that actually then
+00:10:30.519 stretches everything to my incoming Geo
+00:10:34.399 so now I have this these lines and what
+00:10:37.320 I'm doing then I'm raying these lines
+00:10:40.320 and what the ray is doing it's just
+00:10:42.440 because right now this these are
+00:10:45.120 straight but my roof is actually slanted
+00:10:47.920 and the ray just projects them back down
+00:10:50.560 so they're actually matching the
+00:10:52.399 orientation of the normals the group
+00:10:55.120 range allows me to select every other um
+00:10:58.279 primitive which I can just do here I can
+00:11:00.959 also choose the amount technically and
+00:11:03.880 then very basic I'm just moving it up so
+00:11:07.399 um creating this little Steppy thing and
+00:11:08.920 then I'm using the skin that will
+00:11:11.000 generate me a mesh from all these small
+00:11:16.600 uh lines then I'm just doing some
+00:11:18.680 cleanup Atri deletes most probably
+00:11:21.079 fixing up the normals reversing it so
+00:11:23.560 it's pointing upwards beveling it and
+00:11:25.639 the bevel will give me a little bit of a
+00:11:27.320 round shape to it here we go that is my
+00:11:30.680 procedurally scaled roof and it will
+00:11:33.760 conform to every shape the roof roof
+00:11:36.399 will have if um the base shape changes
+00:11:39.120 next up we do have pillars and again
+00:11:42.480 this is I just went by and thought okay
+00:11:44.760 what kind I add more to make it make it
+00:11:46.600 a little bit more interesting similar
+00:11:48.360 thing copy a line on my outside points
+00:11:53.600 and raring it so they are actually
+00:11:56.399 matching the height profile so sweeping
+00:11:59.360 it to give them some thickness and these
+00:12:01.480 are my very basic pillars they are just
+00:12:04.600 on the outside just to give it some more
+00:12:07.600 detail on the edges so it's not a
+00:12:09.160 straight edge but as if there it's like
+00:12:11.120 a wood thing or a metal beam or
+00:12:13.079 something like that so you can see we
+00:12:14.639 got getting a little bit more technical
+00:12:17.240 now here with the roof support and the
+00:12:19.760 final outcome is this from the roof
+00:12:22.800 support some beams and let's have a look
+00:12:26.360 so again we're taking the top section
+00:12:29.079 it's is mostly the same approach I'm
+00:12:31.199 creating lines like a single line and
+00:12:34.320 then I'm non-uniformly scaling it to
+00:12:36.600 stretch it and I'm doing this on the on
+00:12:39.160 both axis so um horizontally and
+00:12:41.760 vertically and then I have this grid of
+00:12:44.079 lines I'm wearing them the same
+00:12:45.920 technique as I did on the roof to just
+00:12:48.120 get get it
+00:12:49.480 slanted and now we have a for each Loof
+00:12:52.079 which is just scaling them essentially
+00:12:54.519 I'm just going over each curve and then
+00:12:58.680 I I have my scale factor these are
+00:13:00.680 linked to my um um HDA so I can do
+00:13:04.279 random this is a random operation based
+00:13:07.760 on um the current iteration and a random
+00:13:10.760 scale that way they are some are longer
+00:13:13.760 some are shorter essentially um then
+00:13:16.720 we're creting bounds this took me some
+00:13:19.000 time again to figure out there's
+00:13:20.199 actually a Boolean curve which I really
+00:13:22.399 love by now um it allows me to create a
+00:13:25.800 shape and cut a curve with it I it's not
+00:13:29.760 I think it doesn't work with the normal
+00:13:31.720 Boolean I tried that I'm sure but now I
+00:13:34.199 have this cutout curve then using Labs
+00:13:36.839 random selection to delete a certain Pro
+00:13:40.199 percent like 10% probability that the
+00:13:42.160 pieces are deleted um I'm sweeping them
+00:13:45.320 based on an input which looks like this
+00:13:47.519 so I can um change the shape of my sweep
+00:13:52.519 if I need to normally it's fine if you
+00:13:54.759 can just use the preset but I'm using
+00:13:56.399 the second input cross-section so I
+00:13:58.800 could still you know change the size of
+00:14:01.800 the the beams if I wanted to sweeping it
+00:14:05.079 then just aligning it cleaning it up
+00:14:06.839 giving it a group and that is um the
+00:14:09.440 support beams it always looks very
+00:14:11.839 complicated if if you look at this but
+00:14:13.480 if you go through it one by one it's
+00:14:15.759 actually very straightforward I think
+00:14:18.600 antennas so they look like it's actually
+00:14:21.320 kit bash models I think but it's it's
+00:14:23.800 not it's it's again another internal HDA
+00:14:27.000 I created for this let's just have a
+00:14:28.519 look again I'm creating the extracting
+00:14:31.040 the top section then I'm scattering
+00:14:33.720 points on it giving it a random P scale
+00:14:36.560 a random orientation a random variant
+00:14:40.320 and all all of these then copy some
+00:14:44.000 antenna model to them and these are all
+00:14:46.240 procedurally generated as well um so now
+00:14:48.639 let's have a quick look how this was
+00:14:50.920 created and you can see there's again it
+00:14:53.160 seems like a lot of parameters but it
+00:14:54.959 didn't box it up very nicely so um let's
+00:14:57.600 just create a new antenna HDA and again
+00:15:00.360 these will be most probably
+00:15:02.279 available um with the scene hello
+00:15:05.399 editing all right so what this is the
+00:15:07.759 HDA it looks actually very simple like
+00:15:10.160 there's not too much going on quite
+00:15:11.920 frankly starting with a line giving it
+00:15:15.240 some random P scale I'm doing a
+00:15:17.800 progressive resample which is a fun node
+00:15:19.800 which can you can give it essentially a
+00:15:22.199 um you can see this is a p scale noise
+00:15:24.839 it has like a very strong values very
+00:15:28.120 strong clamp in here and based on this
+00:15:29.800 noise I can resample it so where there's
+00:15:32.360 high density you get a little bit more
+00:15:33.880 points I just did that to to do some
+00:15:36.360 variations of um this placement of the
+00:15:39.440 vertical lines because if if I wouldn't
+00:15:41.880 have this they will be just uniformly
+00:15:43.720 scaled again a simple line which is just
+00:15:46.600 copied onto onto these base points here
+00:15:50.240 and then we got get already this shape
+00:15:52.120 meshing size sweeping it so now we have
+00:15:54.240 some thickness to it and that's my basic
+00:15:56.519 object I'm packing this so these are my
+00:15:58.920 three basic objects I'm randomizing and
+00:16:01.639 then copying onto the main chain so how
+00:16:06.079 I did the dish sphere a clip a
+00:16:09.920 remesh a thicken to give it some like
+00:16:12.800 Extrusion transforming it on the other
+00:16:14.880 side I'm going sure I did that packing
+00:16:17.160 and then oh I did to actually put it
+00:16:19.839 onto the center point that's one dish
+00:16:22.079 and then the last piece is a whatever
+00:16:25.319 box and nothing crazy I just did a box
+00:16:28.079 of bevel that's my so simple object and
+00:16:30.600 it's just they all live in the origin
+00:16:32.600 and then enumerate will give each prop
+00:16:35.440 its own index you can see it has its own
+00:16:37.839 name int and you will see that 012 on
+00:16:41.160 the right hand side here on this stream
+00:16:43.399 we're starting out with a circle
+00:16:45.360 scattering some points on it and then we
+00:16:48.720 get these pillars these these vertical
+00:16:50.720 lines and again the scatter Here Is
+00:16:52.759 Random so that means that these points
+00:16:55.480 will be not always the same so it's a
+00:16:57.839 random place after this I'm copying as
+00:17:00.720 some single straight line onto those two
+00:17:03.279 points and then I'm doing copying more
+00:17:05.919 points onto these lines then I'm just
+00:17:09.240 you can see I just copied a simple uh
+00:17:12.199 tube cylinder object on these points it
+00:17:14.319 just give give this shape a little bit
+00:17:16.559 more interest you see now it has it has
+00:17:19.000 just a little bit more detail it's it's
+00:17:20.599 I didn't do much it's not a perfect
+00:17:22.679 model it's just a fake model technically
+00:17:25.119 I'm using the clip to not have anything
+00:17:27.599 be copied in the bottom section because
+00:17:29.960 I just want things at the top I'm using
+00:17:32.480 the scatter align tool to Generate
+00:17:34.480 random points on this Geo and this
+00:17:37.840 allows me to specify the Min and Max
+00:17:40.440 scale of my pieces um I'm peing them to
+00:17:43.640 push them outside that's why I created
+00:17:45.600 the normals to do the peaking now I can
+00:17:48.559 if I if I'm very subtle with it you can
+00:17:50.840 see that I'm moving these points
+00:17:53.120 outwards of the normals these are then
+00:17:55.760 copied over so if I use a peak you will
+00:17:57.799 now see that the the dishes are actually
+00:17:59.200 pushed outside Atri from pieces
+00:18:02.280 generates me these the weight the name
+00:18:05.640 weights and placements Which object goes
+00:18:07.679 onto which point and then this is just a
+00:18:10.240 random P scale again and these are then
+00:18:12.799 merged onto this thing on the right hand
+00:18:15.039 side this is where the wires are
+00:18:17.000 happening you can see that makes it a
+00:18:18.480 little bit more sophisticated as well um
+00:18:21.400 the wires are the labs um cable
+00:18:24.120 generator you just um pick random points
+00:18:27.840 I'm just um I'm actually just creating
+00:18:30.120 the points from um from the base goo
+00:18:34.919 like that and then from this I'm getting
+00:18:38.720 the longest connections so I'm just
+00:18:40.640 creting point connections from um one
+00:18:43.520 point to the next and I'm just finding
+00:18:45.000 out the longest pieces and then the
+00:18:47.280 random selection just gives me a maximum
+00:18:49.120 of five Primitives from each of those
+00:18:51.520 points and then the cable generator
+00:18:53.720 happens to create the fake gravity
+00:18:56.200 effect you can see I can play with the
+00:18:58.400 cables I can generate more cables and
+00:19:00.480 you can see everything is bluish which
+00:19:02.320 means it's connected to the outside um
+00:19:05.280 and that is how what single antenna is
+00:19:07.880 made and then I'm doing this big for
+00:19:10.280 Loop and my Global seed this one is
+00:19:13.600 based on the current
+00:19:15.000 iteration and now if I look at it this
+00:19:17.960 is then all the different versions I'm
+00:19:20.640 creating randomly on the points we
+00:19:23.360 created they are just picked randomly
+00:19:26.440 one of these are then copied over and
+00:19:28.480 this makes it very unique AC placement
+00:19:31.360 you will laugh how simple that is it's a
+00:19:33.880 tube and a box and I'm booing it to
+00:19:37.600 create a hole beveling the edges
+00:19:39.840 creating a box um giving it some
+00:19:43.120 vertical divisions extracting a single
+00:19:46.039 line from it raying it back onto my
+00:19:48.240 original bounding box cring giving it
+00:19:51.159 some thickness merging it and now it has
+00:19:53.720 like a little cage around it this is
+00:19:56.919 transforming it for the copy in single
+00:19:59.480 AC out and then we're just copying it
+00:20:02.919 over onto my wall pieces and a similar
+00:20:05.480 thing as before everything is being
+00:20:07.200 merged at some point and that's how
+00:20:11.080 straightforward this whole process is
+00:20:13.720 and again this will be the scene will be
+00:20:16.640 available for you to really dissect it
+00:20:18.679 if you want to but the cool thing is now
+00:20:21.679 um I can just randomly generate so many
+00:20:24.799 different variations of that single
+00:20:26.720 asset and if I just want to change maybe
+00:20:29.039 the roof I can um have a different seat
+00:20:32.080 for the antennas if I want to be very
+00:20:34.080 specific I can change the antenna seat
+00:20:36.320 so that will actually regenerate me a
+00:20:38.120 different antennas and this Shack is
+00:20:41.200 then placed within a for Loop which
+00:20:44.640 generates me
+00:20:46.799 variations so of these Shacks okay for
+00:20:50.120 the alignment I need to have the name
+00:20:51.880 attribute on Primitives in set of points
+00:20:54.720 but then here you can see that I have
+00:20:58.159 have all these different variations
+00:21:00.000 different amount of antennas they are
+00:21:02.720 all unique some of balcony some don't
+00:21:06.480 and then these are in the end used to
+00:21:10.760 stack like to create these this is a
+00:21:13.039 different setup I will go over that at
+00:21:15.880 some point as well but
+00:21:18.480 technically it will then use my setup to
+00:21:22.640 generate me these hero Stacks which has
+00:21:25.760 a lot of different instan of these
+00:21:30.159 individual houses and you can see this
+00:21:32.840 has now props added as well these
+00:21:35.400 containers but in the end it's just I
+00:21:39.080 think 15 different building types
+00:21:42.120 scattered and this is the distance we
+00:21:45.520 will be seeing them that's why I did not
+00:21:48.279 pay too much attention on making sure
+00:21:51.520 the models are perfectly modeled and all
+00:21:53.600 of that so um and then also in the
+00:21:55.840 distance there will be tons of smaller
+00:21:57.840 ones as
+00:22:00.280 [Music]
+00:22:24.960 well
