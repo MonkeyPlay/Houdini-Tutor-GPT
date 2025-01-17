@@ -1,0 +1,271 @@
+# tactiq.io free youtube transcript
+# Kine-FX Animation Basic Concept #2 IK Controls & Anchor Points
+# https://www.youtube.com/watch/S4Bzhnepovk
+
+00:00:00.160 this is where kin fx gets really fun to
+00:00:02.800 play around with using the full body ik
+00:00:05.040 note in houdini we can drive the entire
+00:00:07.440 character animation with a single bone
+00:00:09.440 or multiple bones for certain poses
+00:00:11.360 nonetheless it makes animation very
+00:00:13.519 quick and easy here i'm moving the left
+00:00:16.160 hand bone to create a high hand wave and
+00:00:19.039 by pinning down the feet and right hand
+00:00:21.359 i'm able to create a realistic hand wave
+00:00:23.760 just by dragging the left hand bone
+00:00:26.080 let's get started with basic concept
+00:00:28.000 number two ik controls and anchor points
+00:00:32.399 let's start with getting rid of these
+00:00:34.640 things but reusing the setup so these
+00:00:37.200 were left off from the previous video so
+00:00:39.600 now we have a very basic setup houdini
+00:00:42.239 has this full body ik node as long as
+00:00:45.840 you're reusing some of the bones from
+00:00:47.760 the skeleton that was imported with the
+00:00:50.320 character you'll find that animating
+00:00:52.079 with this ik note doesn't require any
+00:00:54.960 bone remapping at all throw down a blast
+00:00:57.760 node so delete non-selected now i'm
+00:00:59.760 going to choose a few joints that i'm
+00:01:02.320 going to be using as my i key controls
+00:01:04.400 let's take the hand select that on the
+00:01:07.280 viewport and then press enter now this
+00:01:09.600 is going to delete everything else and
+00:01:11.360 isolate this one hand bone now i'm going
+00:01:13.520 to feed this into my full body ik so
+00:01:17.040 this is going to be my control first
+00:01:19.040 input of the full body ik node we need
+00:01:21.600 the target skeleton just the full
+00:01:23.680 version the complete skeleton of our
+00:01:26.000 character and connect that to the first
+00:01:27.600 input and the second input of the full
+00:01:29.840 body ik will be our ik control so that
+00:01:32.880 would be the hand bone that we have
+00:01:34.560 isolated over here and i'm going to
+00:01:36.159 connect that to the second input of the
+00:01:37.759 full body ik this is where all the magic
+00:01:40.400 happens now this is supposed to connect
+00:01:42.479 to the third input of the joint deform
+00:01:45.439 node but i'm going to do that in just a
+00:01:47.200 second a bit more room so i'm going to
+00:01:48.640 just drag this down i'm going to throw
+00:01:50.320 down rig pose node because i'm going to
+00:01:53.040 move the ik bone which is our hand bone
+00:01:55.439 uh highlight the rig post node come over
+00:01:57.920 here to the 3d viewport and press enter
+00:02:00.560 by leaving the render flag on the full
+00:02:02.320 body ik node we can see the entire rig
+00:02:05.119 or the resulting motion rig in the
+00:02:07.119 viewport next highlight the rig pose
+00:02:09.679 node because we want to manipulate our
+00:02:11.920 ik control and the rig pose node will
+00:02:14.319 help us do that let me change the
+00:02:16.640 background
+00:02:17.760 so that you can
+00:02:19.280 view this a bit better too turn off the
+00:02:21.440 grid highlight the ring post node come
+00:02:23.440 over here press enter so this tool is
+00:02:25.520 activated we're going to select this and
+00:02:27.280 i'm going to start moving this around
+00:02:29.440 nothing absolutely nothing full body ik
+00:02:32.000 node the default option requires us to
+00:02:34.640 manually remap the bones however we're
+00:02:37.120 going to reuse the bone names so we
+00:02:39.440 don't need to remap anything manually
+00:02:41.599 our ik control is reusing the same
+00:02:44.080 skeleton that came with the character
+00:02:46.480 and it has the proper naming already so
+00:02:48.959 we can actually switch this over to
+00:02:51.200 map by attribute instead of mapping
+00:02:54.160 attribute i know the naming is a little
+00:02:56.160 weird but what this will do map
+00:02:58.159 attribute to match
+00:02:59.840 name because it already comes with the
+00:03:01.760 name and that's the original bone names
+00:03:04.080 over here in the animation post so let's
+00:03:06.319 go back over here this character break
+00:03:08.000 actually comes with the proper naming
+00:03:10.080 this hand over here is hand underscore l
+00:03:12.640 all the bones and all the joints have
+00:03:14.400 proper naming already as you can see
+00:03:16.480 here the ik bone is still labeled hand
+00:03:19.440 underscore l so i'm going to go back to
+00:03:21.360 this repose node and i'm going to try
+00:03:22.959 this again and i'm going to move the
+00:03:24.879 hand and you can see it's
+00:03:26.640 moving the entire rig
+00:03:29.280 i know that's not what we want but
+00:03:31.360 this this shows potential we can
+00:03:33.519 actually manipulate the hand without
+00:03:36.720 moving one joint at a time by
+00:03:39.120 manipulating one bone but having houdini
+00:03:42.080 estimate or solve the rest of the other
+00:03:44.319 joints and
+00:03:45.519 this saves us a load of time when you're
+00:03:47.599 animating now this brings us to another
+00:03:50.560 problem though
+00:03:52.000 why is the entire rig moving now i only
+00:03:54.959 want to move the the hand bone i only
+00:03:57.519 want to move the left hand of of eric
+00:04:00.480 well first of all let's connect this
+00:04:02.720 full body ik and connect it to the joint
+00:04:05.200 deform we have two outputs from the full
+00:04:07.519 body ik let's see what they look like
+00:04:09.680 we've got to get rid of the template
+00:04:11.200 this is our output so this is our result
+00:04:14.000 that's the target skeleton now there's a
+00:04:16.880 sore skeleton that's nothing that's
+00:04:18.639 because i haven't stored a rest
+00:04:20.880 transform or a rest pose usually the
+00:04:23.440 second output will give us this result
+00:04:26.320 which is the the original resting
+00:04:28.320 position or default pose if it the
+00:04:30.720 character is set up properly it would be
+00:04:32.400 the a pose or a t pose in this case this
+00:04:35.360 is a t pose we only care about the
+00:04:37.120 resulting pose for this example which is
+00:04:39.360 the first output in this node and i'm
+00:04:41.680 just going to connect this to the third
+00:04:44.320 input in the joint deform and let's see
+00:04:46.400 what this looks like okay eric is
+00:04:49.600 let me bring back the grid
+00:04:51.840 so eric is leaning back and he's flying
+00:04:54.320 up
+00:04:55.360 he's up in the air so let's look at what
+00:04:57.360 he looked uh in original
+00:05:00.160 okay he's on the ground his feet are on
+00:05:02.160 the ground in his original pose in his
+00:05:04.800 original resting pose when we
+00:05:07.039 manipulated the hand ik bone it moved
+00:05:10.720 the entire eric rig up into the air i'm
+00:05:13.759 gonna template the joint
+00:05:16.080 now this bone here higher rig which is
+00:05:19.280 not what we want we want to tell houdini
+00:05:21.360 okay i want everything else to stay in
+00:05:23.360 position
+00:05:24.400 but i just want the hand to move we need
+00:05:26.880 some anchor points what i call anchor
+00:05:29.039 points so i'm going to come over here to
+00:05:31.440 that original to the animation post
+00:05:34.080 let's get rid of the template
+00:05:35.840 and i'm going to isolate some more
+00:05:38.560 bones and these bones are going to be my
+00:05:41.199 anchor points
+00:05:42.560 and i'm going to choose some points to
+00:05:44.960 isolate remember these are the points or
+00:05:47.199 the joints that will not move so choose
+00:05:49.840 them wisely we don't want anything from
+00:05:52.880 the feet to move especially the foot i
+00:05:55.199 think that will do i do want the hip to
+00:05:57.600 move sometimes when you're reaching out
+00:05:59.039 for something really far away your your
+00:06:00.720 body tends to lean forward and your hip
+00:06:03.280 starts to rotate towards your left or
+00:06:05.440 right so let's keep everything free so
+00:06:09.039 houdini can choose for us what to do
+00:06:11.039 with the rest of the bone except for the
+00:06:12.800 feet now my feet will
+00:06:14.560 be the only anchor points that i need
+00:06:16.720 now let's merge this our ik control and
+00:06:20.960 the anchor point so let's merge both of
+00:06:23.440 these and let's connect it to the full
+00:06:26.240 body ik we have our ik do the hard work
+00:06:29.280 for us now let's try this again let's
+00:06:31.840 turn this off now you can see that the
+00:06:34.240 feet are planted on the ground now so
+00:06:36.160 that's important so the ground is right
+00:06:39.759 here i don't know if you can see it's a
+00:06:41.600 very faint line maybe that's a bit
+00:06:44.000 better he's definitely floating above
+00:06:46.160 the ground is what i wanted to show you
+00:06:48.479 now let's connect
+00:06:50.160 our anchor points back in so i want to
+00:06:52.400 take this merge and i'm going to connect
+00:06:54.800 it back into the full body okay and
+00:06:56.560 instantly you see eric has his feet
+00:06:59.039 planted back onto the ground and now
+00:07:01.840 we're modifying
+00:07:03.360 just the hand which is perfect so we can
+00:07:06.240 play around with this
+00:07:07.680 let's go back to this rig pose node
+00:07:10.319 highlight this
+00:07:11.599 come over to the 3d viewport press enter
+00:07:14.400 and we got that nice little widget let's
+00:07:17.199 move this hand around nice
+00:07:20.479 now he could be
+00:07:21.840 washing cars who knows wiping
+00:07:25.759 the
+00:07:26.880 washing windows
+00:07:28.479 this would be awesome for stuff like
+00:07:30.880 proceed a lot of procedural modeling
+00:07:32.960 because we can easily
+00:07:35.120 driving the entire rig with one bone we
+00:07:37.520 can apply a sine wave on this and his
+00:07:40.800 hand could be moving up and down
+00:07:43.199 in order to create different types of
+00:07:45.039 motions could be waving
+00:07:47.199 hi
+00:07:48.720 now his head and hips is leaning
+00:07:51.680 backwards which is
+00:07:53.759 might not be what you want since i'm
+00:07:55.840 trying to do like a high motion here i
+00:07:58.400 don't want his head to be going upwards
+00:08:01.120 or he could be reaching for something
+00:08:03.120 like
+00:08:03.919 you wouldn't stick out like your body
+00:08:06.160 would not make this sort of uh
+00:08:09.440 shape in order to fix this we can add a
+00:08:11.919 few more anchor points let's extend this
+00:08:14.560 grab this and let's choose a few more
+00:08:17.599 bones to add i want his head to stay in
+00:08:20.720 position so let's take this neck bone to
+00:08:24.479 the anchor points
+00:08:27.599 let's come over here to the rig pose and
+00:08:30.000 let's
+00:08:31.039 play around with this again so
+00:08:32.799 definitely his head is not moving
+00:08:35.760 the issue now is the feet are starting
+00:08:38.000 to float around so i think i
+00:08:39.599 accidentally removed the feet from the
+00:08:41.760 anchor points let's go back and add the
+00:08:44.240 feedback to the anchor points so that's
+00:08:46.480 the only thing that's selected and
+00:08:48.560 if you look closely i've lost the feet
+00:08:51.200 so let's add that back in so while i was
+00:08:53.440 choosing the neck bones for anchor
+00:08:55.600 points i accidentally deselected the
+00:08:57.920 feet so let's add the feet back to the
+00:09:00.160 anchor points let's try that again so
+00:09:02.160 let's go back to that rig pose node and
+00:09:04.320 let's try that hand waving one more time
+00:09:07.120 okay that's that's a bit better but you
+00:09:09.279 can still see that the feet are still
+00:09:11.279 floating in mid air if the hand goes up
+00:09:14.399 high enough you can start to see
+00:09:16.800 he's eric is starting to fly and float
+00:09:20.160 above the air his feet are starting to
+00:09:21.760 fly up it's like flying
+00:09:25.680 you're gonna have a lot of fun with this
+00:09:27.600 but that's not what we want because i
+00:09:29.360 don't want him
+00:09:30.640 his feet floating around the air this
+00:09:32.240 brings us to the next topic where we're
+00:09:34.640 gonna add priority to each ik controls
+00:09:38.399 to tell houdini which control which ik
+00:09:41.600 control bones should be followed more
+00:09:44.080 precisely when compared to the other ik
+00:09:46.320 control bones when there's a conflict
+00:09:48.160 that arises just like this example when
+00:09:51.200 we hold up eric's hand high enough
+00:09:54.000 it affects the feet
+00:09:57.360 in the next video we'll finish up with
+00:09:59.360 the eric rig and fix our feet issue by
+00:10:02.079 adding priority to the joints on the
+00:10:04.000 feet demo some examples of an octopus
+00:10:07.040 character i've been working on which
+00:10:08.720 will also be released to perk members so
+00:10:11.200 you can practice some of your houdini
+00:10:13.519 skin effects
+00:10:14.800 thanks for watching and sticking to the
+00:10:16.800 end
+00:10:34.320 you
