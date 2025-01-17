@@ -1,7 +1,7 @@
 import os
 
 # Define the directory to search (update this to your desired folder path)
-repo_dir = "path/to/your/folder"  # Replace this with your actual folder path
+repo_dir = "YouTube-Transcript"  # Replace this with your actual folder path
 
 # Define the name of the output file
 output_file = "combined.txt"
