@@ -1,0 +1,442 @@
+# tactiq.io free youtube transcript
+# Easy Houdini: Jam2Go Datamoshing in Copernicus
+# https://www.youtube.com/watch/w3tNaWLPSAI
+
+00:00:02.240 like probably all of you I've seen the
+00:00:05.160 amazing data mushing setup fellow
+00:00:07.120 YouTuber champ too build in Unreal
+00:00:09.080 Engine some weeks ago and I couldn't
+00:00:11.040 help wondering if I could pull off the
+00:00:13.160 same effect in Houdini using Copernicus
+00:00:16.000 and as it turns out it's actually quite
+00:00:18.359 easy and fun so that's what we're going
+00:00:20.240 to do in this episode so again first of
+00:00:22.800 all all credit for the main idea of the
+00:00:25.519 setup goes to this guy goes to jam to go
+00:00:28.400 who made this amazing amazing video
+00:00:31.000 about building a data mushing effect in
+00:00:33.280 Unreal Engine link is in the description
+00:00:35.640 but now let's talk about how we're doing
+00:00:37.120 this in hudini and let's first of all
+00:00:38.640 talk about data mushing and what this
+00:00:40.640 actually is so usually as 3D artists we
+00:00:43.719 tend to think of a video file as an
+00:00:47.079 image sequence however for some video
+00:00:49.879 files that is not true especially for
+00:00:52.680 video files that are very compressed
+00:00:54.879 only a few of those frames inside of
+00:00:57.280 that video are actually images that we
+00:00:59.480 can take a look at and we call those if
+00:01:01.480 frames the vast majority of frames
+00:01:03.879 inside such an video file are so-called
+00:01:06.000 P frames and those do not store images
+00:01:08.680 what they store instead are movements of
+00:01:11.439 single Pixel groups throughout the image
+00:01:13.960 or throughout the video and the reason
+00:01:15.880 we're doing this is those P frames
+00:01:18.400 usually need to store a lot less details
+00:01:21.280 than the equivalent iframe which makes
+00:01:23.240 them far easier to compress and this in
+00:01:25.920 the end leads to a smaller video file so
+00:01:28.439 what we're doing in data mhing Ed at
+00:01:30.040 least in the traditional sense is we're
+00:01:32.159 going to take one of those compressed
+00:01:33.960 video files and we're simply going to
+00:01:35.799 start removing ey frames and now those P
+00:01:38.360 frames simply have to push around and
+00:01:40.680 mosh around the last ey frame this one
+00:01:43.280 right here a lot more a lot further and
+00:01:45.719 this in the end leads to all those nice
+00:01:47.560 and glitchy artifacts that we're after
+00:01:49.399 here but again this is the traditional
+00:01:51.479 approach and both in unreal and hini we
+00:01:54.759 don't have if frames and P frames so
+00:01:56.960 what are we going to do here and this is
+00:01:58.640 where the idea from champ to comes in so
+00:02:01.320 while we do not have if frames and P
+00:02:03.479 frames what we do have is something
+00:02:05.840 called a beauty pass and something
+00:02:07.320 called a motion Vector pass and for the
+00:02:09.479 youngsters in the audience motion Vector
+00:02:11.640 passes are a somewhat old school way of
+00:02:14.519 doing motion blur not while rendering
+00:02:16.879 but while compositing and pretty much
+00:02:19.000 any render engine can output a motion
+00:02:21.160 Vector pass and again all this is is
+00:02:23.519 something that stores movement is
+00:02:25.400 something very similar to an actual P
+00:02:27.480 frame in a compressed video so what we
+00:02:29.680 can do to recreate this effect is we can
+00:02:32.400 simply get rid of a lot of our actual
+00:02:34.800 Beauty passes and simply take one single
+00:02:37.560 frame of a beauty pass and over the next
+00:02:40.280 frames use a motion Vector passes to
+00:02:42.959 distort that beauty pass further and
+00:02:45.200 further and further and what we're going
+00:02:47.159 to get out in the end again really
+00:02:50.440 really looks like something that we get
+00:02:52.840 by traditional data mushing and also
+00:02:55.400 since we're not relying on Ancient video
+00:02:57.280 codex to do this data mushing effect we
+00:02:59.400 have some more perks we have a lot more
+00:03:01.800 timing control because we can set those
+00:03:04.080 ey frames those quote unquote eye frames
+00:03:06.360 wherever we want we can also stay in
+00:03:08.799 Asus 32bit linear color throughout our
+00:03:11.360 entire process give us a lot more
+00:03:13.360 options later in color grading and also
+00:03:15.959 of course since we're in cernus we can
+00:03:18.080 use masks and filters and noises and all
+00:03:20.879 this other stuff to really tweak the
+00:03:22.840 effect really make this thing
+00:03:24.319 interesting but now let's jump into udia
+00:03:26.560 and let's actually build this I first of
+00:03:28.560 all want to talk about renders settings
+00:03:30.560 again this is something that every
+00:03:32.159 render engine every program should be
+00:03:34.239 able to do however building this in
+00:03:36.239 karma and Solaris has some CS so I will
+00:03:39.040 quickly go over them so what you're
+00:03:40.959 going to do in karma is first of all
+00:03:43.480 build your setup as usual and then once
+00:03:46.480 you're done there you're going to drop
+00:03:48.400 down first of all a cach node and on
+00:03:50.760 this cach note you're going to set the
+00:03:52.439 cach behavior to always cash all frames
+00:03:55.519 and this is mandatory within Solaris to
+00:03:58.040 get accurate motion Vector passes also
+00:04:00.360 again since I think this effect gets a
+00:04:02.640 lot cooler when we start using masks I
+00:04:04.879 want to set up some masks as well and
+00:04:07.239 you can do this within Karma very
+00:04:09.040 quickly by dropping down a Karma
+00:04:10.799 cryptomed node and in here checking
+00:04:13.280 either crypto Primitives or crypto
+00:04:15.159 materials and finally in the render
+00:04:17.320 settings under image output we want to
+00:04:19.358 head over to aovs under utility we
+00:04:22.400 should have one pass called motion
+00:04:24.160 vectors and we want to enable this and
+00:04:26.280 our cryptomed pass should already be
+00:04:28.240 enabled just by using this note note in
+00:04:30.080 here also if you want to do the noising
+00:04:32.520 this absolutely works so you can turn
+00:04:34.199 this on but also if you are going to use
+00:04:37.320 a crypt pass you have to use something
+00:04:40.600 that's not lossy compression so in this
+00:04:43.080 case I'm using a z single scan line
+00:04:45.800 usually when exporting exrs I would
+00:04:48.000 choose dwab because this is a lot
+00:04:50.360 smaller however in this case I have to
+00:04:52.639 stick to zip you can find this setup
+00:04:55.160 right here in your scene file downloads
+00:04:56.919 and you can simply use this to export
+00:04:58.880 your rended frame and keep going with
+00:05:00.800 the setup now to actually build the
+00:05:02.680 setup I'm going to jump into an mty
+00:05:04.680 scene file and again I want to build
+00:05:06.919 this in the obj context because I want
+00:05:09.120 to make use of a sub solver so first of
+00:05:11.520 all let's drop down a note let's dive
+00:05:13.960 inside and in here I want to drop down a
+00:05:16.759 cop Network and this cop Network in here
+00:05:19.520 is just there to load in first of all a
+00:05:22.479 different frames to display our
+00:05:24.160 different frames and later again we're
+00:05:26.400 going to build the rest inside the subs
+00:05:28.120 server but for now let's jump in this
+00:05:30.160 cop Network and let's load in the image
+00:05:32.160 sequence that we rended out so I'm going
+00:05:34.240 to drop down a file note and in my
+00:05:36.720 render folder I'm going to grab this
+00:05:39.720 sequence right here which goes from
+00:05:41.639 frame 72 to frame 144 let it accept here
+00:05:46.199 again we need to set up our timeline so
+00:05:48.080 this goes from frame 72 to frame 144
+00:05:53.120 like this now we have a start and an end
+00:05:55.440 frame like this and also to make this
+00:05:57.639 display correctly I want to Simply right
+00:05:59.960 click the display options right here
+00:06:01.880 enable color correction and set the tone
+00:06:04.600 mapping to Aces this is what I use for
+00:06:06.840 rendering and again this is all we're
+00:06:08.720 going to do in this copet this is just
+00:06:10.720 there to load our files so let's jump
+00:06:12.919 back out this copet is also outputting a
+00:06:15.840 Houdini volume that is our picture like
+00:06:18.360 this and let's now drop down a sub
+00:06:21.000 solver and let's keep working in here so
+00:06:23.800 on the sub solver I first of all want to
+00:06:26.000 set up the start frame the frame where I
+00:06:28.080 want to start actually mhing my data and
+00:06:31.160 in this case I'm going to set the
+00:06:32.759 starting frame to a value of 96 and I
+00:06:35.840 also want to use this Frame to later
+00:06:37.680 switch between our main stream right
+00:06:39.960 here and our solver stream our data
+00:06:41.800 mushing stream right here so I'm going
+00:06:43.560 to drop down a switch Noe in here I'm
+00:06:45.479 going to wire in my copet into my solver
+00:06:47.840 the solver into my switch node and then
+00:06:49.800 the copet also into my switch node as a
+00:06:51.960 second input and on my solver I'm going
+00:06:54.160 to right click my start frame say copy
+00:06:56.520 parameter and in my switch I want to
+00:06:59.080 check if dollar F so current frame is
+00:07:02.160 smaller than a relative reference like
+00:07:04.400 this so until frame 96 this is just
+00:07:07.720 using this input from a cop net right
+00:07:09.960 here and after frame 96 it's actually
+00:07:12.360 using a solver one additional thing that
+00:07:14.639 I want to do since exrs inside cernus
+00:07:17.759 are somewhat slow and I want to have a
+00:07:20.039 quick playback the solver already has a
+00:07:22.240 caching mode however this G stream right
+00:07:24.759 here hasn't so I'm simply going to drop
+00:07:26.840 down a cache note on this G stream as
+00:07:29.280 well to all make this playback really
+00:07:31.840 fast now we've done with this part of
+00:07:34.319 the setup and we can finally jump into
+00:07:36.479 our sub solver first of all again I want
+00:07:39.080 to make use of my starting frame and I
+00:07:41.280 want to switch between this two stream
+00:07:43.479 and this T Stream So previous frame or
+00:07:45.759 input one based on a starting frame so
+00:07:48.599 again another switch note let's wire in
+00:07:51.159 the previous frame first and then our
+00:07:53.120 input one in here and we simply want to
+00:07:56.199 check if our dollar f is equal to again
+00:07:59.759 the relative reference to a starting
+00:08:01.400 frame so something like this and finally
+00:08:03.680 in here I'm going to drop down a null
+00:08:06.199 this will be a reference to my CNET that
+00:08:08.240 I'm going to drop down in second I'm
+00:08:10.159 going to call this in and finally we're
+00:08:12.840 going to drop down our main copet and wi
+00:08:15.319 this into the output like this let's
+00:08:17.199 highlight our component let's jump
+00:08:18.720 inside and let's first of all bring in
+00:08:21.039 this frame for this I'm going to use a
+00:08:23.039 sub import node I'm going to check use
+00:08:25.199 external soap and I'm going to jump out
+00:08:27.240 of this node out of the next node and
+00:08:29.560 I'm going to select my in null right
+00:08:31.319 here to turn this into a cops layer I'm
+00:08:33.719 going to use a go2 layer note and I have
+00:08:36.760 to match the right signature so let's
+00:08:38.679 turn this to rgba like this and now we
+00:08:42.080 actually have a cops image that we can
+00:08:44.000 work with so this is our Beauty pass now
+00:08:46.920 we have to load up our motion Vector
+00:08:49.200 pass for this again I'm going to use a
+00:08:51.720 file node and again I'm going to load in
+00:08:54.240 the image sequence that I rendered out
+00:08:56.160 and to get all my aovs from this file
+00:08:59.000 node I'm I'm going to hit the add aovs
+00:09:01.079 from file button down here so in the end
+00:09:03.360 we should have again our Beauty P which
+00:09:05.360 we won't use in this case however also
+00:09:07.440 motion vectors and our crypto objects
+00:09:09.720 let's not worry about the crypto objects
+00:09:11.519 for now what we're instead going to do
+00:09:13.200 is we're simply going to grab our motion
+00:09:14.959 Vector pass and we're going to use this
+00:09:17.079 to distort our main Beauty pass so all
+00:09:19.800 we need to build this is a distort note
+00:09:23.160 like this this takes in first of all the
+00:09:25.800 source and then also a direction and
+00:09:28.399 this will be my motion vectors however
+00:09:31.120 right now this is an RGB value this only
+00:09:34.120 wants a two-dimensional value and the
+00:09:36.640 somewhat strangely name node inside cops
+00:09:39.240 that does this for us is an RGB to UV
+00:09:42.000 node again this does not convert our RGB
+00:09:44.399 values in here to UV coordinates this is
+00:09:46.720 just turning a 3D Vector into a 2d
+00:09:49.760 Vector so you're going to v a motion
+00:09:51.600 vectors in here and the UV into the
+00:09:53.880 direction like this and finally we're
+00:09:56.320 going to end this with a null and we're
+00:09:58.360 going to wire in the output of our
+00:09:59.959 distort node in here now we should
+00:10:01.360 already see some Distortion happening
+00:10:03.320 and if we go to our distort node and go
+00:10:05.480 to the parameters and play with the
+00:10:07.640 Distortion scale we should also be able
+00:10:09.480 to see something that really already
+00:10:11.680 starts looking like data mushing which
+00:10:13.680 is exactly what we want now we have to
+00:10:15.920 dial in this value that we're going to
+00:10:17.600 add in here this is something that
+00:10:19.399 depends both on the resolution and then
+00:10:22.320 also the speed of your animation and in
+00:10:25.240 the end I think it's best to just
+00:10:27.360 eyeball this value and in this case for
+00:10:29.519 the setup that we're building in here I
+00:10:31.320 found a value of
+00:10:32.839 0.01 to work nicely for this resolution
+00:10:35.720 and the speed and this should be pretty
+00:10:38.160 much all we need to do for our base
+00:10:39.760 setup so let's quickly try this out
+00:10:41.959 let's jump back out let's highlight our
+00:10:44.600 switch down here and let's quickly play
+00:10:47.000 through our animation again this will
+00:10:49.120 first of all play somewhat slowly
+00:10:51.279 because exrs are slow within Copernicus
+00:10:54.480 however once we've run through our
+00:10:55.959 timeline ones we should see some nice
+00:10:57.839 outputs and after bit of waiting we have
+00:11:00.480 this really nice data M result so this
+00:11:03.279 is our basic setup done now we can
+00:11:05.639 refine it and really have some fun here
+00:11:08.040 so let's jump back into our solver back
+00:11:10.920 into our cop nut let's make sure we're
+00:11:12.880 on frame 96 our cop nut does actually
+00:11:15.680 have some data to work with and let's
+00:11:17.760 keep adding stuff to this the first
+00:11:19.720 thing that I want to do in here is right
+00:11:21.680 now I think the data mhing streaks are
+00:11:24.279 looking a bit too clean we're missing
+00:11:26.560 some of these compression artifacts that
+00:11:28.839 we going to see with those really old
+00:11:31.240 really compressed video formats so to
+00:11:33.320 sort of ulate this I just want to add a
+00:11:35.399 little bit of noise to my Distortion
+00:11:37.800 vectors to my motion vectors so to do
+00:11:40.000 this I'm first of all going to start
+00:11:41.519 with a fractal noise I'm going to pipe
+00:11:43.600 in my motion vectors as a size reference
+00:11:46.040 and to get sort of Blocky artifacts I'm
+00:11:48.240 going to set the noise type to w a
+00:11:51.079 cellular FS2 minus fub1 and I'm going to
+00:11:54.079 set the metric to Manhattan and this
+00:11:56.800 sort of gets us some blocky shapes that
+00:11:58.720 we can work with with right now this is
+00:12:00.279 just mono noise however we want slope
+00:12:02.480 directions so I'm going to search for
+00:12:05.000 the slope Direction cop node I'm going
+00:12:07.040 to wire this in here and now we have
+00:12:09.160 something that looks quite similar here
+00:12:11.000 to a motion Vector pass and the last
+00:12:13.480 thing that I want to do in here is
+00:12:15.279 simply blend this with our motion
+00:12:16.920 vectors so let's drop down a blend note
+00:12:19.360 our motion vectors goes into the
+00:12:21.079 background and our noise into the
+00:12:23.600 foreground and I want just a small
+00:12:26.480 amount of noise in here so let's set
+00:12:28.639 this tobo of 05 just have a tiny bit of
+00:12:32.240 noise in here in our motion vectors and
+00:12:35.040 this is what I want to pipe in the end
+00:12:37.600 into the direction input so this is the
+00:12:40.079 first thing that I want to do in here
+00:12:41.760 the next thing that I want to do is I
+00:12:43.880 actually want to restrict the area that
+00:12:47.040 I want to MH either to just my alien EG
+00:12:50.320 object right here in the middle or
+00:12:52.160 everything else and for this again I
+00:12:54.079 want to make use of those Crypt mats no
+00:12:56.440 cops or cernus is still in beta and
+00:12:59.440 crypts in Copernicus are very in beta
+00:13:02.720 which makes them somewhat hard to use
+00:13:04.920 there's one node that we can use to get
+00:13:07.040 to a crypt and this is the Crypt node
+00:13:09.720 and on this cryptomed node we can simply
+00:13:11.639 wire in a first crypto aov in here and
+00:13:15.279 now this is where it gets somewhat
+00:13:17.440 tedious to use because we don't actually
+00:13:20.600 have a picker in here yet a picker where
+00:13:23.320 we can pick out the right crypto object
+00:13:25.800 in this case we just have to remember
+00:13:28.160 the right path that that be set within
+00:13:30.240 Solaris for a object and in this case
+00:13:33.160 I'm just going to add this in I'm just
+00:13:35.720 going to paste this in and I want to
+00:13:38.120 select the background which hides under
+00:13:40.959 slgd SL mesore 0 like this and this is
+00:13:45.560 now a mask for a background again this
+00:13:48.639 is quite tedious I also think that
+00:13:51.160 rohand Derby made a video about how to
+00:13:53.600 make Crypt mats work in cernus and make
+00:13:56.680 this a bit easier for you I'm also going
+00:13:58.639 to link this in the description however
+00:14:00.600 in this case I want to just keep going
+00:14:02.360 with this I want to use this in the end
+00:14:05.040 to blend between my standard Beauty pass
+00:14:08.160 in here and my distorted Beauty pass
+00:14:10.600 let's first of all grab another blend
+00:14:13.240 note let's wire this after our distort
+00:14:15.639 node in front of a null and in this case
+00:14:18.759 our distorted output should be the
+00:14:20.880 foreground not the background so let's
+00:14:22.600 write in like this then I want to take
+00:14:24.920 my beauty pass in here from my file node
+00:14:28.040 the C output and I want to bring it over
+00:14:31.199 and wire this into the background of my
+00:14:33.519 blend and finally I want to go down to
+00:14:35.839 my cryptomed mask and I want to go from
+00:14:38.519 my mask up into the mask input of this
+00:14:41.279 blend note right here so entire notary
+00:14:44.000 now should look like this and again this
+00:14:46.759 should be all we need to do here so
+00:14:48.560 let's again jump back out let's jump
+00:14:51.079 back to a switch note and again let's
+00:14:53.519 play our animation and let's also maybe
+00:14:55.839 reset the simulation on the solver and
+00:14:57.839 let's see what we get oh and beginner
+00:14:59.759 arror in here of course the display flag
+00:15:02.839 inside our CET inside the solver doesn't
+00:15:04.880 matter so let's quickly jump back inside
+00:15:07.240 back to a CNET and let's set a display
+00:15:09.160 flag add on null up here and again after
+00:15:11.360 a bit of waiting we now have this really
+00:15:13.839 trippy kidcope looking data mushing
+00:15:16.480 effect in here which I think looks a lot
+00:15:19.079 better than our default effect and a lot
+00:15:21.160 more interesting and again this is just
+00:15:23.759 scratching the surface of what you can
+00:15:25.639 do inside of this cop net inside of a
+00:15:27.639 solver node you can add more noises you
+00:15:30.480 can add more filters you can just go
+00:15:33.120 wild in here and really build a lot of
+00:15:35.319 really different really cool looking
+00:15:36.800 effects the very last thing that I want
+00:15:38.880 to quickly do in here is I want to just
+00:15:41.720 quickly also build a setup to write
+00:15:43.639 those images back out to disk and for
+00:15:46.160 this you guess it I'm going to use one
+00:15:48.639 last CNET in the setup so I'm just going
+00:15:51.120 to drop down another null call this out
+00:15:54.079 drop down another cop Network wi this in
+00:15:57.519 or drop this below and here again use a
+00:16:00.560 so import again use an external soap
+00:16:03.800 again let's choose out again let's
+00:16:05.720 choose a go2 layer node let's select
+00:16:08.959 rgba and let's finally drop down a Rob
+00:16:13.000 image output we can drag in the geometry
+00:16:15.880 to layer in here into the cop path and
+00:16:18.480 then in here you have your typical
+00:16:19.959 output settings and for outputting this
+00:16:22.399 say as a JPEG file we're going to select
+00:16:24.959 our srgb display and then also ases 1.0
+00:16:28.600 strr video like this or you can leave
+00:16:30.959 all those settings at default and write
+00:16:32.880 it out as ns are if you want to do a lot
+00:16:35.040 more color grading later but this is it
+00:16:37.360 for today and until next time it's
+00:16:39.680 cheers and goodbye and also if you like
+00:16:42.279 what we're doing please consider
+00:16:43.800 becoming a patron of our not only for
+00:16:46.240 supporting anaga but also for access to
+00:16:48.800 inp courses like our new ml11 course
+00:16:52.560 which teaches you all about machine
+00:16:54.519 learning or if you want something
+00:16:56.440 simpler we have a newly prevent beginner
+00:16:59.800 series of Houdini with around 40 videos
+00:17:02.759 teaching you everything you need to know
+00:17:04.559 about getting started in Houdini you can
+00:17:06.359 find this and a lot of other courses on
+00:17:08.720 a patron and also let me say thank you
+00:17:11.000 so much to all our existing patrons
+00:17:13.359 without you this channel would not be
+00:17:15.400 possible thank you
