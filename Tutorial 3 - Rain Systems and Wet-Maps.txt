@@ -1,0 +1,787 @@
+# tactiq.io free youtube transcript
+# Tutorial 3 - Rain Systems and Wet-Maps
+# https://www.youtube.com/watch/zHERTeOmm7w
+
+00:00:01.450 [Music]
+00:00:12.190 welcome back to the third Houdini
+00:00:14.320 tutorial from 9 between and today we'll
+00:00:17.080 be going over how to create this effect
+00:00:29.150 now the serene effect has a few layers
+00:00:32.130 to it firstly we'll be creating a pop
+00:00:35.400 network that emits particles and from
+00:00:38.130 the collisions of those particles will
+00:00:39.510 emit a couple of things firstly we'll do
+00:00:41.430 some splashes and after that we'll do
+00:00:44.730 some running particles and run along the
+00:00:47.070 surface object next or copy geometry to
+00:00:50.550 all of those points and then finally
+00:00:53.580 we'll create a wet map so I hope you
+00:00:59.370 enjoy
+00:01:02.629 in Houdini let's begin by dropping down
+00:01:04.938 a geometry node alt click and drag this
+00:01:07.850 node it's duplicated first we'll rename
+00:01:10.670 our geo 102 rain and OTO 2 node will
+00:01:14.750 rename to Collider dive inside of his
+00:01:17.630 collider node and delete that final node
+00:01:20.049 next we'll drop down a rubber Toya and
+00:01:24.490 this will be our test geometry so next
+00:01:28.549 we'll drop down no plug that into our no
+00:01:32.090 and rename this doll Collider underscore
+00:01:35.659 up jump back up dive inside of our a
+00:01:39.590 node and let's drop down a grid this
+00:01:44.390 grid will be emits a for our particles
+00:01:47.569 so we can just resize this to a 5 by 5
+00:01:50.000 grid and move it up 5 units on the
+00:01:51.920 y-axis
+00:01:54.069 next we'll drive down a top Network
+00:01:57.799 and plug this girl into the first input
+00:02:00.009 dive exact spot Network give ourselves
+00:02:03.109 some space by dragging down this L trip
+00:02:04.939 node and in between our pops over an
+00:02:07.399 output node will drop a gravity force
+00:02:09.769 and in between a gravity force now Bob
+00:02:12.769 solver will drop down in merge
+00:02:15.220 next we'll need to merge in our Collider
+00:02:18.160 slow will create a static object and
+00:02:20.720 merge that in an unarmed urge node let's
+00:02:23.780 switch these inputs because left input
+00:02:25.700 effects right and we want our kaleidos
+00:02:28.549 to affect on the ring so under static
+00:02:31.340 object go to your son paw go to your
+00:02:34.280 Collider choose Collider out as Minsky
+00:02:37.880 it brings it into the scheme now we
+00:02:41.810 don't actually have an accurate
+00:02:43.849 representation of our collision and we
+00:02:46.310 can see this by going to our collisions
+00:02:47.810 tab and activating the collision guide
+00:02:50.209 if we hide our geometry we can see that
+00:02:52.670 this is a very inaccurate representation
+00:02:54.739 and we need reasonably accurate
+00:02:56.900 representations of our geometry if we
+00:02:58.910 are to be doing things like splashes and
+00:03:00.790 running of water so the uniform division
+00:03:05.389 is 280
+00:03:08.930 with your physical and increase the
+00:03:11.060 friction up to 100
+00:03:14.400 can hide our vision and display all
+00:03:16.620 geometry again now we can begin on
+00:03:20.010 actually creating the rain so once again
+00:03:22.349 get ourselves in space by dragging this
+00:03:24.090 up here I'm pulling I'll merge you know
+00:03:26.370 dawn on our pop source we'll go over to
+00:03:30.930 the birth tab and as you can see we have
+00:03:33.540 it set us 5000 for now and that'll be
+00:03:36.060 good but we can change it if your
+00:03:38.370 computer cannot handle a high particle
+00:03:40.739 card oh we can drop this to 2000 now and
+00:03:47.940 if we play this back you'll see we have
+00:03:50.819 particles falling from our grid
+00:03:55.480 to your timeline and activate the
+00:03:57.430 real-time toggles it plays back in
+00:03:58.930 real-time one thing you'll notice are
+00:04:01.659 these lines and fall and the reason we
+00:04:04.569 have these lines is because when we have
+00:04:07.330 fast-moving particles and they move a
+00:04:10.090 large distance between two frames
+00:04:11.890 Houdini does not account for that travel
+00:04:14.940 we end up with these strange artifacts
+00:04:18.250 of lions appearing to get rid of that we
+00:04:21.519 can increase our self steps by diving up
+00:04:24.610 and going on tell pop network going to
+00:04:26.590 our simulation tab and increase in the
+00:04:28.510 sub steps to five we dive back inside
+00:04:31.710 well I've sorted out our issue
+00:04:35.910 so the next thing to do is to drop a pop
+00:04:39.910 collision behavior
+00:04:45.080 I got in
+00:04:48.080 and we'll give us a group name of hit
+00:04:52.389 now a pop collision behavior nerd checks
+00:04:55.810 where the particles are interacting with
+00:04:57.460 a Collider just hitting it and then we
+00:05:00.490 can do particular things with that so in
+00:05:02.530 this case we're adding it to a hit group
+00:05:04.599 and we're also coloring those particles
+00:05:07.539 red but when we play this back and let's
+00:05:10.180 set these particles aren't getting
+00:05:11.560 colored red so on our pop solver if we
+00:05:15.310 go to collision behavior you'll notice
+00:05:17.889 that there's this ad hit attributes
+00:05:19.599 toggle so if we activate that and then
+00:05:22.659 go back we'll notice but now all
+00:05:25.810 particles are turning red you can't see
+00:05:28.029 that you just press D it's a geometry
+00:05:31.150 and increase your point size to 10 and I
+00:05:36.009 can see that we have some particles that
+00:05:37.479 are turning red
+00:05:39.980 you
+00:05:43.270 that we have particles colliding and
+00:05:45.099 those collisions are being registered so
+00:05:48.639 what would we like to do with those
+00:05:49.690 particles well first we'd like to have a
+00:05:52.180 response and we'd like these particles
+00:05:54.160 to die on impact but now we have a group
+00:05:57.400 that we can work with called hit group
+00:05:59.349 so we'll be using that jockey first
+00:06:03.220 let's keep working on our current
+00:06:04.750 classical set up
+00:06:05.680 so next we'll drop down a pop for angle
+00:06:11.039 and in this pop wrangle we'll just say
+00:06:13.630 at bones equals one
+00:06:17.699 next we'll drop down a pop wind
+00:06:23.380 with an air resistance of 9.5 altitude
+00:06:26.500 of 1 and a swell size of 5 what I'll
+00:06:29.830 give us is some general movement you
+00:06:32.110 know pops
+00:06:35.230 you
+00:06:37.790 but we're gently
+00:06:40.200 that emulates rain quite well next we'll
+00:06:44.820 drop down a tough group
+00:06:48.180 and this pop group will be called Maine
+00:06:51.470 called Maine activate preserve group and
+00:06:54.770 enable this rule
+00:06:57.790 now the reason we're grouping these
+00:06:59.690 particles is because once we leave our
+00:07:01.670 pop net we would like to have access to
+00:07:04.310 the particles that are falling so that
+00:07:05.750 we can attach a geometry to each point
+00:07:09.520 so the last thing that we need to do for
+00:07:12.350 this first stream is to drop down in
+00:07:14.660 puff to kill node or place it after our
+00:07:19.190 murder and we'll use a bounding box
+00:07:21.710 enable bounding
+00:07:25.390 what we like to do is kill all particles
+00:07:27.570 below our Collider so we'll drop the
+00:07:31.600 center to minus 2 on Y axis and we'll
+00:07:35.890 give it a size of 10 by 1 by 10 now any
+00:07:39.520 particles at fault beyond our Collider
+00:07:41.620 will be killed
+00:07:43.170 let's save space during our simulation
+00:07:47.790 now we can go on to creating our
+00:07:50.530 splashes so we'll be using a hot stream
+00:07:58.719 and we'll use our source group that we
+00:08:01.899 created called KITT group so what this
+00:08:04.869 does is it creates a new stream of
+00:08:06.489 particles based on in group and we
+00:08:09.189 already have this group that we created
+00:08:10.509 with the population behavior so when
+00:08:12.999 particles collide with our geometry they
+00:08:16.179 get sent into the stream so in this
+00:08:18.789 stream we can run a pop replicate the
+00:08:22.119 plug will stream into its first input of
+00:08:24.639 your pop replicate and we'll go over
+00:08:27.729 here to the constant activation switch
+00:08:30.009 it off turn down our constant birth rate
+00:08:32.589 give it an impulse count at five
+00:08:35.578 next we'll go down here let's change our
+00:08:38.919 life expectancy to no 25 and what that
+00:08:42.698 will do is as particles hit will emit
+00:08:45.759 five particles have a lifespan of 9.25
+00:08:49.620 so we can plug this in to see what that
+00:08:51.730 looks like
+00:08:55.889 as you can see we have these particles
+00:08:59.490 colored red
+00:09:01.730 appear to be emitting in a large area
+00:09:04.279 and the reason for that is under the
+00:09:06.050 shape tab we have this shape sphere now
+00:09:10.790 we would rather have our points emitted
+00:09:12.829 from a single point of impact rather
+00:09:15.410 than from a sphere we change this to
+00:09:18.589 point now when we play it back upon
+00:09:22.070 impact
+00:09:24.380 we'll be emitting five points
+00:09:28.290 hi so go over to your attributes these
+00:09:31.199 add to inherited velocity set back to
+00:09:33.480 north point two-five
+00:09:34.350 a radial velocity goes up to one and
+00:09:37.380 we'll put more point five variants on
+00:09:39.509 each axis once again play that back
+00:09:46.910 the splash upon impact and the reason
+00:09:49.220 they carted red is because they're
+00:09:51.140 inheriting all attributes from this
+00:09:52.970 first stream from the group called hit
+00:09:55.970 group and hit group we still have
+00:09:57.500 colored red so we don't have to color
+00:10:00.260 our hits we can switch that off and
+00:10:02.960 that'll do around splashing
+00:10:07.920 next we need to just do a few things to
+00:10:11.020 this pub stream so I'll drop down your
+00:10:13.810 angle
+00:10:16.760 we'll say app bounced equals one and
+00:10:21.860 then we'll do a pop group
+00:10:28.160 pop group we will call splash once again
+00:10:32.660 preserving the group and enabling in the
+00:10:34.519 rule and so now the stream will all be
+00:10:38.839 grouped into the splash group while the
+00:10:40.519 first stream will all be group into the
+00:10:41.959 main group now we can move on to
+00:10:44.779 creating our running effect because now
+00:10:48.050 we have particles that splash upon
+00:10:49.699 impact we would like particles that run
+00:10:51.350 down the surface upon impact
+00:10:53.740 to do this we'll be dropping down on top
+00:10:56.890 screen once again will activate the
+00:11:00.550 soulless group and call the hit group
+00:11:04.740 next we'll drop down a popper at the
+00:11:06.940 gate mode
+00:11:09.390 and peugeot pop scream into the first
+00:11:11.010 input
+00:11:13.020 now we won't be using constant
+00:11:14.670 activation and we won't be using a
+00:11:16.230 constant birth rate we will be using
+00:11:18.839 impulse count and we'll set that to 1
+00:11:20.880 and what that'll do is on impact join
+00:11:24.570 with one point based on our hip group
+00:11:28.010 the next we can drop it life expectancy
+00:11:30.110 to Norway not five
+00:11:32.600 and once again we would like it upon the
+00:11:34.550 point of impact so set that to point and
+00:11:37.520 not attributes we won't inherit anything
+00:11:39.700 we'll set our initial velocities north
+00:11:42.410 bank one on each axis
+00:11:46.520 so now that we have that set up what
+00:11:50.810 this will do is as a point collides with
+00:11:53.330 geometry a new point will be emitted at
+00:11:56.480 that point that has a life expectancy of
+00:11:58.760 naught point naught 5 so what we'll be
+00:12:02.300 doing that that is spawning points off
+00:12:04.880 of that in our next path the tree and
+00:12:07.279 that will run down the surface so this
+00:12:09.980 is just setting where we want those
+00:12:11.390 streams of water to be running from it's
+00:12:15.649 been go ahead and drop down a popper
+00:12:17.060 angle
+00:12:19.340 and this proper angle same as before
+00:12:20.990 until at Bart's equals zero this time
+00:12:24.350 and the reason for that is we don't want
+00:12:26.720 these particles to bounce off of the
+00:12:28.160 surface we want them to stick and
+00:12:30.250 Houdini recognizes this bounce attribute
+00:12:33.320 within pop networks so we can't just
+00:12:36.230 call it straight at bounce equals zero
+00:12:38.090 next let's drop down a pop collision
+00:12:41.060 behavior again bug listen tell pop
+00:12:44.450 collision behavior and we'll give this
+00:12:46.790 group name
+00:12:47.510 run spot
+00:12:52.340 or preserve the group
+00:12:56.350 hits understand as a response will make
+00:12:58.810 them stick to the surface so we can go
+00:13:02.830 ahead and plug this into our merge node
+00:13:05.320 and begin on our last stream so create
+00:13:10.600 another pop stream and another pop
+00:13:13.780 replicate
+00:13:17.480 pop stream into the first input of our
+00:13:18.980 replicate and let's go to our pop stream
+00:13:21.350 once again source group will activate
+00:13:24.920 but this time we'll be using the group
+00:13:27.199 that we created in our second stream
+00:13:31.300 and that was called run spawn over here
+00:13:34.480 we'll just say run spawn and now we can
+00:13:39.070 go on top up replicate the oh no pop
+00:13:42.220 replicate we'll do an impulse cut one no
+00:13:46.570 activation
+00:13:47.290 I know birth rate or constant and we'll
+00:13:51.459 give it a life expectancy if you next
+00:13:54.519 we'll go onto our shape and for shape we
+00:13:58.029 actually don't want them emitted from a
+00:13:59.500 single point we like them with some
+00:14:01.329 variants so we'll limit from North Point
+00:14:04.300 not one
+00:14:06.510 that's just the scale of the sphere that
+00:14:08.160 it's emitting from
+00:14:10.430 next we can go over to our attributes
+00:14:13.010 and we weren't inherit any of the
+00:14:15.380 attributes we won't inherit velocity
+00:14:21.260 initial velocity to no point one and
+00:14:24.040 that'll be the variance so next you can
+00:14:27.860 go ahead and drop down another angle and
+00:14:30.820 again as they act bounce to zero then we
+00:14:38.180 can drop down a pump property
+00:14:43.979 and what a pot property is used for is
+00:14:47.389 for initializing attributes that we Dini
+00:14:50.970 recognises so the one that we'll be
+00:14:53.220 using is on the dynamics tab that's
+00:14:55.470 called pling
+00:14:57.850 it will set a claim of 100 and what
+00:15:01.360 that'll do is it'll make the particle
+00:15:03.100 stick to the surface of the geometry
+00:15:05.640 this area is just the strength to which
+00:15:08.230 it clings
+00:15:09.939 and this will be different depending on
+00:15:12.819 your geometry and what kind of rain
+00:15:14.499 effect you're going for but I find 100
+00:15:17.079 works quite well
+00:15:19.300 next we can go ahead and drop down okay
+00:15:21.070 puck to vision behavior
+00:15:25.630 are your property into this collision
+00:15:27.790 behavior and this crew pain will be
+00:15:30.790 called run
+00:15:33.730 we can color these heads to see what
+00:15:35.080 they look like so we'll make them light
+00:15:36.880 blue
+00:15:39.340 and this one will be using slide as a
+00:15:41.470 response
+00:15:45.020 and again we'll be preserving our group
+00:15:46.760 as we've done before and the next thing
+00:15:51.590 that we'll do is we'll drop your puck
+00:15:53.630 interact
+00:15:57.200 there is a position force of minus 0.2
+00:16:00.920 and a velocity force of not point to and
+00:16:05.330 what this does is position force is a
+00:16:08.240 force used to push particles apart if we
+00:16:11.000 make it a negative force it becomes a
+00:16:12.680 force that pulls particles together and
+00:16:14.680 rain tends to gather so we would like
+00:16:17.570 this to be a force that pulls particles
+00:16:20.030 together but not too much of a force
+00:16:21.530 that they immediately clump the note
+00:16:25.040 point or negative nor point to is a
+00:16:26.960 decent number to work with velocity
+00:16:29.300 force causes particles that are nearby
+00:16:32.150 to each other to blur their velocity so
+00:16:36.200 they tend to share velocities and so
+00:16:39.050 that replicates droplets of rain quite
+00:16:41.540 well next thing that we'll do is we'll
+00:16:45.620 drop down on hip-hop drag and on this
+00:16:51.050 pop drag will set up tip 10
+00:16:54.900 and then we can finally plug this pop
+00:16:57.330 dragged into a merge node press alt to
+00:17:01.170 lay everything out and I'll display a
+00:17:03.750 flag on our output I pay this back to
+00:17:06.689 see what happens
+00:17:15.720 so if you look closely we have these
+00:17:18.609 light blue particles that slide down the
+00:17:20.589 surface once again press D bring up your
+00:17:23.410 point size and we can take a look at
+00:17:25.869 what's happening now
+00:17:28.630 so when we played us back y'all notice
+00:17:30.309 some particles hitting and rolling off
+00:17:31.990 of the surface
+00:17:35.660 and that more or less looks like
+00:17:37.400 droplets of rain
+00:17:44.750 so what we'll do is well
+00:17:47.600 jump up out of his Network trap down a
+00:17:50.390 file cache nerd
+00:17:51.559 I got pop nets into this
+00:17:55.160 find a place to save a rain cache
+00:18:02.070 here to my ring thought great a new
+00:18:04.980 folder called cash and in here
+00:18:09.820 coldest rain particles dot dollar F F
+00:18:17.610 dot B GE o SC so dollar FF once again
+00:18:22.900 that's the corresponding frame to save
+00:18:25.540 because if we don't have this it will
+00:18:27.730 only save one file and we'd rather have
+00:18:29.710 a sequence saved but B GE o SC is what I
+00:18:35.140 found to be the best I'll type saving
+00:18:37.810 geometry on pop net so that's what we'll
+00:18:41.620 be using for this one having a switch on
+00:18:44.920 load from disk so that once it's saved
+00:18:47.050 to disk won't be calling this every time
+00:18:49.510 but rather just fetching from our file
+00:18:51.190 cache and the last thing that we'd like
+00:18:53.650 to do before we actually catch this up
+00:18:55.240 is to increase the number of particles
+00:18:56.950 I've been using we can go to our pop
+00:18:59.590 source increase this to 5,000
+00:19:04.909 finally
+00:19:07.160 the disk
+00:19:11.580 then once the particle
+00:19:14.650 we can begin copying geometries in these
+00:19:16.270 plans so we'll drop down is still said
+00:19:22.120 I'll display flag on the sphere
+00:19:23.500 can't you take polygon mesh will change
+00:19:26.050 its rows to 5 and its columns to 8 and
+00:19:29.320 that gives us a faceted sphere so the
+00:19:33.220 next thing that we'll do is well drop
+00:19:34.900 down and edit node go here select this
+00:19:40.810 top point and we'll move it up just
+00:19:49.570 until this resembles a raindrop next we
+00:19:54.580 can drop a copy two points and we can
+00:20:01.660 plug our rain particles into this now
+00:20:05.740 currently it's copying to the collider
+00:20:07.750 geometry that we've brought in so we
+00:20:10.120 need to just choose which points we
+00:20:11.590 would like our sphere to be copy to so
+00:20:14.230 over here we can choose our main points
+00:20:16.750 and if you remember those all the ones
+00:20:19.120 in our popular that are just falling we
+00:20:21.790 have a splash group we have a run group
+00:20:24.010 and we have this main group so for this
+00:20:26.170 one we'll use the main group and if you
+00:20:28.300 can't be two points these points are
+00:20:30.130 currently massive so to fix that or
+00:20:35.020 dropped on an app to attribute dry angle
+00:20:36.760 between our file cache and our copy to
+00:20:38.860 point in here I'll do two things firstly
+00:20:43.240 we'll say at orient equals V V and then
+00:20:49.750 we'll say at P scalar equals not point
+00:20:53.620 not one
+00:20:55.700 and semicolon there we go so what that
+00:21:01.590 does is this orient equals V at V so
+00:21:07.590 that's our orientation of our particles
+00:21:09.540 to face the direction of our velocity so
+00:21:11.910 if we have velocity moving slightly to
+00:21:14.430 the side as you can see on a lot of
+00:21:15.780 these points and they'll face that
+00:21:17.490 direction and so that just gives it a
+00:21:20.970 bit of variation that makes it a lot
+00:21:22.500 more accurate in terms of how it looks
+00:21:25.070 then our P scale is just setting the
+00:21:28.080 scale of our points so we can change
+00:21:30.360 this depending on the scene so I think
+00:21:33.210 for the angel I use naught point naught
+00:21:34.890 naught v then I just up the amount of
+00:21:37.770 particle that we had but we'll keep this
+00:21:40.530 up north point naught 1 for now just so
+00:21:42.660 we can see all right
+00:21:45.270 you can drop down you know after that
+00:21:48.860 plug that in there rename this no mean
+00:21:54.140 underscore next we can move on to
+00:21:58.830 working without splashes snowball drop
+00:22:02.310 down another sphere said I'll display
+00:22:05.580 flag to it again once again set it to a
+00:22:09.420 polygon mesh this time we'll do 3 rows
+00:22:12.510 and 4 columns and then I'll drop down
+00:22:16.980 I'll copy two points plug it into the
+00:22:19.920 first input and plug our file cache into
+00:22:22.470 the second input on those copies points
+00:22:25.080 once again we'll choose the correct
+00:22:27.060 group and this sign will be using the
+00:22:29.160 splash group we can set our display flag
+00:22:32.760 and once again these points are massive
+00:22:34.790 so to correct that another attribute
+00:22:37.410 triangle between our copies points in
+00:22:39.030 our file cache and the reason that we
+00:22:41.880 put this attribute angle over here is
+00:22:44.250 because copy two points when it copies
+00:22:46.920 your geometry to these points your
+00:22:48.780 geometry inherits these attributes so
+00:22:52.280 your sphere in each case would inherit
+00:22:56.220 your orientation and your P scale so you
+00:22:59.280 can make it inherit other things such as
+00:23:00.690 color and an up attribute whatever you
+00:23:04.680 need it to inherit you can inherit
+00:23:05.940 through you
+00:23:07.980 so we'll continue and do at least L
+00:23:14.400 equals dot point naught dot fire so
+00:23:18.430 these points will be slightly smaller
+00:23:19.690 than our other points and then again we
+00:23:24.520 can drop down a no and call this one its
+00:23:29.560 flash underscore so if you take a look
+00:23:34.470 you can just hire this flippy collider
+00:23:36.550 he's in a separate note just hide all
+00:23:39.550 the objects and now we can see what's
+00:23:41.620 happening with our splashes hi
+00:23:44.200 instancing these points to all of the
+00:23:48.760 splash points now our final note is our
+00:23:54.760 run group so this one will be doing
+00:23:57.010 slightly differently let's drop a tallit
+00:23:59.590 note we would like to delete everything
+00:24:02.230 except for run so exclamation run change
+00:24:07.180 these two points there we go
+00:24:09.070 now we have only the run particles so
+00:24:14.920 what we can do with this is we can drop
+00:24:17.440 down in gdb from particles btv particles
+00:24:22.810 there we go
+00:24:24.690 plug your heat node into the first input
+00:24:27.340 and you end up with this blobby mess
+00:24:31.330 the reason for that is just our voxel
+00:24:33.580 size and our point radius scale
+00:24:36.230 so we'll begin by dropping our point
+00:24:38.090 radius scale drop it down to your naught
+00:24:41.360 point naught naught 3 5 drop our minimum
+00:24:45.500 radius down to no one
+00:24:48.909 then our voxel size will drop down to
+00:24:52.010 north point on all time the reason I did
+00:24:54.470 it in that order is because a lot of the
+00:24:56.179 time when you decrease your voxel size
+00:24:58.130 on this VDD from particles node without
+00:25:01.179 changing your point radius scale you can
+00:25:03.919 really slow down the process these two
+00:25:05.659 should be as close to each other as
+00:25:06.860 possible and if you want accurate
+00:25:08.750 representations you'll drop this
+00:25:10.070 slightly lower than your point radio
+00:25:12.230 scale but in this case it's fine it's
+00:25:16.460 the next thing that will do it will drop
+00:25:19.820 down a convert BBB
+00:25:27.200 and we'll convert from volume to
+00:25:29.520 polygons and as you can see we now have
+00:25:32.520 these tiny droplets and they may be a
+00:25:35.370 bit too small so we can just increase
+00:25:37.800 the size of our point radio skelton
+00:25:39.450 operate not 5
+00:25:40.500 sorry no point normal at 5 and on the
+00:25:46.050 other thing that you can do on your V DV
+00:25:47.310 from particles node is change your
+00:25:49.560 particle footprint so you can change
+00:25:51.690 this from spherical to your velocity
+00:25:53.250 trail and as you can see it goes quite
+00:25:57.180 crazy and the reason for that is just
+00:25:59.010 our settings over here but we can't make
+00:26:01.590 this work so what we have to do is
+00:26:03.450 change your multiplier to Northpoint not
+00:26:06.570 1 and your velocities basins in or point
+00:26:10.050 two and it creates a slight trail so the
+00:26:17.700 last thing that you'll need to do is
+00:26:20.120 you'll need to transfer your velocity so
+00:26:25.200 we'll drop down an attribute transfer
+00:26:26.550 node plug your convert VDP into the
+00:26:28.860 first input now what we'll be doing here
+00:26:31.110 is taking the points from our delete
+00:26:34.530 node and feeding the velocity back in
+00:26:37.650 because you'll notice something on this
+00:26:39.600 convert VDB node we don't have our
+00:26:42.030 velocity anymore and the reason for that
+00:26:43.980 is when you're converting to a V DV
+00:26:45.870 you're losing all of your attributes so
+00:26:49.380 we don't have any of those attributes
+00:26:50.280 anymore so we'll have to transfer them
+00:26:52.890 back on so under the attributes points
+00:26:56.910 we'll just select V will change our
+00:27:02.160 distance to one point to drop down and
+00:27:06.540 now
+00:27:08.640 plug the Centaur now and we'll call this
+00:27:11.669 one the run underscore hours and once
+00:27:17.460 you've done that you can merge all of
+00:27:19.169 these together and take a look at what
+00:27:23.789 we have
+00:27:24.710 so you'll notice a few things such as
+00:27:27.000 these particles being too big but that's
+00:27:30.360 all to you you can make changes to that
+00:27:32.760 sitting over here and change our key
+00:27:34.769 scale to 0.05 perhaps you want them
+00:27:39.390 smaller and the reason that we use these
+00:27:43.409 round droplets as opposed to a longer
+00:27:46.740 geometry is because we will be rendering
+00:27:49.169 this or you would be rendering this with
+00:27:52.110 velocity and you would be using motion
+00:27:54.419 blur and so these particles would blur
+00:27:56.519 in a streak so you don't have to have
+00:27:59.610 geometry that looks like rain you just
+00:28:01.620 need something that merely resembles it
+00:28:04.399 so once you have that you can just drop
+00:28:08.010 down a normal node drop down on your
+00:28:11.850 final No call this one rain underscore
+00:28:16.080 now and there you have it
+00:28:20.600 say if we jump up a level and show our
+00:28:23.220 geometry you can play this back and take
+00:28:26.190 a look at what happens we have our
+00:28:27.899 particle splashing and we have some
+00:28:29.820 running down the surface and of course
+00:28:31.830 you can tweak all of these settings if
+00:28:33.210 you'd like to change this and of course
+00:28:36.000 this isn't exactly what I used for the
+00:28:38.340 angel render but it's more or less the
+00:28:40.919 same so you can get the same effect that
+00:28:43.649 I got in the angel just with a few
+00:28:46.440 tweaks the last thing that we'll be
+00:28:48.120 doing is adding a wet-nap to create the
+00:28:51.269 web map we'll be using an infection
+00:28:52.919 sulfur and it will be the one that then
+00:28:55.950 Watts uses it's quite similar to the one
+00:28:57.990 seen in my Phoenix desintegration video
+00:28:59.760 but the one that Ben Watts tells is all
+00:29:02.130 involved and it's quite useful to have a
+00:29:05.370 nother approach to it I do quite like
+00:29:07.529 his setup so a thanks to Ben watts for
+00:29:10.320 that tutorial and I'll be linking that
+00:29:12.269 in the description if you want to check
+00:29:13.470 that out so let's dive inside of our
+00:29:15.720 collider node drop-down is scatter
+00:29:18.580 like alkali out into the scatter one
+00:29:21.130 nerd and we'll push up up total current
+00:29:23.620 to 8,000 next will drop down an object
+00:29:28.090 merge and over here will merge in our
+00:29:33.130 file cache from our rain node find a
+00:29:37.720 file cache and next will be dropping
+00:29:40.120 aide to leave node like your object
+00:29:43.270 merge into this delete node and what
+00:29:46.060 will be deleting from this is our
+00:29:48.220 collider because our file cache cache
+00:29:51.130 the collider as well and we don't want
+00:29:52.780 to use that so all we'll have to do on
+00:29:54.850 this delete node is remove this
+00:29:56.980 exclamation there we go
+00:30:00.460 that removes all primitives from our
+00:30:03.610 object merge so now we only have points
+00:30:05.910 next we can drop down an attribute
+00:30:08.590 wrangle and over here we'll say at wet
+00:30:15.750 equals one point one we can copy over
+00:30:21.940 this attribute triangle to the side of
+00:30:24.370 our scatter node and I'm on this
+00:30:27.460 attribute angle will say add wet equals
+00:30:29.680 0 now we have to attribute wrangles each
+00:30:33.060 initializing our wet attribute so the
+00:30:39.040 next thing that we'll do is drop down a
+00:30:40.690 solver into the first input we'll plug
+00:30:43.750 our scatter node and the second input
+00:30:47.290 will take our object merge now we can
+00:30:51.820 dive inside of our solver and drop down
+00:30:54.430 a point
+00:30:57.520 into the first input of our point four
+00:30:59.870 or plug our previous frame and second
+00:31:02.090 input we'll be taking our input to type
+00:31:06.830 inside of our point park and we'll be
+00:31:09.050 dropping a few things first a point to
+00:31:13.490 hard open and we can just duplicate that
+00:31:19.480 by holding alt and dragon now or plug
+00:31:24.560 our P attribute into the corresponding
+00:31:27.850 inputs of our PC opens
+00:31:31.390 and into the file input of our PC open
+00:31:34.220 one volt lock-up input 1 and up input 2
+00:31:37.790 or going to our PC open to file input
+00:31:42.010 next thing to do is to drop a PC filter
+00:31:49.159 handle into the filter duplicate the
+00:31:51.619 folks are unplug the corresponding
+00:31:53.960 handle into a second filter now on both
+00:31:56.989 of these folders we'll have to change
+00:31:58.609 the signature and the channel so we'll
+00:32:00.889 change our signature to flirt and the
+00:32:05.119 channel that we're looking for is that
+00:32:06.739 wet attribute that we created so what
+00:32:09.619 this does is it opens a point cloud and
+00:32:13.179 within the cloud it looks for this
+00:32:16.820 attribute and so we can do things
+00:32:20.210 depending on proximity from this point
+00:32:23.960 cloud to this point cloud and what we'll
+00:32:26.330 do is we'll add attributes so we'll add
+00:32:29.989 the current weight attribute that we
+00:32:31.940 have to the existing weight attribute
+00:32:36.039 then we'll drop down a bind export and
+00:32:41.509 plug the
+00:32:43.340 on this bind export we will rename this
+00:32:46.520 to wet so that it re export our wet
+00:32:51.320 athlete so it adds the two wet
+00:32:53.510 attributes together and then re-exported
+00:32:55.370 you can also plug this into our CD
+00:32:57.740 attribute so we can see what's happening
+00:32:59.320 and then on our PC open we have a couple
+00:33:04.550 of settings but we'll get back to the
+00:33:05.810 short thing what we'd like to do is just
+00:33:09.440 flip this so offered our range between 0
+00:33:15.020 & 1
+00:33:15.290 [Music]
+00:33:17.059 and the reason for that is it will add
+00:33:18.919 indefinitely Omega over 1 or we want it
+00:33:21.649 clamped to just a fair point so next
+00:33:24.679 we'll just like this footnote into our
+00:33:26.929 CD make sure that it's plugged into our
+00:33:28.580 input of our mind export you can jump up
+00:33:31.999 a level and play this back to see what
+00:33:36.590 happens
+00:33:38.850 so as you can see
+00:33:42.350 an attribute and if you remember
+00:33:44.990 correctly attribute for wet is
+00:33:47.809 corresponding to how C D attribute so as
+00:33:51.980 this turns white that represents our
+00:33:55.010 object getting wet this value for wet
+00:33:59.510 it's being transferred on to these
+00:34:01.669 points and that's great but it's getting
+00:34:05.419 transferred onto too many points too
+00:34:07.010 quickly so we'll make a few minor
+00:34:10.520 adjustments change our search radius
+00:34:13.580 down to naught point naught 5 and both
+00:34:16.100 pop PC opens and change the number of
+00:34:18.949 points down to 5 I'm gonna play that
+00:34:24.020 back
+00:34:27.570 like works quite well the only other
+00:34:30.929 thing that you may want to do is add
+00:34:33.000 some sort of drying effect and you can
+00:34:35.100 do that by dividing or blurring this
+00:34:37.440 attribute for the wet value every frame
+00:34:41.770 so we can do that but going back into
+00:34:44.480 our 1-var an on this first input if you
+00:34:48.500 remember correctly this is the previous
+00:34:50.659 frame so this fetches the wet attributes
+00:34:53.149 of the previous frame so what we can do
+00:34:55.849 with that is we can drop down a divide
+00:34:59.329 constant and every frame just divide
+00:35:03.770 this slightly so we'll divided by 1.05
+00:35:08.890 go up level and you can see what that
+00:35:11.660 does so as it gets wet it also dries or
+00:35:15.589 absorbs moisture slightly
+00:35:18.380 once we have this we can drop down and
+00:35:20.900 transfer attribute plug our Collider out
+00:35:27.380 into the first input and a solver into
+00:35:30.800 the second input and what we'll be
+00:35:33.920 transferring from you is simply a wet
+00:35:37.580 attribute so now that we have our wet
+00:35:41.210 attribute on our original geometry we
+00:35:44.150 can do a few things with that so we'll
+00:35:45.800 drop down an attribute angle and plug
+00:35:47.840 this into the first input firstly we can
+00:35:51.230 say at CD equals channel ramp cassette
+00:35:57.080 see a trap we'll just call this CLR
+00:36:00.350 color , and then you needed a driving
+00:36:03.260 force so we'll use our wet attribute
+00:36:05.420 that's at wet and then we can create our
+00:36:11.240 spare parameters go up to edit parameter
+00:36:14.240 interface in this color node we'll just
+00:36:18.440 be changing the ramp type from float to
+00:36:20.510 color apply and except that's something
+00:36:23.360 that you'll notice if we're just adding
+00:36:25.580 extra color over here is that we can
+00:36:29.510 have this attribute control our color
+00:36:33.119 and that's great because wet areas often
+00:36:36.240 appear darker on object and of course
+00:36:38.940 that depends on the object you're
+00:36:40.019 working with if you're working with
+00:36:41.700 something like glass you won't need that
+00:36:43.460 but things like cement or that angel
+00:36:47.130 that I was working on cement would get
+00:36:49.529 darker as it gets wetter so what we can
+00:36:52.289 do is just flip us around and set the
+00:36:55.079 first value to white and the last input
+00:36:57.539 to black and what that will do is darken
+00:37:01.650 the areas that are wet and you can slide
+00:37:05.339 these around if you want it's to look
+00:37:08.430 more wet in more places and you don't
+00:37:11.460 have to have this as pitch black you
+00:37:13.549 just have that as a gray now areas get
+00:37:17.549 wet how's the water hit
+00:37:21.460 and the last thing that we would like to
+00:37:23.260 do is change the roughness so what we
+00:37:26.920 would like is for the wet areas to be
+00:37:28.839 shinier so we can say a pure ax equals
+00:37:33.099 channel ramp and in these inverted
+00:37:38.770 commas we'll say rah that's what it will
+00:37:40.780 call our ramp and once again it will be
+00:37:43.089 driven by wet so we can create spare
+00:37:47.770 parameters and now we have this
+00:37:49.660 roughness ramp now an attribute the
+00:37:53.920 value of one means that something is
+00:37:56.200 entirely rough and has no shine to it so
+00:38:00.460 we'll invert this I'll just bring this
+00:38:02.859 up to them halfway and we'll drop this
+00:38:05.470 down to almost zero
+00:38:08.260 I will deny play notes
+00:38:14.020 and you won't be able to see it in this
+00:38:15.430 view but when you render out all the
+00:38:17.680 areas that are wet will be shinier so
+00:38:20.740 that's all you actually need to get this
+00:38:22.360 wet map working and of course you can
+00:38:24.790 make changes to your ramps and that will
+00:38:28.540 change how it looks when it's rendered
+00:38:31.810 so we can jump back up and take a look
+00:38:34.360 at the two of these together and you can
+00:38:38.920 go ahead and render this out
+00:38:41.480 you would have to do is activate your
+00:38:44.030 motion blur on your particles and in
+00:38:46.880 your camera settings and once again
+00:38:49.070 that's covered in other tutorials it's
+00:38:51.740 covered in our Doctor Strange portable
+00:38:53.630 effect tutorial and you can apply a
+00:38:55.730 glass shader to these particles and that
+00:38:59.630 should work so that's all for this
+00:39:02.359 tutorial thanks for watching and be sure
+00:39:04.520 to give me feedback we'll be releasing a
+00:39:06.890 lot more tutorials in the coming weeks
+00:39:08.780 we are really exciting things coming up
+00:39:10.550 we have a lightening tutorial we have a
+00:39:13.369 Rubik's Cube tutorial we have some
+00:39:15.560 geoeffective things that we're doing and
+00:39:17.480 we even have a carnage symbiote coming
+00:39:19.910 up so stay tuned for all of that once
+00:39:22.190 again thanks for watching
+00:39:25.120 [Music]
