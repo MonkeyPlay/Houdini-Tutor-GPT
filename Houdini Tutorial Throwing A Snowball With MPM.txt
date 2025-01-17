@@ -1,0 +1,778 @@
+# tactiq.io free youtube transcript
+# Houdini Tutorial: Throwing A Snowball With MPM
+# https://www.youtube.com/watch/lhACxtQCRCY
+
+00:00:02.240 after all this Copernicus content we
+00:00:04.279 shouldn't forget about the other stuff
+00:00:06.200 from Houdini 20.5 and we especially
+00:00:08.760 shouldn't forget about the new mpm
+00:00:10.519 solver and although judging by the
+00:00:12.639 weather in Germany right now A W mod
+00:00:15.040 simulation would be quite fitting I want
+00:00:17.160 to create something a bit more cheerful
+00:00:19.199 I want to create a snowball before I
+00:00:21.039 actually jump into udini and create a
+00:00:22.760 snowball I first of all want to quickly
+00:00:24.640 talk about in what cases we actually do
+00:00:27.199 want to use this new mpm solver because
+00:00:30.039 it in some ways is quite similar to flip
+00:00:32.800 and in other ways quite similar to
+00:00:34.320 Vellum and so we need to find out where
+00:00:36.800 we want to use it compared to well flip
+00:00:39.160 and well so this is my very unscientific
+00:00:42.280 graph down here on the x-axis we have
+00:00:45.320 the consistency of the thing that we're
+00:00:47.960 going to simulate from very loose to
+00:00:50.199 very solid and in here on the y-axis we
+00:00:52.600 have the competence of the solver in
+00:00:54.399 simulating that and so for example if we
+00:00:56.840 take a look at a flip solver a flip
+00:00:58.879 solver is very very competent in fluids
+00:01:02.199 and viscous fluids however it's not
+00:01:04.119 really good for simulating grains or
+00:01:06.360 soft bodies for example and technically
+00:01:08.799 it is able to work together with the RBD
+00:01:11.520 solver in hini so it gets a little bump
+00:01:14.280 in here for solids as well taking a look
+00:01:16.799 at Vellum Vellum since this is a multis
+00:01:19.360 solver is basically a spiky boy the two
+00:01:22.479 things that Vellum is used for best is
+00:01:25.479 soft bodies and Grains we have those two
+00:01:27.960 huge spikes in here however it is also
+00:01:30.720 somewhat competent in fluid and viscous
+00:01:32.640 fluids just not as well as flip and it's
+00:01:34.920 also somewhat competent in solids just
+00:01:37.479 not as well as rvds and you're mainly
+00:01:39.720 going to use Vellum if you're mainly
+00:01:41.600 going to simulate soft bodies on graines
+00:01:43.960 and you want to have fluid or solids
+00:01:46.360 interact with those soft bodies or with
+00:01:48.560 those grains this is where we're going
+00:01:50.280 to use Vellum now where does mpm fall on
+00:01:53.240 this diagram what it looks something
+00:01:55.399 like this it's basically competent
+00:01:58.039 throughout the whole range of those
+00:02:00.280 material properties it's just not very
+00:02:02.759 competent in any of them so the only
+00:02:05.119 thing or the only case where we do
+00:02:06.759 actually care about the mpm over is
+00:02:08.959 where we do want this large range of
+00:02:11.840 material properties and it also has the
+00:02:14.080 nice party trick that materials that
+00:02:15.959 we're going to simulate can sort of move
+00:02:17.879 up and down this line down here and at
+00:02:20.920 one point act as soft bodies and at one
+00:02:23.480 another Point act as grains and this is
+00:02:25.599 exactly the thing that we're going to
+00:02:27.120 need for a snowball because a snowball
+00:02:29.319 should start out here as a sort of
+00:02:31.760 hardish soft body while throwing it
+00:02:34.640 however as soon as we hit something we
+00:02:37.120 want to have some parts of a snowball
+00:02:40.040 turn into snow chunks into sort of solid
+00:02:43.200 objects that fly away but we also want
+00:02:45.640 to have a lot of tiny debris a lot of
+00:02:48.159 thing that really acts like grains and
+00:02:50.120 this will be a snowflakes and the mpm
+00:02:52.280 solver in Houdini is the only solver
+00:02:54.840 that dynamically can change the
+00:02:56.959 properties of the thing that we're going
+00:02:58.519 to simulate without some very complex
+00:03:00.920 setups or without some attribute
+00:03:02.519 trickery so let's actually build our
+00:03:04.519 setup I'm not going to build this from
+00:03:06.840 scratch I have a little scene prepared
+00:03:09.040 in here and in the scene I have the
+00:03:11.080 colliding object which will be this 3D
+00:03:13.879 scan of a statue of some dogs and also
+00:03:16.720 the snowball in here and also a camera
+00:03:19.120 let me quickly walk you through this
+00:03:20.760 scene right here for my colliding object
+00:03:23.200 I loaded in a 3D scan by 3D scan.com you
+00:03:27.000 can download it right here I brought it
+00:03:29.000 into the right scale using this match
+00:03:31.200 size Noe down here I did some little
+00:03:33.360 tweaks make it sit flat on the ground
+00:03:35.599 plane and then I used this transform
+00:03:37.799 note down here where have the pivot set
+00:03:40.840 directly where I want to later hit my
+00:03:43.360 dog with my snowball and I'm going to
+00:03:45.519 use this transer not down here is sort
+00:03:47.480 of to change the impact angle of the
+00:03:49.599 snowball and get the shape of the spray
+00:03:52.120 of a snowball in the end that I want and
+00:03:54.120 this was really helpful for dialing in
+00:03:56.360 the look that I wanted in the end then
+00:03:58.439 also since this is very very detailed
+00:04:00.840 model and this is just useless data or
+00:04:03.760 most of it is useless data for a
+00:04:05.360 simulation I clipped away a lot of it
+00:04:07.560 and for a snowball I simply started out
+00:04:09.799 with one sphere I added a mountain node
+00:04:12.480 to make this a bit more irregular and
+00:04:14.200 then I just moved it to the right
+00:04:16.199 position so that I have to Simply
+00:04:18.358 accelerate this down into the Z
+00:04:20.720 direction to hit the snowball where I
+00:04:22.880 wanted to hit and this is my setup done
+00:04:25.479 so now to set up our mpm solve what
+00:04:27.880 we're going to do is we're going to get
+00:04:29.360 rid of this merge node down here and
+00:04:31.280 instead I'm going to search for mpm
+00:04:33.600 configure and we have a bunch of presets
+00:04:35.960 in here however the simple mpm configure
+00:04:39.080 up here will create for us the sort of
+00:04:41.240 minimal viable setup that we're going to
+00:04:43.199 need for mpm solare let's drop this down
+00:04:45.520 let's wait for it to cook and in the end
+00:04:47.520 we get this let's first of all get rid
+00:04:49.800 of our dummy objects up here we don't
+00:04:51.639 need those and what we left with is our
+00:04:54.400 mpm source our mpm collider mpm
+00:04:57.360 container the source and the collider
+00:04:59.360 are pretty much self-explanatory this is
+00:05:01.560 where our snowball will go this is where
+00:05:03.199 our collider will go and the mpm
+00:05:05.280 container is the sort of simulation
+00:05:07.440 space that we're going to set up the mpm
+00:05:09.520 solver in the end is pretty much based
+00:05:12.440 around the flip solver in Houdini so
+00:05:14.560 there's going to be some volumes
+00:05:16.280 involved as well and volumes need a
+00:05:18.680 container to work right as why
+00:05:20.600 connections up like this and like this
+00:05:23.680 and now let's take a look at those
+00:05:24.960 options and whenever we're dealing or
+00:05:27.479 whenever I'm dealing with a new solver
+00:05:29.759 cini that I have not worked with yet I'm
+00:05:32.319 basically going to look for three things
+00:05:34.400 three sets of parameters I first of all
+00:05:37.039 want to find all the parameters that I
+00:05:39.600 just have to set to a fixed value and
+00:05:41.800 just leave them as is I won't have to
+00:05:44.440 change them to change the look these are
+00:05:46.600 just set in stone based on the thing
+00:05:48.880 that I want to simulate and let's
+00:05:50.240 quickly take a look at those first and
+00:05:52.000 the first one will be a snowball size
+00:05:54.319 and again this is set up here onos
+00:05:55.960 sphere and I set this to inini units a
+00:05:59.440 value Val of 8 cm and I think this is a
+00:06:02.039 pretty realistic size for a snowball
+00:06:04.039 then also on mpm sorus I have to set up
+00:06:06.840 I can set up a material preset and by
+00:06:09.240 default this is already set up to snow
+00:06:11.280 and I found this preset to be pretty
+00:06:13.360 accurate and to give me pretty good
+00:06:15.199 results without tweaking most of those
+00:06:18.080 values down here basically any preset
+00:06:20.440 you set up here will set all those
+00:06:22.560 material parameters down here next I can
+00:06:25.240 set an initial State and I want to set
+00:06:27.440 the initial velocity and again as sort
+00:06:29.759 of try to find a real world value for
+00:06:31.880 this now Googling the throwing speed of
+00:06:34.160 humans you mostly get the result for
+00:06:36.880 athletes which I think is not really
+00:06:39.080 realistic so what I ended up using in
+00:06:41.560 the end is the max throwing speed of a
+00:06:43.440 chimpanzee which is quite a bit lower
+00:06:45.720 than the throwing speed of human
+00:06:47.199 athletes so I think this is pretty much
+00:06:49.479 what your average human can throw as
+00:06:51.440 well and this boils down in the end to
+00:06:54.000 around 9 m/ second then end in here on
+00:06:57.800 our mpm source on the z-axis I'm going
+00:07:00.919 to add in a value of N9 and finally
+00:07:03.400 there are some parameters on the mpm
+00:07:05.440 solver as well that I can just set and
+00:07:07.440 this will be the time scale so this will
+00:07:10.000 make a simulation either fast forward or
+00:07:12.840 slow motion in this case I want to have
+00:07:15.039 a slow motion animation and I want to
+00:07:16.960 set it to pretty much 0.1 and the other
+00:07:19.520 thing that I want to set is the cache
+00:07:21.720 size and I'm going to find this under
+00:07:23.639 advance and this is based on my
+00:07:25.960 computer's working memory in this case I
+00:07:28.240 have 64 GB
+00:07:30.080 and I'm going to set this to a
+00:07:31.400 conservative 55 GB like this so these
+00:07:34.400 are our fixed parameters done the next
+00:07:36.479 set of parameters that I want to take a
+00:07:38.080 look at are the quality parameters the
+00:07:40.319 parameters where I can basically set how
+00:07:43.080 well my simulation Works higher values
+00:07:45.479 in here should result in a better
+00:07:47.440 simulation however also a slower
+00:07:50.000 simulation time and the main parameter
+00:07:52.680 that I'm going to work with here is the
+00:07:54.520 particle separation and we're going to
+00:07:56.560 find this in our boundary now for my
+00:07:58.520 particle separation I usually want to
+00:08:00.440 stick to two values I want to have one
+00:08:02.360 low resolution value and my main goal in
+00:08:04.879 here is that my simulation resolves
+00:08:07.759 fairly fast and also the entire
+00:08:09.759 simulation over the entire timeline
+00:08:11.680 should fit inside my computer's memory
+00:08:14.440 and for this for this setup right here
+00:08:16.240 after a bit of experimenting I settle
+00:08:18.440 down for a particle separation of about
+00:08:22.120 0.006 like this once I set this both of
+00:08:25.159 my colliding object and my actual
+00:08:27.280 snowball get a lot more detailed and and
+00:08:29.599 on the snowball if you take a look at
+00:08:31.240 the info panel we have around 1 million
+00:08:33.599 points now for my final resolution I
+00:08:35.799 half this value so
+00:08:38.279 0.3 and this resulted in around 10
+00:08:41.240 million points again since this is a
+00:08:43.880 sort of flip cell simulation having this
+00:08:46.519 value right here will increase the
+00:08:48.320 overall data for a simulation by a
+00:08:50.200 factor of eight and 10 million points
+00:08:52.600 resulted in around 20 GB of cache data
+00:08:55.920 later while writing this out to disk and
+00:08:58.160 it simulated on my PC for around 4 hours
+00:09:01.040 which again I think is a sort of nice
+00:09:03.480 value for a simulation like this now the
+00:09:05.959 next thing that we want to set in here
+00:09:07.760 is the domain size and the domain size
+00:09:10.399 is again the maximum size of the volumes
+00:09:13.120 that are going to get used for the
+00:09:14.680 simulation Now by default the mpm solver
+00:09:17.920 uses SP volumes so they will be a lot
+00:09:20.360 smaller however I think it's still a
+00:09:22.440 good idea to set some limits for those
+00:09:25.160 volumes so what I ended up choosing in
+00:09:27.760 here are again some very specific values
+00:09:30.440 that I'm just going to enter in here
+00:09:32.519 something like this and also to
+00:09:34.480 visualize the boundary can jump into our
+00:09:36.640 handles tool and take a look at a
+00:09:38.760 bounding box like this and this is how
+00:09:41.240 it looks in the end and the other thing
+00:09:43.160 that we need to do is we need to specify
+00:09:45.480 the right boundary type for boundaries
+00:09:47.920 because right now this is set to open
+00:09:50.320 and if it's set to open this basically
+00:09:52.959 does not have any effect at all what I
+00:09:55.640 want to do in here is first of all check
+00:09:58.000 this check mark in here and set this to
+00:10:00.279 delete so any particles that will move
+00:10:03.000 Beyond this boundary will simply get
+00:10:04.959 deleted will make our simulation a lot
+00:10:06.800 smaller and also this is not the max
+00:10:09.120 size for volumes as well now the other
+00:10:11.440 thing that you might change as quality
+00:10:14.600 parameters is the CFL and material
+00:10:17.120 condition and you can find both of them
+00:10:18.959 down here on the mpm solver in this main
+00:10:22.480 solver Tab and what both of those two is
+00:10:25.120 basically adjust the substeps that a
+00:10:27.600 solver is going to take now the MP St
+00:10:29.519 solver in terms of substeps is pretty
+00:10:31.800 special because we usually don't want to
+00:10:34.320 set our Global substep our Global
+00:10:36.279 substeps in here the solver chooses its
+00:10:38.440 own number of substeps dynamically frame
+00:10:41.160 per frame basically on how many it
+00:10:43.120 thinks this current simulation step
+00:10:45.040 needs in the end and this is set between
+00:10:47.440 1 and 10,000 in here and those values up
+00:10:50.760 here the CFL condition and the material
+00:10:52.959 condition basically control how quickly
+00:10:55.800 the number of subss Will ramp up
+00:10:57.880 depending on your simulation a smaller
+00:11:00.200 value in here result in more substeps
+00:11:02.800 and a smaller value in here will also
+00:11:04.480 result in more substeps you mainly want
+00:11:06.839 to adjust the CFL condition up here
+00:11:09.639 however if you're dealing with very
+00:11:11.079 stiff materials with very solid
+00:11:12.760 materials you might want to adjust the
+00:11:14.600 material condition down here as well for
+00:11:16.880 this simulation that we're doing right
+00:11:18.320 here right now I found both of them work
+00:11:20.480 very nicely at the default values so I
+00:11:22.800 left them both as is now finally finally
+00:11:25.360 finally we're down at the last step of
+00:11:27.360 parameters that we need for a simulation
+00:11:29.680 and these are the parameters that
+00:11:31.240 actually control the style of a
+00:11:32.720 simulation and again for this for a
+00:11:34.800 snowball the thing that work nicely for
+00:11:36.920 me is first of all on a snowball itself
+00:11:40.079 the critical stretch and the critical
+00:11:41.920 compression and again you can find those
+00:11:43.920 on the mpm source node in here these are
+00:11:46.560 these two right here and what those two
+00:11:49.360 parameters basically control is how
+00:11:51.639 quickly a snowball moves from something
+00:11:54.279 that acts like a soft body or like a
+00:11:56.000 fluid that acts to a solid either
+00:11:58.920 because it's compressed or because it's
+00:12:00.800 torn apart this is what this chunky
+00:12:03.079 preset does in the end and what I found
+00:12:05.360 work quite nicely for the snowball is
+00:12:07.519 leaving the critical compression as is
+00:12:10.440 however I did end up lowering the
+00:12:12.360 critical stretch a tiny bit and this in
+00:12:15.360 the end resulted in a snowball or in the
+00:12:17.720 snowball breaking apart faster and
+00:12:19.639 resulting in a lot more spray and a lot
+00:12:21.920 more tiny pieces which is what I wanted
+00:12:24.360 and again small steps in here is what
+00:12:27.199 we're looking for so I'm going to set
+00:12:28.959 this to a value of
+00:12:30.839 0.6 instead of
+00:12:33.160 0075 like this and the other parameter
+00:12:36.000 that control the style that I like quite
+00:12:37.920 a lot is on the collider the friction
+00:12:39.920 and the stickiness these are two
+00:12:41.720 separate values in here the stickiness
+00:12:43.800 basically controls how much of a snow
+00:12:45.920 will stick to the surface of our dogs
+00:12:47.760 and not simply fly away and the friction
+00:12:50.199 will control How likely these sticking
+00:12:52.079 pieces are to slide down the surface of
+00:12:54.240 our objects and again through a bunch of
+00:12:56.600 experimentation I found out that I liked
+00:12:58.760 for the friction a value of3 a lot and
+00:13:01.920 for the stickness a value of. five like
+00:13:04.600 this and now we're pretty much all set
+00:13:06.480 with our parameters the one thing left
+00:13:08.320 to do for us in here is to basically hit
+00:13:10.639 the display down at our mpm solver
+00:13:13.680 and assimilate this and again this will
+00:13:16.120 take a bit but we'll see what we get
+00:13:18.680 let's also quickly set our background to
+00:13:21.160 dark so we can see what we're doing and
+00:13:23.399 after a bit of waiting we're left with a
+00:13:25.360 result like this and I think this very
+00:13:28.480 much looks like like a snowball I'm
+00:13:30.160 quite happy with this result right here
+00:13:32.519 so the final thing left to do at least
+00:13:34.480 for a simulation is to basically go to
+00:13:37.240 our mpm container reduce this particle
+00:13:39.920 Separation by half and then dropping
+00:13:42.360 down a file cache node wearing this
+00:13:45.240 below our mpm solver and writing all of
+00:13:48.120 this out to disk however again this will
+00:13:50.560 take quite a lot of time so what I'm
+00:13:53.199 going to do is I'm basically going to
+00:13:55.320 load in a finished sequence that I
+00:13:57.519 cashed out earlier something like this
+00:13:59.920 and as you can see we have quite a bit
+00:14:02.320 more points to work with here so let's
+00:14:05.000 take a look at what we cached out in
+00:14:06.600 here first of all this looks all fine
+00:14:09.440 I'm also probably going to quickly show
+00:14:11.959 you a flip book right now at this point
+00:14:14.519 because this in the fport plays really
+00:14:17.160 really slowly however scraping through
+00:14:19.279 this flipbook or taking a look at it we
+00:14:21.040 have one issue that we might want to
+00:14:23.079 solve and we can see this at the first
+00:14:25.600 couple of frames in here and what we are
+00:14:27.560 seeing here is a flat spot appearing
+00:14:29.959 here on a snowball so why is this well
+00:14:33.040 the reason for this flat spot is
+00:14:35.199 basically a snowball right here is
+00:14:37.440 hitting the boundary of its own Spar
+00:14:40.320 volume and we can also sort of see this
+00:14:42.440 if we jump back to our simulation up
+00:14:44.440 here again this is now a bit coarser and
+00:14:46.800 we can go to the visualize Tab and we
+00:14:49.120 can select show background grid and this
+00:14:52.040 is The Spar volume that is created for a
+00:14:54.399 snowball and as we can see right here
+00:14:56.839 we're right at the edge and this is what
+00:14:59.040 in the end causes this flat spot to
+00:15:00.800 appear so how could we fix this in
+00:15:02.800 simulation well maybe there's a more
+00:15:05.399 efficient way I'm not that experienced
+00:15:07.639 with the mpm solver yet however what I
+00:15:10.399 found sort of worked is to go to the
+00:15:13.079 advanced Tab and first of all up the
+00:15:16.240 minmax voxel dilation value maybe to a
+00:15:18.800 value of 15 on the minimum this will
+00:15:21.480 increase the padding around a snowball
+00:15:24.040 and also to go to the solver and to
+00:15:26.079 actually adjust the global substeps
+00:15:28.199 because this padding will be calculated
+00:15:31.160 with every Global substep not with every
+00:15:33.319 substep the solware chooses in here
+00:15:36.000 however both of these values needed to
+00:15:38.120 be quite large and quite slow to give me
+00:15:40.680 decent results and it's only a problem
+00:15:43.000 while the snowball is flying towards our
+00:15:44.839 dog so I think since we're in Houdini
+00:15:46.959 right here we can find a easier solution
+00:15:49.560 for this problem in the end and to solve
+00:15:52.000 this problem well we're going to do a
+00:15:53.920 few steps we first of all need one name
+00:15:56.639 attribute on our main G stream and while
+00:15:59.000 the solver does have a name attribute
+00:16:01.399 that we could use in here the source
+00:16:03.800 name for my cach in here since the
+00:16:06.319 source name since we only have one
+00:16:08.079 source is just one value I removed it to
+00:16:11.319 make my cache files a bit smaller so I
+00:16:13.959 quickly have to create one temp name
+00:16:15.920 attribute down here to make this work
+00:16:18.279 let's drop down one name node and on
+00:16:21.319 this name node set the namings of the
+00:16:23.759 name to Temp and let's set the class to
+00:16:26.480 point and now we have one temporary name
+00:16:28.519 at on a g stream right here what this
+00:16:31.639 now allows me to do is to first of all
+00:16:33.800 use a Time shift node to grab the very
+00:16:36.319 first frame on a timeline and to do this
+00:16:39.040 I simply want to get rid of the channel
+00:16:41.399 in here and I want to set the frame to
+00:16:43.360 one so this gives me this Frame right
+00:16:46.040 here and I can use this together with a
+00:16:49.079 main animated geometry and an extract
+00:16:52.079 transform node if I wi both them in here
+00:16:55.199 to basically get a point that is exactly
+00:16:58.079 in the middle of a snowball that we're
+00:17:00.279 currently simulating and I can use the
+00:17:02.440 output of this note and our time shift
+00:17:04.839 in here together with a transform pieces
+00:17:07.520 note to basically move this still
+00:17:10.359 geometry right here to the same position
+00:17:12.880 as a main snowball traveling up here and
+00:17:16.160 with this we can get rid of this flat
+00:17:18.079 spot now I also want to copy over all
+00:17:20.079 those attributes that I still need so to
+00:17:21.919 do this I want to need an attribute copy
+00:17:25.000 I want to Branch out from up here from
+00:17:27.520 this name node down to my attribute copy
+00:17:30.520 and in here since a number of points
+00:17:33.080 will probably change basically as soon
+00:17:35.679 as those points are starting to exit a
+00:17:37.919 boundary I do want to match by an ID
+00:17:41.919 attribute which fortunately aor creates
+00:17:44.640 for us this ID attribute in here so I
+00:17:47.360 want to enable this in here and I
+00:17:49.280 basically want to copy over all my
+00:17:52.160 attributes however the one attribute
+00:17:54.520 that I want to leave out is the P
+00:17:56.159 attribute because again we want to get
+00:17:58.280 rid of this FL that spot so I'm going to
+00:17:59.880 uncheck a low P attribute in here and
+00:18:01.880 now this is fixed now with this done I
+00:18:04.039 can also get rid of my temp name
+00:18:06.559 attribute let's Dr an attribute delete
+00:18:08.760 note for this get rid of our name in
+00:18:11.240 here and finally I can switch between my
+00:18:13.840 main file cache and my fixed flat spot
+00:18:17.000 basically up until a snowball starts
+00:18:19.320 hitting something so for this I'm going
+00:18:21.039 to drop down a switch node and I think
+00:18:23.600 our frame of impact is frame 11 so let's
+00:18:26.240 quickly move to frame 11 down in the
+00:18:28.240 timeline yep now it's hitting our statue
+00:18:31.120 of our dog so in here in our switch I
+00:18:33.840 simply want to write dollar f is smaller
+00:18:36.280 than 11 like this and now up until frame
+00:18:39.240 11 we're using our fixed CH stream on
+00:18:41.960 the right and after that we're using our
+00:18:44.159 main cache so with this all fixed I can
+00:18:46.760 now finally work on meshing my snowball
+00:18:49.600 for rendering later and also for
+00:18:51.480 rendering I want to have a mix between
+00:18:53.559 Some solid chunks Some solid chunks that
+00:18:55.600 will be just your standard Houdini mesh
+00:18:58.120 and also of particles which would be my
+00:19:00.240 snowflakes and I first of all want to
+00:19:02.280 work on my mesh I'm going to create my
+00:19:04.679 mesh from VDB and I'm going to create
+00:19:07.559 this VDB from particles like this let's
+00:19:09.919 WR this in here and under the waxel size
+00:19:12.919 I want to write a very specific
+00:19:14.880 expression that I simply grabbed from
+00:19:17.280 the mpm master class that side effects
+00:19:19.679 published a couple of weeks ago and this
+00:19:21.799 master class or this special formula
+00:19:23.799 that I'm going to use in here is
+00:19:25.960 basically the value that is here stored
+00:19:29.039 under a detail of our cache this DX
+00:19:31.480 attribute which in this case is a value
+00:19:33.200 of
+00:19:33.880 0.006 so double our particle separation
+00:19:37.720 and I want to divide this by two to make
+00:19:39.919 it our actual particle separation and
+00:19:41.919 then I also want to divide it by a very
+00:19:44.200 specific value of
+00:19:45.880 1.51 and this 1.51 is simply based on
+00:19:49.440 the minimum radius plus a little bit and
+00:19:52.480 once I do this I now have a nice
+00:19:54.720 particle representation of my mpm
+00:19:57.039 snowball now next I want to do a bit of
+00:19:59.240 processing I first of all want to smooth
+00:20:01.120 it so let's use a VDB smooth stf and in
+00:20:04.159 here I basically use default values
+00:20:06.679 these work nicely for me and this does
+00:20:09.240 remove a lot of stuff from a snowball
+00:20:11.240 however I'm fine with this these are the
+00:20:13.240 parts that I want to have as particles
+00:20:15.520 in the end as well and finally I want to
+00:20:17.960 make my pieces even smaller so for this
+00:20:20.640 I'm going to add a VDB reshape and I'm
+00:20:23.360 going to set this to erode and I'm going
+00:20:25.280 to erode by 1 half of a box radius like
+00:20:28.080 this and finally to turn this into a
+00:20:30.200 mesh I want to use a convert VDB node
+00:20:33.240 and I'm not going to convert this into
+00:20:35.200 polygons I'm going to convert this into
+00:20:37.159 a polygon soup because this is much more
+00:20:39.360 memory efficient in the end now this is
+00:20:41.600 my mesh for now I do want to add some
+00:20:44.799 other attributes on it as well mainly a
+00:20:47.400 velocity attribute for motion blur and
+00:20:49.799 also a UV attribute for shading however
+00:20:52.320 to calculate these I have to work on my
+00:20:54.720 particles next so let's do this first
+00:20:56.840 now on my particles I do have a velocity
+00:21:00.159 attribute however I have to make some
+00:21:02.240 changes to this velocity attribute
+00:21:04.159 because this is the velocity attribute
+00:21:06.760 as if our simulation would run in real
+00:21:08.720 time basically with 24 frames per second
+00:21:11.240 however we made it a slow motion
+00:21:12.960 animation in the end so we have to make
+00:21:14.679 our velocity attribute smaller as well
+00:21:16.919 and the quickest and easiest way to do
+00:21:18.600 this is with a Wrangle let's WR this
+00:21:20.679 below our switch and in here let's
+00:21:22.720 simply take our B at V our velocity and
+00:21:25.720 multiply it by a value of 0.1 like this
+00:21:28.919 and this is the same as our time scale
+00:21:30.880 this is our velocity attribute done the
+00:21:32.760 next thing that I want to add is some
+00:21:35.039 UVS and for those UVS I'm first of all
+00:21:38.279 going to use a Time shift note to create
+00:21:41.320 or to grab one still frame again the
+00:21:43.760 first frame because on the first frame
+00:21:46.039 our snowball is just a sphere and the
+00:21:48.039 sphere is pretty easy to be un wrap so
+00:21:50.840 again let's delete the redit refence or
+00:21:53.679 delet the channel and let's set this to
+00:21:55.840 frame one like this and we have this
+00:21:57.440 ball right here and on this ball I want
+00:21:59.520 to add some UV coordinates so let's use
+00:22:01.840 a texture coordinate Noe or UV
+00:22:04.120 coordinate note for this I want to set
+00:22:05.919 the texture type to Polar the Y AIS is
+00:22:08.960 fine but I want to add my UVS to points
+00:22:11.880 like this and to quickly visualize this
+00:22:14.159 I'm going to use an adri from map node
+00:22:16.520 and yeah we do actually see some UVS on
+00:22:18.799 a snowball now now one problem that I'm
+00:22:20.720 seeing right here is that a UVC is right
+00:22:23.559 down the front of a snowball right where
+00:22:25.840 the camera is looking so we can't have
+00:22:28.279 that so to quickly fix this I simply
+00:22:30.240 want to add one transform node in
+00:22:31.840 between those and just rotate my
+00:22:33.720 snowball a value of
+00:22:35.600 180° along the y-axis so now it's at a
+00:22:38.919 different position however a UV is
+00:22:41.120 looking a lot better now and again I
+00:22:43.320 want to bring this over to my main
+00:22:45.080 animation again using an attribute copy
+00:22:47.200 Note S this in here let's again match by
+00:22:51.039 ID and let's bring over a UV coordinates
+00:22:54.000 like this and finally let's move those
+00:22:56.279 attributes also onto our mesh and for
+00:22:58.880 this I'm going to use an attribute
+00:23:00.200 transfer node so wire this in here like
+00:23:03.159 this let's zoom in a bit and the
+00:23:05.360 attributes that I want to bring in will
+00:23:07.080 be a velocity V and our UV coordinates
+00:23:11.159 UV and to make those look a bit nicer a
+00:23:13.840 bit less jaged I'm going to go into the
+00:23:16.520 conditions Tab and I'm going to set the
+00:23:18.120 max samples count up to 10 and now this
+00:23:20.880 is my mesh done so I'm going to drop
+00:23:23.159 down another null and I'm going to call
+00:23:25.120 it mesh render and I'm also quickly
+00:23:27.440 going to make this not cre a bit more
+00:23:29.200 clean something like this now next I
+00:23:31.960 want to start working on my particles
+00:23:33.720 some more and first of all I want to get
+00:23:35.520 rid of all the particles that are stuck
+00:23:37.440 inside our main pieces in here so for
+00:23:39.400 this to work I'm going to set down a
+00:23:41.679 group note I'm going to bu this below my
+00:23:44.360 attribute copy let's call this group
+00:23:46.640 solid let's set this to points let's
+00:23:49.159 disable our base group and let's enable
+00:23:51.159 keep in bounding regions and as my
+00:23:53.320 bounding region I'm going to set a
+00:23:55.640 bounding volume and I'm not going to use
+00:23:58.279 a a bounding object because this is way
+00:24:00.720 more complicated to calculate or way
+00:24:03.400 more slow to calculate so I'm going to
+00:24:05.240 use a volume and the volume that I'm
+00:24:07.159 going to feed in will come from a bdb
+00:24:09.200 reshape up here so wir it up like this
+00:24:12.400 and now all our points inside our pieces
+00:24:14.799 and now inside this group as well and
+00:24:17.000 now we can get rid of them let's drop
+00:24:18.679 down a blast note and let's blast away
+00:24:21.080 these solid points like this now what I
+00:24:23.600 want to do next or what I want to do
+00:24:25.559 later down the line is I want to again
+00:24:28.559 this number of points a bit basically
+00:24:30.240 add even more resolution to my snow and
+00:24:32.600 my snowflakes and what I'm going to use
+00:24:34.960 here in the end is the point replicate
+00:24:36.880 note and this note basically takes in
+00:24:39.200 each point and adds more points to it
+00:24:41.440 it's basically a fancy copy to points
+00:24:43.960 Noe with some specific options in here
+00:24:46.480 now to set this all up I first of all
+00:24:48.240 going to need some additional attributes
+00:24:50.080 on all of my points up here first of all
+00:24:52.520 I want to randomize the orientation of
+00:24:54.600 each snowflake in the end and for this
+00:24:56.600 I'm going to randomize the normal on H
+00:24:58.600 point so let's drop down an attribute
+00:25:00.399 randomized note let's set the attribute
+00:25:02.520 name to n for normal I want to set the
+00:25:05.200 distribution to directional orientation
+00:25:08.039 and also again since our Point numbers
+00:25:10.440 are changing and we don't want to have
+00:25:12.520 any flicker I'm going to add a seed
+00:25:14.919 attribute and again I'm going to use my
+00:25:17.080 ID attribute for this now I want to do
+00:25:19.360 the same thing for my P scale so again
+00:25:22.000 another attribute randomized let's grab
+00:25:24.080 a pscale attribute like this now this is
+00:25:27.399 way too large instead I want to multiply
+00:25:29.840 it and I basically want to multiply it
+00:25:31.840 between a value
+00:25:33.440 of7 and 1.3 like this and this can be a
+00:25:37.679 onedimensional value and again under the
+00:25:40.200 options I'm going to enable an ID
+00:25:42.440 attribute like this so finally with all
+00:25:44.679 of this done I can move on to my point
+00:25:46.520 replicate note however before I wire
+00:25:48.679 this in I should take a look at the
+00:25:50.320 parameters I don't want to have 100
+00:25:52.919 points per point this is way too many I
+00:25:55.080 want to just have a five and I also want
+00:25:57.279 to tweak the shape and I want to make
+00:25:59.520 this a sort of squashed dis so I'm going
+00:26:01.880 to go to the size and basically turn
+00:26:04.279 down the Y size to a value of 0.1 and I
+00:26:07.240 want to set the uniform scale to a value
+00:26:09.080 of two and also under the attributes I
+00:26:11.760 just want to enable to copy all my
+00:26:13.720 source attributes onto my new points as
+00:26:15.799 well so with all of this done I can wiar
+00:26:17.840 in my point replicate node and as we can
+00:26:19.840 see right here now we have quite a lot
+00:26:21.840 more points and quite a lot more
+00:26:23.480 resolution in a snowflake the one final
+00:26:26.200 thing that I want to do in here is I
+00:26:28.520 also want to make the P scale of my
+00:26:30.799 points again a bit smaller because now
+00:26:32.760 we have more points per point and again
+00:26:35.000 I'm going to use a quick Wrangle for
+00:26:36.679 this let's drop down a p angle and I
+00:26:39.240 want to set F at P scale time equal to a
+00:26:42.360 value of 0.5 like this and these in the
+00:26:45.120 end are now my particles that I can move
+00:26:47.960 into karma for rendering let's create a
+00:26:50.559 last null and let's call it particles
+00:26:52.840 uncore render like this now this
+00:26:55.640 tutorial is already running long enough
+00:26:58.279 so I'm not going to build this entire
+00:27:00.200 setup from scratch instead I'm just
+00:27:02.039 going to quickly walk you through my
+00:27:04.000 karma settings and what I did to get the
+00:27:06.399 look in the end so first of all to grab
+00:27:09.320 my render camera I'm using a scene
+00:27:11.760 import camera I'm not creating a new one
+00:27:13.720 inside comma then I'm using here
+00:27:15.760 standard of import noes to import my
+00:27:18.000 Collision object my particles and my
+00:27:20.919 mesh and I'm also using one subrate note
+00:27:24.320 in here to create my backdrop then I
+00:27:26.440 have my materials we will talk about
+00:27:28.399 them in a second and then I'm just
+00:27:29.880 lighting this with a dome light I'm
+00:27:31.520 using a camera edit node to edit the
+00:27:34.080 focus distance and the F sub of the
+00:27:36.200 camera that I imported and finally this
+00:27:38.679 goes all into a comma render settings
+00:27:40.799 Noe and the only thing that we need to
+00:27:43.080 enable here on those render settings is
+00:27:45.399 under rendering under camera effects
+00:27:47.559 under motion blur we have to enable
+00:27:49.480 velocity blur both for our main snow
+00:27:52.080 objects and also instances of particles
+00:27:55.000 like this so how can we make those
+00:27:57.120 particles look like
+00:27:58.640 well let's jump into a material library
+00:28:00.320 and let's take a look let's first of all
+00:28:02.120 take a look at our snow material this
+00:28:04.440 basically mostly is a material X
+00:28:06.840 standard surface and on that standard
+00:28:08.960 surface I have a base color set to a
+00:28:11.840 very light blue then I have set the
+00:28:14.519 roughness way down D value of zero and
+00:28:17.399 then to actually make this look like
+00:28:19.399 snow the main thing that we want to play
+00:28:21.559 with is the subsurface scattering so in
+00:28:23.799 here I just played with the subsurface
+00:28:26.159 ratio up here and the subsurface a scale
+00:28:28.640 down here until I found something that
+00:28:31.679 did look like snow in the end and then I
+00:28:34.039 also gave my subsurface color this light
+00:28:36.200 blue color the same as my base and
+00:28:38.360 finally to add some glints to my snow
+00:28:40.720 all I did is basically create a very
+00:28:44.080 noisy normal image using cops that you
+00:28:46.480 can also find in the scene find download
+00:28:48.720 and I added this as a normal map with a
+00:28:51.320 very strong scale like this and this is
+00:28:53.960 basically my entire normal map setup and
+00:28:56.360 my entire snow setup done and and for m
+00:28:58.840 not particles this is even simpler this
+00:29:01.679 is just all done in the material X
+00:29:04.360 standard surface again we have this sort
+00:29:06.600 of light bluish color in here in the
+00:29:09.000 base color again we have zero roughness
+00:29:11.600 on the spec color and to sort of fake
+00:29:13.559 some subs surface scattering on our
+00:29:15.279 particles since we can't enable it there
+00:29:18.200 the one thing that I did in the end is
+00:29:20.080 turned on the opacity to a really really
+00:29:22.679 low value a value of 06 and this in the
+00:29:25.960 end gave my particles also a very snow
+00:29:28.559 like a very soft color and this is
+00:29:31.039 basically everything there is to
+00:29:32.760 rendering and simulating snow inside
+00:29:34.519 Houdini this has gotten a whole lot
+00:29:36.360 easier with the new mpm solver you just
+00:29:38.720 have to sacrifice a bit of disc space
+00:29:41.440 and a bit of time to get there but in
+00:29:43.640 the end this with very little tweaking
+00:29:46.320 will give you very nice results and I
+00:29:48.600 think this is a very worthy new addition
+00:29:51.600 to the set of solvers that we have in
+00:29:53.480 hini but this is it for today and until
+00:29:56.080 next time it's cheers and goodbye and if
+00:29:58.600 you like us and want to support us or
+00:30:00.559 just want to learn more about hudini in
+00:30:02.399 in of courses consider becoming a patron
+00:30:04.679 of ours and to everyone already
+00:30:06.679 supporting us thanks so much Guys
+00:30:08.880 Without You anma in this form would not
+00:30:11.320 be possible thank you

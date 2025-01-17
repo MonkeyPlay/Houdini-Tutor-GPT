@@ -1,0 +1,488 @@
+# tactiq.io free youtube transcript
+# Houdini Tutorial: Space Filling Cable Generator
+# https://www.youtube.com/watch/yhTMKMBpOXg
+
+00:00:02.200 I recently stumbled over this fairly old
+00:00:05.319 interview from side effects with gilia
+00:00:08.160 games the makers of the video game
+00:00:10.559 Horizon zero Dawn and in this interview
+00:00:13.280 Vladimir lopatin quickly walks us
+00:00:16.199 through the setup that he used to
+00:00:18.080 generate these messes of cables for the
+00:00:20.760 game and I like this result quite a lot
+00:00:24.000 I really like the look of these cables
+00:00:26.320 and I also quite like the main idea
+00:00:27.960 behind the setup however again since the
+00:00:30.519 setup is 7 years old now today I think
+00:00:33.920 with a new version of hudini we can
+00:00:36.040 build this a lot simpler and this is
+00:00:38.480 exactly what I want to do today I want
+00:00:40.360 to recreate the cable generator of horiz
+00:00:43.600 zero Dawn let's quickly go over the main
+00:00:46.320 idea behind the setup the thing that
+00:00:48.039 makes it all work so to generate a
+00:00:49.840 cables the first thing that we're going
+00:00:51.280 to do is we're going to create a volume
+00:00:53.760 of possible connections that each cable
+00:00:56.559 can take and this is simply done by
+00:00:58.399 filling a volume with lots of points and
+00:01:00.480 lots of connections between those points
+00:01:02.719 and then we pick a random path from one
+00:01:05.479 start point to one end point and we
+00:01:07.439 generate a smooth curve however this is
+00:01:09.960 not everything we're doing we're also
+00:01:12.560 using this curve to cut away a chunk a
+00:01:16.080 noodle of our entire connections volume
+00:01:19.560 so if we run the same thing again
+00:01:21.720 another time now we get a second
+00:01:23.880 connection however this connection can't
+00:01:26.280 cross paths with a first connection
+00:01:28.479 because again this is no a hole in a
+00:01:30.960 volume and we can do this a third time
+00:01:33.799 and we can do this over and over and
+00:01:35.840 over again until there's no space left
+00:01:38.799 and in the end we can get rid of the
+00:01:40.680 remaining volume and now we have a nice
+00:01:43.880 mess of non-intersecting very knotted
+00:01:47.040 cables which I really really like so
+00:01:50.200 that's the quick overview let's actually
+00:01:51.960 build this I'm going to use this demo
+00:01:54.240 scene in here you can start out with an
+00:01:56.399 empty scene and we're going to drop down
+00:01:58.360 H container and dive inside and I first
+00:02:01.119 of all again want to build this volume
+00:02:03.320 of connections to build this I'm first
+00:02:05.320 of all going to start out with a line on
+00:02:07.320 this line I want to set the direction to
+00:02:09.440 the cais and I want to give it a length
+00:02:12.440 of in this case let's say four like this
+00:02:15.879 next let's give that line some volume
+00:02:17.840 let's sweep it and drop down a sweep Noe
+00:02:20.560 while the in let's set the surface shape
+00:02:22.840 to round tube let's give it 16 divisions
+00:02:26.519 and let's mainly increase the radius
+00:02:28.720 here to value of .5 like this and I also
+00:02:32.480 want to enable end caps as single
+00:02:35.040 polygons and I want to enable an endcap
+00:02:37.599 group like this now with this volume
+00:02:39.560 done I first of all want to fill it with
+00:02:41.360 points and for this I'm going to use a
+00:02:43.440 points from volume like this wire it in
+00:02:47.120 and since this is pretty regular let's
+00:02:50.040 first of all adjust the number of points
+00:02:52.360 in here let's have our value in here
+00:02:55.000 like this but let's also increase the
+00:02:57.200 Jitter scale and it's just increase it
+00:02:59.480 to the maximum to 10 to get a nice and
+00:03:01.680 random distribution like this now what I
+00:03:03.879 also need is some start and end points
+00:03:07.040 and I want to create them right at the
+00:03:08.599 end of my sweep in here so what I'm
+00:03:10.760 going to do for this is I'm going to
+00:03:12.239 drop down a blast Noe and I'm going to
+00:03:14.480 blast away everything but the end caps
+00:03:17.440 and I'm also going to split my geometry
+00:03:19.560 into this end cap and this end cap so I
+00:03:22.440 in a split node and split by zero and
+00:03:25.480 set the group to Primitives like this
+00:03:28.239 then we're going to need two scatter
+00:03:29.560 groups and in this case I'm just going
+00:03:31.560 to leave this as is so do this for both
+00:03:34.360 of our G streams like this and then
+00:03:36.920 let's end with two groups let's set the
+00:03:38.920 group name to start let's set a group
+00:03:41.040 type to points and let's duplicate this
+00:03:43.120 one more time below the other scatter
+00:03:45.400 node and set the group type to end like
+00:03:47.840 this now we have a whole mass of points
+00:03:49.879 let's merge all of them together with
+00:03:51.599 our merge node like this our Point
+00:03:54.120 groups should still be there which they
+00:03:56.079 are and finally let's draw our
+00:03:57.920 connections so let's use a connect
+00:04:00.040 adjacent pieces for
+00:04:02.799 this and before I'm going to vir this in
+00:04:05.599 let's set this up let's select ajason
+00:04:08.280 points and let's reduce the max search
+00:04:11.079 points to 10 to make this a bit lighter
+00:04:13.480 on the CPU like this now this is our
+00:04:16.199 main volume done now I first of all want
+00:04:19.279 to create a f Lo that is able to carve
+00:04:21.759 out these channels that I talked about
+00:04:24.080 one by one let first of all drop down a
+00:04:26.720 for loop with feedback this is going to
+00:04:28.759 be our main Loop and for now let's set
+00:04:31.080 the feedback iterations just to one then
+00:04:33.600 let's zoom in on a loop the first thing
+00:04:35.840 that I want to do in here is to find the
+00:04:37.800 shortest path from one of our start
+00:04:39.800 points to one of our end points let's
+00:04:41.560 grab a fine shortest path Noe let's set
+00:04:44.479 the output paths to from any start to
+00:04:47.680 any end and let's set our start points
+00:04:50.520 and our end points and we should get one
+00:04:53.320 Noodle from one of the start points to
+00:04:55.440 one of end points this is quite jaged so
+00:04:57.840 let's smooth it let's drop it on a
+00:04:59.320 smooth note and let's maybe set the
+00:05:01.520 strength to 20 but you can just dial
+00:05:04.280 this into your own Laing and now finally
+00:05:06.560 let's use this noodle to carve out a bit
+00:05:09.000 of our initial volume so for this let's
+00:05:11.600 use a group expression and we're in a
+00:05:14.080 main Loop stream in the first input and
+00:05:16.360 a smooth noodle in here into the second
+00:05:18.880 stream and now for the expression I
+00:05:21.680 first of all want to set the group name
+00:05:23.479 and let's call it blast and the
+00:05:25.440 expression will be a near one because we
+00:05:28.440 want to search for near point point on G
+00:05:30.720 stream one so Noodle from our currence
+00:05:33.080 points position so V at P or current
+00:05:35.400 perimeter position this doesn't matter
+00:05:37.759 that much in this case then I want to
+00:05:39.720 enter a search radius which I'm going to
+00:05:42.199 use a slider four and I'm going to call
+00:05:44.800 the slider radius like this and finally
+00:05:47.360 with all of this done I want to check if
+00:05:50.280 the output of that function is not equal
+00:05:53.360 to minus one because minus one will be
+00:05:55.400 the output if our near Point function
+00:05:57.600 does not find a point in that given
+00:05:59.759 radius let's create a slider let's also
+00:06:02.400 highlight our group expression and if I
+00:06:04.199 now bring up the radius yeah we can see
+00:06:06.759 a volume a curve in here appearing which
+00:06:09.520 is exactly what we want let's for now
+00:06:11.759 set the SC value of
+00:06:13.880 1.15 or
+00:06:15.840 0.15 and finally we're going to use this
+00:06:18.560 group to blast away the group that
+00:06:21.080 created like this and our Channel inside
+00:06:23.880 the volume so now at this point we can
+00:06:25.880 just keep increasing the iterations and
+00:06:28.280 keep carving away at a volume however
+00:06:30.880 the main thing that we're still missing
+00:06:32.520 in here are of course the lines we have
+00:06:34.479 to add them in now however there's one
+00:06:36.880 tiny thing that I want to do before that
+00:06:39.240 I set the iterations back to one because
+00:06:42.000 the shortest path generation gets a lot
+00:06:44.160 more interesting a lot more random if we
+00:06:46.560 start to implement a cost attribute for
+00:06:49.840 those connections or for those paths
+00:06:52.080 that this not tries to find and I want
+00:06:54.160 to set this equal to a noise so below
+00:06:56.440 our connect adjacent pieces node let's
+00:06:58.879 also drop in an attribute noise float
+00:07:01.280 I'm going to leave all the settings in
+00:07:02.919 here as is but I'm going to change the
+00:07:04.759 name to cost like this and then in of
+00:07:07.840 find shortest path I'm going to go to
+00:07:09.919 path costs and activate a point cost
+00:07:12.560 attribute and again we call this cost
+00:07:14.919 like this and now all those paths will
+00:07:16.960 be a lot more squiggly and a lot more
+00:07:18.800 random now to get our curves back the
+00:07:21.440 thing that we're actually interested in
+00:07:23.440 let's actually modify a loop to make
+00:07:25.319 this work as well so what I want to do
+00:07:27.240 in here after we're done smoothing our
+00:07:29.960 path and going into a group expression I
+00:07:32.319 also want to add this curve in here to a
+00:07:35.080 group and I'm going to do this on a
+00:07:36.759 separate geostream and let's call this
+00:07:38.720 group cables then after that we can
+00:07:41.240 merge this into our main G stream with a
+00:07:43.479 merge node like this and let's make some
+00:07:46.599 room here and then with our next Loop
+00:07:48.919 iteration I again want to filter out
+00:07:51.080 those cables so let's make some more
+00:07:53.199 room in here and again drop down a split
+00:07:57.120 node we it up like this
+00:08:00.000 and I want to split by my cables group
+00:08:03.199 and I want to invert these selection so
+00:08:05.240 our points volume will be on this output
+00:08:07.479 and our cables will be on this output
+00:08:09.520 and then finally from our cables I want
+00:08:11.680 to go all around my setup and again into
+00:08:15.080 the merge like this so now if we adjust
+00:08:18.560 iterations as we can see we get both our
+00:08:21.960 volume and our cables and after we're
+00:08:24.319 done with a fall Loop we can simply drop
+00:08:26.319 down another blast and Blast away
+00:08:28.800 everything that is not in the cables
+00:08:30.639 group and now we have our cables as an
+00:08:32.599 output and of course we can drop down a
+00:08:34.839 sweep node at the end set the radius to
+00:08:37.120 round tube and as we can see right here
+00:08:39.440 we have some non-intersecting curves now
+00:08:41.760 we're getting closer to our finished
+00:08:43.039 goal here the next thing that I want to
+00:08:44.839 add is to make all my lines have a
+00:08:47.680 non-uniform radi and my main idea to
+00:08:50.839 implement this in the end is to
+00:08:53.120 basically at the start of my Loop have
+00:08:55.959 an array of radi that I can simply work
+00:08:59.240 through through every new Loop iteration
+00:09:01.680 gets another entry of that radi array
+00:09:04.519 and this in the end will set the
+00:09:06.600 thickness of the radius of one of our
+00:09:08.480 cables so first of all we have to create
+00:09:11.000 this array of radiuses or radi and for
+00:09:14.200 this I think there are multiple ways to
+00:09:16.800 do this very efficiently in Houdini I
+00:09:18.839 think this is the quickest way that I
+00:09:20.839 found I'm first of all going to drop
+00:09:22.880 down a line note and this will basically
+00:09:25.959 be just there to create a bunch of
+00:09:27.600 points for me and it should create as
+00:09:29.600 many points as we have Loop iterations
+00:09:31.560 down here so let's actually go to our
+00:09:33.800 repeat end let's copy the iterations
+00:09:37.399 parameter and let's paste it as a
+00:09:39.079 relative reference in the points count
+00:09:41.640 of a line like this then I want to
+00:09:43.680 delete the actual line geometry and just
+00:09:45.640 keep the points so for this I'm going to
+00:09:47.200 use an adop then I'm going to use an
+00:09:49.240 attribute randomize to randomize a p
+00:09:51.440 scale attribute and to actually see what
+00:09:53.480 I'm doing I'm going to drop down a
+00:09:55.360 visualized properties Noe and in here
+00:09:57.760 enable points as sparce like this now to
+00:10:00.440 actually dial in or randomize P scale I
+00:10:03.200 want to set the global scale to a value
+00:10:05.120 of
+00:10:05.800 0.15 I want to set the distribution to
+00:10:08.800 normal gion and I want to set a minimum
+00:10:11.399 limit and I'm going to set this to a
+00:10:12.880 value of 0.1 like this and now this
+00:10:15.360 gives me a range of P scale values that
+00:10:17.839 I can work with now the first lines that
+00:10:20.680 I want to carve through my volume should
+00:10:22.600 be the biggest lines because they take
+00:10:24.399 up the most space so I'm actually going
+00:10:26.800 to sort on my P gers and all my Point
+00:10:29.560 numbers by that pscale value so for this
+00:10:32.440 let's drop down a sword note while this
+00:10:34.920 in and under Point sword let's select by
+00:10:39.200 attribute and let's select our P scale
+00:10:41.320 attribute and let's also reverse the
+00:10:42.959 point sort so our largest pscale
+00:10:44.720 attribute is always at the top and
+00:10:46.880 finally finally finally on that sh
+00:10:48.519 stream I can drop down an attribute
+00:10:50.600 promote and I can promote my P scale to
+00:10:53.959 a detail attribute and I can set the
+00:10:56.240 mode to array of all and change the name
+00:10:59.600 let's say to P scales like this now
+00:11:02.079 finally if I take a look at my G
+00:11:03.680 spreadsheet I now have an array of P
+00:11:05.880 scale attributes and I also forgot one
+00:11:08.079 thing in here on my attribute randomize
+00:11:10.839 I should set the dimensions down to one
+00:11:12.880 because P scale is just a float and now
+00:11:15.279 I have my array of values that I can now
+00:11:17.519 use inside of my for Loop so let's move
+00:11:19.839 this up let's first of all bring our P
+00:11:23.040 scales attribute onto a main T stream so
+00:11:25.560 let's move a f in here down a bit and
+00:11:28.200 let's use an attri C
+00:11:29.800 and let's bring over the P scales
+00:11:31.800 attribute like
+00:11:33.079 this and now the same attribute is on a
+00:11:35.519 main G stream then on my for loop I want
+00:11:38.320 to get access to the current Loop
+00:11:40.160 iteration and I can create this by
+00:11:42.399 creating a meta import node like this
+00:11:44.800 and I'm going to use this inside of a
+00:11:46.839 detail Wrangle to grab my current actual
+00:11:49.760 P scale value that I want to use so WR
+00:11:52.680 it up like this and in my fall loop I
+00:11:55.360 first of all want to grab my P scales
+00:11:57.279 array so float P scale
+00:12:00.760 and square brackets is equal to F square
+00:12:04.800 brackets at P scales like this and then
+00:12:08.600 I've add current scale so the current
+00:12:11.480 scale that we want to use inside of our
+00:12:13.360 for Loop should be equal to our P scales
+00:12:17.199 and from this occurrent iteration let's
+00:12:19.639 call it I and we can get I by grabbing a
+00:12:23.720 detail attribute in this case from the
+00:12:26.440 first input like this and it's called
+00:12:28.600 iteration like this so let's check if
+00:12:30.920 this is working let's go to our let's go
+00:12:33.680 to a for each end let's take a look at
+00:12:35.639 the G spreadsheet and a current scale is
+00:12:38.480 equal to the last entry of our array
+00:12:40.720 which is working and if we turn on
+00:12:42.720 single pass we can also see yeah it
+00:12:46.160 grabs your right values like we want to
+00:12:49.120 all right so we got our current scale
+00:12:50.680 let's actually make use of it so first
+00:12:52.720 of all in my group expression and let's
+00:12:56.320 also just set this back to a value or of
+00:12:59.639 one first in my group expression node I
+00:13:01.959 want to put this into my radius up here
+00:13:04.480 so this will be a detail on twoam zero
+00:13:08.279 called current scale and we want to grab
+00:13:10.480 the first component of it and in this
+00:13:13.240 case P scale is the diameter of our
+00:13:16.199 cable so to actually make it the radius
+00:13:18.320 we have to divide it by two like this
+00:13:21.120 and then on my actual cable I want to
+00:13:23.639 set this both as a pscale attribute and
+00:13:27.279 I also want to resample my cable
+00:13:29.800 with the same value so let's first of
+00:13:31.600 all check if we still have a detailed
+00:13:33.199 attribute and we don't because we find
+00:13:35.639 shortest path has removed it so first of
+00:13:38.480 all have to copy it over again so let's
+00:13:40.760 use an attri copy grab a rear out here
+00:13:43.440 and wire this in and let's paste in a
+00:13:46.000 current
+00:13:47.920 scale and let's make some room and let's
+00:13:50.800 also set this as a p scale attribute so
+00:13:53.240 let's drop down a point Wrangle and
+00:13:55.360 write in at pscale is equal to a detail
+00:13:59.480 or G stream zero called current scale
+00:14:02.240 like this and then also resample a curve
+00:14:05.199 and then here we can just copy the
+00:14:07.759 expression from the group expression up
+00:14:09.759 here so like this and like
+00:14:14.480 this and now we have a current P scale
+00:14:17.000 implemented and also the only reason we
+00:14:19.639 resampling here is because vum if you
+00:14:22.880 want to sim this with vum Vellum likes
+00:14:25.120 to have the segment length for a Vellum
+00:14:27.800 hair object to be the same value as the
+00:14:30.440 actual P scale otherwise if they don't
+00:14:33.040 match up collisions might act weirdly so
+00:14:35.720 finally with this done we can go way
+00:14:37.600 down to our sweep Noe we can increase
+00:14:39.720 the radius to.5 to get our actual size
+00:14:44.240 of our sply or cable in here and then
+00:14:46.800 again we can go up with the iterations
+00:14:49.440 and again we could nicely
+00:14:51.199 non-intersecting cables now it's also
+00:14:53.519 the right time to dial this in and the
+00:14:56.199 method that I found to dial this in is
+00:14:59.120 is the easiest is to just take a look at
+00:15:02.240 the number of Primitives and as long as
+00:15:05.279 it's equal to the amount of iterations
+00:15:07.839 that we put in we can go higher with
+00:15:09.800 this value so maybe let's try 15 some
+00:15:12.199 more 20 some more 25 some more let's try
+00:15:17.399 30 maybe 35 yeah I think let's leave it
+00:15:20.880 at 35 I think this is looking really
+00:15:23.800 really nicely for us so this is the main
+00:15:26.680 build of a cable generator there's one
+00:15:29.240 other thing that I quickly want to
+00:15:31.120 implement in here because at some point
+00:15:33.600 we probably want to run those cables
+00:15:35.720 along a curve that we Define and in this
+00:15:38.399 case this all gets a bit more difficult
+00:15:40.560 or there's one problem that we have to
+00:15:42.279 solve so if we do the naive approach and
+00:15:45.079 we just Define one thick curve volume
+00:15:49.079 and again we convert it into a bunch of
+00:15:51.199 connections like this what happens in
+00:15:53.920 the end if you run our algorithm through
+00:15:56.160 it is that all cables tend to just Bunch
+00:15:59.399 up at the sides of a curve and really
+00:16:02.000 quickly block all the rest of the volume
+00:16:04.240 of was flying in here and so we just get
+00:16:06.720 really view Curves in the end along a
+00:16:09.160 main spline curve so I want to build
+00:16:11.519 this a bit differently in this case what
+00:16:13.880 I want to do is I first of all want to
+00:16:15.759 go back to my main setup in here and
+00:16:18.120 first of all to make this all a lot
+00:16:20.360 simpler I want to grab everything but
+00:16:22.680 the first and last note is everything
+00:16:25.279 but I'll sweep and I'll line up here and
+00:16:28.399 I just want to box it into a subnet like
+00:16:31.120 this and now let's quickly draw a curve
+00:16:34.040 that we can use for cables in the end so
+00:16:37.279 for this let's drop down a curve note
+00:16:39.639 let's set the mode maybe to nerves like
+00:16:42.480 this and let's quickly drop down some
+00:16:45.279 points maybe something like this and
+00:16:47.839 again my solution for this problem here
+00:16:50.000 is I want to first of all measure the
+00:16:52.880 length of this curve and then make this
+00:16:55.360 line that I'm using as my base object
+00:16:57.279 here the same length as my curve and
+00:16:59.519 then what I can later do is simply
+00:17:01.360 deform this straight mess of cables into
+00:17:04.160 a curve mess of cables based on this
+00:17:05.959 input curve so to do that I'm first of
+00:17:08.760 all going to resample my curve my nerves
+00:17:11.559 curve to make it into a poly line and
+00:17:13.799 I'm going to measure its length so drop
+00:17:15.880 down a measure node and let's set the
+00:17:18.039 measure to perimeter or
+00:17:20.679 length and then let's move our main
+00:17:22.919 setup below it and to make my line use
+00:17:26.199 this length that I use or that I created
+00:17:29.080 with a measure node in here I first of
+00:17:31.120 all want to create a spare input so
+00:17:32.960 let's use this little Cog icon in here
+00:17:35.360 and click add spare input and I can
+00:17:37.559 simply drag my measure node in here and
+00:17:40.600 then on my line on my length the thing
+00:17:43.039 that I want to enter in here is I want
+00:17:44.880 to grab a primitive attribute on G3
+00:17:47.919 minus one because this is my spare input
+00:17:50.120 down here I want to grab the first
+00:17:52.000 primitive from the first primitive I
+00:17:54.080 want to grab an attribute called
+00:17:55.640 perimeter and I want to grab the first
+00:17:57.640 component of the attribute like this so
+00:18:00.080 now our line has the same length as our
+00:18:02.400 input curve we can again run this for
+00:18:04.960 our subnet and again get a whole mass of
+00:18:07.360 Curves now before I'm going to sweep it
+00:18:10.600 let's actually disconnect this in here I
+00:18:13.280 first of all want to add a bit of a
+00:18:15.400 Twist to it make it look a bit more
+00:18:17.039 interesting so for this let's use a
+00:18:19.000 Twist Noe let's make sure the capture
+00:18:21.679 direction is pointing down the z-axis
+00:18:24.400 and we're going to grab the capture
+00:18:26.679 length again from a line up here so
+00:18:28.799 let's copy the
+00:18:30.360 parameter and paste the relative
+00:18:32.400 reference like
+00:18:34.080 this and let's give it 720 degrees of
+00:18:37.280 twist and I think this looks pretty nice
+00:18:39.679 in the end then finally I can use this
+00:18:41.720 with a path deform note so main curves
+00:18:44.120 go into here and as a path I'm going to
+00:18:46.880 Branch out from my measure node and down
+00:18:49.240 into my path deform like this so now
+00:18:51.919 it's following my input curve and then
+00:18:54.240 from there I can finally go into my
+00:18:56.080 sweep and now I have some very nice
+00:18:59.480 and twisty looking curves that are
+00:19:01.480 following the path that I entered in and
+00:19:04.080 actually at this point this again is
+00:19:05.840 geometry that's very happy to be
+00:19:07.720 simulated with a vum hair Sim so you can
+00:19:10.799 have some fun there but this is where
+00:19:12.840 I'm going to leave it for today and
+00:19:14.960 until next time it's cheers and goodbye
+00:19:17.760 if you like what we're doing please
+00:19:19.320 consider becoming a patron of ours not
+00:19:21.559 only for supporting a tagma but also for
+00:19:23.840 access to end of courses recurrently on
+00:19:25.960 the home stretch of finishing our first
+00:19:27.720 machine learning project on here I'm
+00:19:29.840 super excited about that one but if
+00:19:32.080 that's not your jam you can find a lot
+00:19:33.960 more content about K effect or vum or
+00:19:36.520 Vex and so on on here as well also let
+00:19:39.200 me say thank you so much to all existing
+00:19:41.799 patrons without you this channel would
+00:19:44.039 not be possible thank you

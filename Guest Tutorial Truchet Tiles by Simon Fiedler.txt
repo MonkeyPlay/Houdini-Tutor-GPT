@@ -1,0 +1,398 @@
+# tactiq.io free youtube transcript
+# Guest Tutorial: Truchet Tiles by Simon Fiedler
+# https://www.youtube.com/watch/uRy_I8U_n_0
+
+00:00:03.280 hey guys this is salmon with anma a
+00:00:05.440 while ago while scrolling through
+00:00:06.839 Instagram I found this guy here who
+00:00:08.440 builds custom leather balls in this
+00:00:10.200 specific example he builds a ball out of
+00:00:12.360 so-called tret tiles which is a special
+00:00:14.719 kind of pattern which can be arranged in
+00:00:16.520 a grid and however you rotate the
+00:00:18.920 separate tiles it will generate a unique
+00:00:21.160 but continuous pattern on the surface I
+00:00:23.480 thought this look super interesting and
+00:00:25.000 wanted to give it a shot in Houdini so
+00:00:26.720 let's dive inside and start so as usual
+00:00:29.400 let's put down on an empty geometry
+00:00:30.880 container dive inside and in there we
+00:00:33.920 start off with a circle set the
+00:00:35.680 orientation of the circle to be Z x-axis
+00:00:39.360 and the divisions we adjust to be six we
+00:00:43.360 have this six-sided shape over here and
+00:00:46.800 next thing we want to do is we append a
+00:00:48.960 poly extrude soap put that here wire it
+00:00:51.399 up with the flag on it and the distance
+00:00:53.640 should be 0.5 of course we need to make
+00:00:55.920 sure that extrude back is also activated
+00:00:58.440 so that we have a solid piece of
+00:01:00.000 geometry so this will be our hexagonal
+00:01:02.519 tile next is to build the inside of the
+00:01:04.839 tile the the actual lines that we need
+00:01:07.479 to create to build our tet tile so first
+00:01:10.640 of all let's create another Circle flag
+00:01:12.880 on here we also set the orientation to
+00:01:15.119 be on the Z x plane uniform scale should
+00:01:17.759 be set to 0.5 and the center should be
+00:01:21.240 one in X Direction and 0 0 on the both
+00:01:24.520 other A's and we will adjust the
+00:01:27.479 divisions to be 64 something like that
+00:01:30.479 next we will append a mirror so to
+00:01:32.799 mirror the circle on the other side as
+00:01:34.520 well so it looks like this and if I put
+00:01:37.000 the ghosting flag here on our Circle for
+00:01:39.000 example you can see we now get the um
+00:01:41.200 two parts on the right and on the left
+00:01:42.960 side all right next uh we want to create
+00:01:45.399 a line in the center so let's have a
+00:01:47.759 line and directly merge that with our
+00:01:50.520 mirrored circles take those two merge
+00:01:52.920 together put the flag on here and let's
+00:01:54.960 also adjust the line a bit so the
+00:01:56.880 direction should be pointing in Z
+00:01:59.079 Direction so it's 0 0 1 and the length
+00:02:02.840 should be two and we will also set the
+00:02:06.280 origin to be minus one like that so we
+00:02:08.840 have our one line in the center and the
+00:02:10.639 two circles on the outside to give them
+00:02:13.520 an outline we use the poly expand 2D
+00:02:16.239 node po xend 2D put it right underneath
+00:02:19.640 here put the flag on it and if we switch
+00:02:21.840 to wireframe mode you can see that we
+00:02:23.720 basically already have what we want but
+00:02:26.080 the circles are closed here in the
+00:02:28.200 center so and we can easily that by
+00:02:30.640 using a hole s and put that afterwards
+00:02:33.440 and put the flag on it and it basically
+00:02:35.800 just cuts the circles in two places so
+00:02:39.319 that it's possible to have the inside
+00:02:41.280 Hollow here so what we want to do now is
+00:02:43.599 also extrude them to get some solid
+00:02:45.920 geometry so we use a poly extrude again
+00:02:48.840 and set the depth to be the distance to
+00:02:52.200 be
+00:02:53.000 0.35 and of course also activate output
+00:02:56.640 back all right so we have our cutout
+00:02:59.200 geometry and we have the solid geometry
+00:03:01.599 of our tile and now it's time to bring
+00:03:04.080 them together using a Boolean on the
+00:03:06.360 left side we connect the tile and on the
+00:03:08.920 right side we connect our cutting
+00:03:10.360 geometry put the flag on it it's already
+00:03:12.959 set to subtract and it kind of works you
+00:03:15.200 see we get some artifacts over here and
+00:03:17.519 this is because our cutting geometry is
+00:03:19.599 exactly on the same height in y than our
+00:03:23.280 solid geometry and we can easily solve
+00:03:25.239 that by simply pushing this geometry
+00:03:27.519 here slightly upwards so let's use a
+00:03:29.760 transform soap put that underneath here
+00:03:31.920 not a trace sorry for that transform put
+00:03:35.920 that somewhere here and move it upwards
+00:03:38.360 maybe 0.5 should be enough this it's
+00:03:41.360 just a tiny little bit so you can see it
+00:03:43.120 jumps upwards and if you now activate
+00:03:44.720 the Boolean it looks very very clean so
+00:03:47.640 next we want to Bevel the edges a little
+00:03:49.319 bit so we use a poly bevel set the
+00:03:51.840 distance to something very very small so
+00:03:54.640 let's see what looks good oh this is
+00:03:56.319 already way too much maybe something
+00:03:57.879 like that 0.01 and I don't want to Bevel
+00:04:00.879 every Edge that exists but only the 90°
+00:04:03.760 angles so we go to exclusions activate
+00:04:06.519 ignore flat edges and set the maximum
+00:04:09.280 normal angle to be 89 so we only get
+00:04:11.959 like bevels here on the really really
+00:04:13.519 sharp Corners also I want to adjust the
+00:04:15.840 divisions to be three instead of one and
+00:04:18.079 this should give us very nice round
+00:04:20.440 corners here so if I deactivate the
+00:04:22.680 wireframe and remove the template flag
+00:04:25.280 here you should see we have super clean
+00:04:27.440 and nice geometry over here so we have
+00:04:30.360 some little normal artifacts over here
+00:04:32.840 but we can solve that by using a normal
+00:04:34.479 s pend here set the waiting method to by
+00:04:37.759 face area and the cusp angle to be 40°
+00:04:40.520 for example so this should look nice and
+00:04:42.520 clean and just for visualization
+00:04:44.680 purposes I will go back to the Boolean
+00:04:47.120 and activate the B inside a group and
+00:04:49.680 here at the end iend a color up restrict
+00:04:52.560 that to our B inside a group uh let's
+00:04:55.720 set this to be a primitive color and
+00:04:58.160 give it a pink color for example so you
+00:05:00.800 should see something like that and to be
+00:05:02.960 uh nicely organized let's put a null at
+00:05:05.720 the end and call this one out tile all
+00:05:09.280 right perfect so this is our geometry
+00:05:11.120 that we want to work with our tret tile
+00:05:13.240 next would be to um generate our grid
+00:05:16.080 where we can put those tiles on and then
+00:05:18.720 rotate them in different ways before we
+00:05:20.759 can start to arrange our grid here let's
+00:05:22.639 quickly analyze what we need to do so
+00:05:24.560 let's switch to the top viewport scroll
+00:05:26.240 in a bit and let's scroll in here I will
+00:05:29.199 quickly create a transform to put that
+00:05:31.880 here wire it up and activate the
+00:05:34.400 template flag go to the viewport and
+00:05:37.120 push our tile in the position that we
+00:05:39.840 need it to be and then we can see what
+00:05:42.080 we need to do so as you can see in X
+00:05:44.000 direction we have to move our tile one
+00:05:46.479 and a half units to the right because
+00:05:48.400 our tile is one unit wide and we need to
+00:05:50.840 offset offset it in in this way here and
+00:05:53.800 in Z Direction actually we need to push
+00:05:55.800 it down like half the dimension in in
+00:05:59.240 the Z direction of our T so half the
+00:06:02.120 length of this z- axis we need to push
+00:06:04.560 it down so we can easily write that up
+00:06:06.319 in an expression and let that do the
+00:06:08.639 work for us so for that I will use a
+00:06:11.160 line flag on that here and let's
+00:06:14.319 deactivate the template flag over there
+00:06:16.680 and let's change the orientation to be
+00:06:18.560 in Z Direction like that and um let's
+00:06:22.919 set the points to be 10 points all right
+00:06:25.720 and now the length of our line let me
+00:06:27.919 activate points and point number so you
+00:06:30.039 can see the 10 points here the length of
+00:06:32.680 our line should be adjusted by our
+00:06:34.680 expression so what we can use here is
+00:06:37.319 the bbox expression which actually takes
+00:06:39.960 the bounding box of our object that we
+00:06:42.639 reference in there and gives us uh
+00:06:44.759 different kinds of information about the
+00:06:46.240 bounding box in order to do that I could
+00:06:48.479 write in the expression directly but
+00:06:50.199 then it would be very long because I
+00:06:51.680 have to type in the path to this object
+00:06:54.000 but there's another neat little way that
+00:06:55.720 we can use and this is a spare input
+00:06:57.840 field so just activate your your uh your
+00:07:00.560 line stop here click on the Cog wheel
+00:07:02.720 and then we add a spare input so this
+00:07:05.599 generates this field over here and then
+00:07:07.759 make sure that under view show
+00:07:09.759 dependency links for spare inputs is
+00:07:11.479 activated and now while having this one
+00:07:14.720 selected just drag and drop your tile in
+00:07:17.240 here and you can see that this purple
+00:07:19.120 dash line is now generated let's get rid
+00:07:21.919 of this transform soap and this just
+00:07:24.080 indicates that in this so here some
+00:07:27.120 information is brought in from this one
+00:07:29.280 here so it's referenced in an expression
+00:07:31.080 for example um you can see now we have
+00:07:33.919 our path here and we can start to type
+00:07:36.319 in our bbox expression here so we type
+00:07:38.919 bbox open parenthesis then you get this
+00:07:41.639 little help box and this shows us what
+00:07:44.400 we what this expression expects so it
+00:07:47.080 wants the string surface node which is
+00:07:49.360 the link to this node here then a comma
+00:07:52.479 and then it wants to have the type that
+00:07:54.840 you want to read out and the available
+00:07:56.919 types are listed down here so you can
+00:07:58.879 check where the X minimum position of
+00:08:01.360 your bounding box is or in any other
+00:08:03.440 dimension but you also get information
+00:08:05.560 about the size and we are interested in
+00:08:08.080 this one here so the size of our
+00:08:10.879 bounding box in the z-axis so um instead
+00:08:14.599 of typing in this path now I can simply
+00:08:17.080 write minus one so minus one references
+00:08:19.960 your spare input field down here then
+00:08:22.120 comma
+00:08:23.199 dcore C size close the bracket and let's
+00:08:26.759 click here and see what happens so you
+00:08:28.280 see that now the line actually snapped
+00:08:30.879 on this length here which is the
+00:08:32.640 dimension of our tile so let's click on
+00:08:34.958 that to see that better but as I said we
+00:08:36.919 don't want to offset our tiles by the
+00:08:40.320 whole length of the uh Z Dimension we
+00:08:43.320 want to divide that by two so divided by
+00:08:45.839 two you can see that now and this
+00:08:47.760 actually is exactly half the length of
+00:08:50.720 the Z Dimension but uh the problem that
+00:08:53.480 we are facing now is as you can see um
+00:08:55.600 our 10 points are now distributed over
+00:08:57.800 this length here but we actually want to
+00:08:59.800 have each segment to have this length so
+00:09:02.519 we need to multiply this by the number
+00:09:05.480 of segments that we have uh one quick
+00:09:07.680 reminder as you can see here we have 10
+00:09:09.800 points 0 to 9 uh but it's nine segments
+00:09:12.880 in between so you have to take this
+00:09:14.480 point number and subtract one to get the
+00:09:16.680 right amount of segments so we can check
+00:09:18.839 how this field here is called so the
+00:09:20.800 parameters called points so simply
+00:09:22.880 multiply this one here by a channel
+00:09:25.240 which is called points like that and now
+00:09:28.040 we have to subtract one
+00:09:29.880 and to have the right order of
+00:09:31.279 calculations here we have to put this
+00:09:33.480 last part as well in parenthesis like
+00:09:36.120 that and you have seen that now the line
+00:09:39.240 snapped uh to this length here and when
+00:09:41.760 you change the amount of points it will
+00:09:43.640 also grow so this worked set it back to
+00:09:46.160 10 now let's select every second point
+00:09:48.480 and move them over to the right so we
+00:09:50.320 take a group range note Group by range
+00:09:53.000 put that here with the flag on it we
+00:09:55.399 call this one offset the group type
+00:09:57.640 should be points and we select one of
+00:10:00.839 two points so you see that every other
+00:10:03.000 point is now selected next would be to
+00:10:05.040 use a transform sub put that over here
+00:10:07.399 put a flag on it and we only want to run
+00:10:10.120 over the offset group and in the
+00:10:12.680 translate X we type in 1.5 because this
+00:10:15.640 is what we saw earlier so you get this
+00:10:17.720 zigzag pattern and if you now use a copy
+00:10:20.200 to points sub put it down here left
+00:10:22.519 input should be our tile right input
+00:10:24.720 should be our template points put the
+00:10:26.440 flag on it let me deactivate this stuff
+00:10:29.079 you you can see that we now have a very
+00:10:30.839 very nicely organized pattern everything
+00:10:33.480 is continuous and it's perfectly aligned
+00:10:35.920 and if you go back to your line you can
+00:10:38.000 change the amount of points and it will
+00:10:40.079 adjust itself accordingly perfect so now
+00:10:43.399 let's take care about the other
+00:10:44.680 dimension here so we can simply use a
+00:10:46.560 copy transform put that behind here and
+00:10:49.839 since we have uh two tiles next to each
+00:10:52.279 other and want to copy that we have to
+00:10:54.279 offset It 2 * 1.5 now so simply type in
+00:10:58.160 translate 3 in this case and this also
+00:11:01.600 adjusts perfectly so if you change the
+00:11:04.560 total number of copies here you can do
+00:11:06.920 that and for the other axis you can
+00:11:09.160 adjust it here of course you can connect
+00:11:11.279 those two to sliders or put them somehow
+00:11:13.360 together but I'll just leave it like
+00:11:14.920 that for now all right so our pattern is
+00:11:17.000 created uh last thing we need to do is
+00:11:19.200 take care of the orientation of the
+00:11:21.120 tiles now so before we set up the
+00:11:23.360 orientation types let's just see and
+00:11:26.320 check what we need to do here so again
+00:11:28.600 I'll use a trans form wire that up to
+00:11:30.639 our tile put the flag on it and let's
+00:11:33.320 quickly see what we need to do so
+00:11:34.760 basically we want to rotate our tile
+00:11:37.079 around this axis here and those are our
+00:11:39.440 different states that we have here and
+00:11:41.720 as you can see um to get to uh the next
+00:11:45.480 Edge we need to rotate it by 6 60° so
+00:11:48.160 every 60° there's a new orientation and
+00:11:51.639 basically we want to create an attribute
+00:11:53.720 which goes from 0 to 5 so the uh first
+00:11:57.000 variant that we have is 0 * 60° rotated
+00:12:00.560 and the last one is 5times 60° rotated
+00:12:03.760 so let's first of all go down here we
+00:12:06.040 can get rid of this transform up again
+00:12:08.279 and right after our copy which is our
+00:12:10.920 points we will create an attribute
+00:12:13.760 adjust integer like that wire that up
+00:12:16.519 and first of all let's call our
+00:12:18.920 attribute rot for rotation the pattern
+00:12:22.279 type should be random our minimum value
+00:12:24.600 is zero and the maximum value is five so
+00:12:27.760 the rest can be adjusted later so let's
+00:12:29.760 keep it like that and now we need a
+00:12:32.199 little bit of Vex um I'm sure there's
+00:12:34.519 other ways to do it but in this case
+00:12:36.800 this is really really the easiest way to
+00:12:38.680 do it so we use an attribute triangle
+00:12:41.639 put it right underneath here put the
+00:12:43.480 flag on it and in here let's type in
+00:12:45.560 some stuff so first of all we need to
+00:12:47.279 specify the axis where we want to rotate
+00:12:50.519 around so we type in Vector axis equals
+00:12:55.320 the curly brackets and we want to rotate
+00:12:57.560 around the Y AIS so let's type in 0
+00:13:00.600 comma 1 comma 0 semicolon at the end
+00:13:04.519 let's go in the next line uh next up is
+00:13:07.480 the angle which we want to use to rotate
+00:13:10.480 around so let's call this angle and this
+00:13:14.000 would be 60 times the integer attribute
+00:13:18.600 R so it reads out the rotation attribute
+00:13:21.760 from each point which is something
+00:13:23.639 between 0 and 5 and multiplies that by
+00:13:26.120 60 we have to convert this to radians
+00:13:29.399 though so this is easily done by just
+00:13:32.839 typing in radians and put this
+00:13:35.240 calculation within parenthesis and last
+00:13:37.720 step would be to set up the Orient
+00:13:40.720 attribute which you can do like this at
+00:13:43.360 Orient equals and uh Orient is a querian
+00:13:46.880 attribute so we have to write
+00:13:49.360 Quan and here you get the help card
+00:13:51.639 again and you simply write down the
+00:13:55.199 angle which is the radiance up here so
+00:13:58.000 how much you want to rotate
+00:13:59.560 and the axis which comes from Top here
+00:14:02.519 so the axis which you want to use to
+00:14:05.040 rotate around and that's basically it so
+00:14:07.440 if we now go to our copy to points and
+00:14:10.000 by the way we can select the copy to
+00:14:12.040 points and activate pack and instance to
+00:14:14.160 make everything nice and fast you can
+00:14:16.079 already see what happened here so you
+00:14:17.720 get this nice distribution and this very
+00:14:20.680 nice arrangement of lines and if you go
+00:14:23.880 into your attribute adjust where we
+00:14:26.519 specified this here you can play around
+00:14:28.680 with the seed for example and each seed
+00:14:30.959 will you give you very different
+00:14:32.279 patterns and you can also go into the
+00:14:34.759 copy make much more of those let's zoom
+00:14:37.519 out a bit here for example something
+00:14:39.160 like that and give the line more points
+00:14:41.399 as well so you get this very big pattern
+00:14:43.639 and now it fills up the whole screen and
+00:14:45.360 you can see you get very very
+00:14:46.839 interesting patterns here and for
+00:14:48.800 example what I also liked if you go into
+00:14:50.600 your adjust integer like that you can
+00:14:53.399 change that the pattern type from random
+00:14:55.880 to be a noise and if you now play around
+00:14:58.320 with a noise size you should be able if
+00:15:00.920 you make the element size very big to
+00:15:03.399 see now uh groups of orientations here
+00:15:06.079 which I really like so you get mainly
+00:15:08.079 orientations in that direction here or
+00:15:10.000 in the other one you can start to play
+00:15:12.079 around with this curve here and change
+00:15:13.920 it so this is a super neat effect and I
+00:15:16.839 really like uh the look of it now it's
+00:15:19.160 just your imagination what holds you
+00:15:20.800 back so take this here start to run some
+00:15:23.759 simulations through those hallways here
+00:15:26.440 or whatever you have in mind this is
+00:15:28.319 basically the end of of the tutorial so
+00:15:30.040 I hope you liked it a lot I really
+00:15:31.639 enjoyed building this and I think it's a
+00:15:33.720 very cool way to build nice patterns by
+00:15:36.279 the way uh while researching I found
+00:15:38.800 this website here as well uh you can
+00:15:40.639 scroll through it there's a ton of
+00:15:42.199 examples of other tret tiles so it
+00:15:44.560 doesn't stop here there's also
+00:15:46.279 threedimensional tret tiles um make sure
+00:15:49.000 to take a look at that and you can use
+00:15:51.279 it in the same way that we build our
+00:15:53.959 setup here so uh that's it for now I
+00:15:56.360 hope you liked it let me know in the
+00:15:57.920 comments what you want to see next and
+00:15:59.839 I'll see you in the next one bye-bye
