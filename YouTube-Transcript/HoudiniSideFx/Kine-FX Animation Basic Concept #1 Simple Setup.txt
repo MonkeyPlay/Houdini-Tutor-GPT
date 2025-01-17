@@ -1,0 +1,267 @@
+# tactiq.io free youtube transcript
+# Kine-FX Animation Basic Concept #1 Simple Setup
+# https://www.youtube.com/watch/9irMoNO7N-E
+
+00:00:00.080 this video is an introductory to can
+00:00:02.159 effects in houdini and is for those that
+00:00:04.720 have never touched kin effects in
+00:00:06.560 houdini before if you have played around
+00:00:08.960 with kin effects you might want to skip
+00:00:11.040 to the next video basic concept number
+00:00:13.360 two on ik controls and anchor points in
+00:00:16.960 this video i'm going to go over the
+00:00:19.279 super basics of kin effects to get you
+00:00:21.520 started i'm going to demo the ring post
+00:00:23.600 note and show you how it's used for
+00:00:25.760 character animation
+00:00:27.439 so let's start by dropping down a
+00:00:29.039 geometry note to get started
+00:00:32.000 go into it and drop down an fbx
+00:00:34.880 character import note now this node
+00:00:37.520 allows us to import our 3d characters
+00:00:40.879 along with all the rigs that that is
+00:00:43.200 attached to it and extracts all the
+00:00:45.600 information out for us into nice little
+00:00:47.440 outputs
+00:00:48.879 so it has three outputs here
+00:00:51.360 one for
+00:00:53.039 the character mesh that we're going to
+00:00:54.879 deform and it has
+00:00:56.879 exposed out the skeletons one for the
+00:00:59.359 rest skeleton and one to be animated
+00:01:02.800 so in this parameter here this is where
+00:01:04.559 you choose your rig so i have mine
+00:01:07.840 loaded up right here um
+00:01:09.920 the model i'm going to be using is the
+00:01:11.439 eric model that is available on side
+00:01:14.479 effects's website and you can get your
+00:01:16.799 own copy by going to the side effects
+00:01:19.360 website
+00:01:20.400 hover your mouse over this get menu and
+00:01:23.280 it'll you'll see all the sub menus the
+00:01:25.200 content library is what you're looking
+00:01:26.880 for now type eric in here
+00:01:31.520 and it'll pop up right there so this is
+00:01:34.159 the model you're looking for
+00:01:36.159 now you can download it and what it has
+00:01:39.600 now i've already downloaded this so i'm
+00:01:41.200 not going to do it again
+00:01:42.799 what you will get is three files
+00:01:45.680 attached to this model these are the
+00:01:47.600 textures for eric and this is the actual
+00:01:50.399 3d model for the eric character the
+00:01:53.200 textures are stored as external files
+00:01:56.079 but as you you probably noticed that
+00:01:58.320 when i loaded this fbx character up i
+00:02:01.200 only specified one file the fbx file and
+00:02:04.560 it automatically detects the texture
+00:02:06.799 files on the same level so these texture
+00:02:09.280 files has to be on the same level in the
+00:02:11.200 same folder as the fbx as long as these
+00:02:14.480 guys are side by side
+00:02:16.480 in the windows explorer houdini will
+00:02:19.040 know how to pick it up and automatically
+00:02:21.440 load the textures in for eric and you'll
+00:02:23.920 get your nice little rig here
+00:02:26.879 so these are just a nice little labels
+00:02:29.040 for the input so you know which one's
+00:02:30.800 which
+00:02:32.080 let's take a look at what it is
+00:02:33.920 this is the character mesh so this is
+00:02:35.680 the actual
+00:02:37.120 geometry that we need that we're going
+00:02:38.560 to deform
+00:02:40.239 now let's make this a little larger
+00:02:43.920 so this is the skeleton this is the
+00:02:46.000 rigged skeleton in the pose mode so this
+00:02:48.480 is a t-pose mode this is the resting
+00:02:50.480 position which is sort of like the
+00:02:52.080 default pose and
+00:02:54.000 this animation pose looks exactly like
+00:02:57.040 the rest pose but this is the one that
+00:02:58.560 we're going to manipulate and we're
+00:03:00.159 going to be using this to deform to move
+00:03:03.360 our character
+00:03:04.560 now we're going to use the joint deform
+00:03:07.519 node let's hook this all up and you
+00:03:09.599 won't see anything happening right off
+00:03:11.680 the bat that's because we haven't moved
+00:03:13.519 the character in any way we haven't
+00:03:15.120 manipulated the joints in any sort of
+00:03:17.599 way in order to manipulate the joints or
+00:03:19.920 move the character we'll need to use a
+00:03:23.120 rig pose node now later on i will show
+00:03:26.080 you different ways of manipulating the
+00:03:28.080 character but this is the most basic one
+00:03:30.640 so you drop down on rig pose nose
+00:03:32.239 connect it to the animation pose and
+00:03:36.000 hook it up to the last input of the
+00:03:38.400 joint deform
+00:03:40.159 leave the render flag on this joint
+00:03:42.959 deform
+00:03:44.080 but we're actually going to select this
+00:03:47.440 rig pose node select it now the render
+00:03:49.760 flag is still on the joint deform where
+00:03:52.000 we have the rig post node selected hover
+00:03:55.120 the mouse over to the 3d viewport and
+00:03:57.519 press enter
+00:03:58.879 now you're going to see the skeleton
+00:04:00.319 overlaid on top of the character mesh
+00:04:02.959 which is perfect because we want to see
+00:04:04.640 what we're actually deforming i'm just
+00:04:06.159 going to make something really simple
+00:04:08.159 adjustment i'm going to take the arm and
+00:04:09.920 i'm just going to rotate it
+00:04:11.760 and you're starting you'll see the magic
+00:04:13.840 happening it will start to move the
+00:04:16.399 character in whatever way we deform it
+00:04:19.358 so we can deform we can rotate the elbow
+00:04:22.479 and move the arm
+00:04:24.479 now this is all rotations
+00:04:27.040 i'm going to drop down another rig pose
+00:04:29.600 now you don't have to do this separately
+00:04:31.120 i just wanted to
+00:04:33.120 show you
+00:04:34.400 the difference between the rig pose
+00:04:37.040 rotations and translations i'm going to
+00:04:39.440 label those translations
+00:04:41.840 it here i'm going to highlight the
+00:04:43.600 translations rig post
+00:04:45.840 come over here
+00:04:47.360 and you
+00:04:48.400 you probably can't tell but it's already
+00:04:50.479 activated so we're changing we're
+00:04:52.560 modifying this second rig pose i'm going
+00:04:55.040 to choose the same hand over here but
+00:04:57.600 this time i'm going to translate it so
+00:04:59.440 i'm not going to rotate anything i'm
+00:05:01.360 just going to
+00:05:02.400 click this point here and drag it
+00:05:05.759 now this is what you're starting to see
+00:05:08.080 the stretching this is because we're
+00:05:10.560 we're taking the joint and we're moving
+00:05:12.720 it out of place so we're disjointing
+00:05:14.960 we're disjointing the skeleton the rig
+00:05:17.440 posed node modifies the joint bones
+00:05:20.000 directly and it does so by updating the
+00:05:22.320 local transforms of each joint in order
+00:05:25.199 to visualize the local transforms of
+00:05:27.360 each joint bone we need the help of the
+00:05:29.840 visualize rig node so i'm just going to
+00:05:32.240 drop this note down and what it'll do is
+00:05:34.800 help us visualize the joint transforms
+00:05:38.800 and this is purely for visual purposes
+00:05:41.280 so i'm just going to color this node
+00:05:43.199 black because it doesn't affect any of
+00:05:45.520 the functionality now we still don't see
+00:05:47.919 anything on the viewport so here it
+00:05:49.840 there still isn't any changes made in
+00:05:52.320 the viewport what we need to do is
+00:05:54.560 increase
+00:05:55.840 the joint scale so we can actually see
+00:05:57.840 it right now it's it's there but it's
+00:05:59.600 super tiny so i'm just gonna increase
+00:06:02.240 this and you'll start to see the dots
+00:06:05.520 get bigger and bigger bigger in the
+00:06:07.360 viewport and i'm going to change this to
+00:06:09.680 a darker background
+00:06:13.039 and let's get rid of the grid as well
+00:06:15.919 so you can see here there's these little
+00:06:17.919 green balls it's green just because it's
+00:06:20.560 inheriting the color from the skeleton
+00:06:22.720 which was also green it can be any color
+00:06:25.280 so the color doesn't the color of the
+00:06:27.039 ball and the lines doesn't really matter
+00:06:28.800 the what really matters are these little
+00:06:31.680 hats or these little arrows that are rgb
+00:06:34.639 color now let's zoom into this this one
+00:06:36.960 over here so we can see that there's a
+00:06:38.800 green
+00:06:39.919 hat over here that's pointing upwards
+00:06:41.919 there's a red hat over here pointing to
+00:06:43.919 the side and a blue hat
+00:06:46.880 pointing outwards
+00:06:49.039 where
+00:06:50.080 towards where the hand is facing uh
+00:06:52.560 pointing to
+00:06:54.240 so these are the joints
+00:06:56.000 now this color coding matches the color
+00:06:59.360 coding on the axis over here if only the
+00:07:03.199 the tool
+00:07:04.639 tip would would not get in the way
+00:07:07.599 now you can see it so the y is green the
+00:07:11.280 blue is uh the z axis and the x is the
+00:07:15.280 red axis so this color coding matches
+00:07:17.759 this axis scheme
+00:07:20.240 and this represents what the axes of
+00:07:23.199 each
+00:07:24.160 joint is so each local joint
+00:07:26.960 now let's take a look what the local
+00:07:29.280 axis looks like for the rest pose
+00:07:33.280 you can see that this is pointing up and
+00:07:36.080 the finger that we moved let's see the
+00:07:38.080 one that we moved was
+00:07:40.240 the shoulder okay let's do that let's
+00:07:42.400 take a look at the shoulder so the
+00:07:44.319 shoulder over here has
+00:07:46.479 the axes looking like this before we
+00:07:49.599 applied the rig pose now after we
+00:07:51.840 applied the rig pose let's connect this
+00:07:54.400 and take a look afterwards this has
+00:07:56.639 changed so you can see that this green
+00:07:58.960 is pointing this way now before it was
+00:08:01.919 pointing backwards it was pointing
+00:08:04.240 towards the back after
+00:08:06.720 because we had rotated this joint
+00:08:09.120 towards the front using the rig post
+00:08:11.199 node now what i want you to see out of
+00:08:13.120 all this is that all the children bones
+00:08:15.759 and all the bones after the bone that we
+00:08:18.800 modified for example this shoulder over
+00:08:21.120 here we had rotated the shoulder but all
+00:08:23.759 the children bones that meaning all the
+00:08:26.319 bones over here are the children of this
+00:08:29.680 shoulder bone are inheriting the
+00:08:32.159 rotation of this
+00:08:34.320 shoulder bone once we rotate the
+00:08:36.640 shoulder bone it rotates everything all
+00:08:39.120 the bones after this bone meaning all
+00:08:41.360 the children so it's it's sort of like a
+00:08:43.519 chain reaction even if we translate it
+00:08:46.320 so let's go back to that translate now
+00:08:48.480 let's uh ignore this rotation bone uh
+00:08:51.680 this rotation rig pose let's ignore that
+00:08:53.920 so we're just left with the translate
+00:08:56.480 rig pose now let's see what the
+00:08:58.640 translator is doing
+00:09:00.080 so i'm literally taking the hand and
+00:09:02.640 stretching it outwards but what i really
+00:09:04.880 want you to see is that even though
+00:09:06.800 we're just stretching the hand all the
+00:09:09.360 fingers are following the hand so the
+00:09:12.080 only bone that we're actually stretching
+00:09:14.000 or moving is this bone but the entire
+00:09:17.040 hand is moving with this bone so all the
+00:09:19.760 children bones after this hand bone
+00:09:22.560 inherits the translation as well so
+00:09:24.240 that's something you need to understand
+00:09:25.760 out of this rig pose the whole chain
+00:09:27.760 reaction using the rig pose note to pose
+00:09:30.720 the character one joint at a time is a
+00:09:32.720 very tedious job and requires a lot of
+00:09:35.120 work in the next video basic concept
+00:09:37.680 number two ik controls and anchor points
+00:09:40.080 i'll show you a different way of posing
+00:09:42.080 the character using some of houdini's ik
+00:09:44.720 nodes and we'll really have fun with
+00:09:46.560 this ik controls that allow you to
+00:09:49.360 manipulate the whole skeleton by using a
+00:09:51.440 single bone so you can do 10 things with
+00:09:54.080 a single mouse click and drag houdini
+00:09:56.320 will do most of the heavy lifting and
+00:09:58.160 estimate the rest of the joints where
+00:10:00.080 they should be so you can animate with
+00:10:02.160 ease
+00:10:03.120 thanks for watching and sticking to the
+00:10:05.120 end
+00:10:20.720 you

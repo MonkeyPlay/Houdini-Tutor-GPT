@@ -3682,6 +3682,1120 @@ Contents of YouTube-Transcript/Karma New Features You Might Have Missed in Houdi
 00:16:04.079 oh
 
 ----------------------------------------
+Contents of YouTube-Transcript/HoudiniSideFx/Kine-FX Animation Basic Concept #1 Simple Setup.txt:
+# tactiq.io free youtube transcript
+# Kine-FX Animation Basic Concept #1 Simple Setup
+# https://www.youtube.com/watch/9irMoNO7N-E
+
+00:00:00.080 this video is an introductory to can
+00:00:02.159 effects in houdini and is for those that
+00:00:04.720 have never touched kin effects in
+00:00:06.560 houdini before if you have played around
+00:00:08.960 with kin effects you might want to skip
+00:00:11.040 to the next video basic concept number
+00:00:13.360 two on ik controls and anchor points in
+00:00:16.960 this video i'm going to go over the
+00:00:19.279 super basics of kin effects to get you
+00:00:21.520 started i'm going to demo the ring post
+00:00:23.600 note and show you how it's used for
+00:00:25.760 character animation
+00:00:27.439 so let's start by dropping down a
+00:00:29.039 geometry note to get started
+00:00:32.000 go into it and drop down an fbx
+00:00:34.880 character import note now this node
+00:00:37.520 allows us to import our 3d characters
+00:00:40.879 along with all the rigs that that is
+00:00:43.200 attached to it and extracts all the
+00:00:45.600 information out for us into nice little
+00:00:47.440 outputs
+00:00:48.879 so it has three outputs here
+00:00:51.360 one for
+00:00:53.039 the character mesh that we're going to
+00:00:54.879 deform and it has
+00:00:56.879 exposed out the skeletons one for the
+00:00:59.359 rest skeleton and one to be animated
+00:01:02.800 so in this parameter here this is where
+00:01:04.559 you choose your rig so i have mine
+00:01:07.840 loaded up right here um
+00:01:09.920 the model i'm going to be using is the
+00:01:11.439 eric model that is available on side
+00:01:14.479 effects's website and you can get your
+00:01:16.799 own copy by going to the side effects
+00:01:19.360 website
+00:01:20.400 hover your mouse over this get menu and
+00:01:23.280 it'll you'll see all the sub menus the
+00:01:25.200 content library is what you're looking
+00:01:26.880 for now type eric in here
+00:01:31.520 and it'll pop up right there so this is
+00:01:34.159 the model you're looking for
+00:01:36.159 now you can download it and what it has
+00:01:39.600 now i've already downloaded this so i'm
+00:01:41.200 not going to do it again
+00:01:42.799 what you will get is three files
+00:01:45.680 attached to this model these are the
+00:01:47.600 textures for eric and this is the actual
+00:01:50.399 3d model for the eric character the
+00:01:53.200 textures are stored as external files
+00:01:56.079 but as you you probably noticed that
+00:01:58.320 when i loaded this fbx character up i
+00:02:01.200 only specified one file the fbx file and
+00:02:04.560 it automatically detects the texture
+00:02:06.799 files on the same level so these texture
+00:02:09.280 files has to be on the same level in the
+00:02:11.200 same folder as the fbx as long as these
+00:02:14.480 guys are side by side
+00:02:16.480 in the windows explorer houdini will
+00:02:19.040 know how to pick it up and automatically
+00:02:21.440 load the textures in for eric and you'll
+00:02:23.920 get your nice little rig here
+00:02:26.879 so these are just a nice little labels
+00:02:29.040 for the input so you know which one's
+00:02:30.800 which
+00:02:32.080 let's take a look at what it is
+00:02:33.920 this is the character mesh so this is
+00:02:35.680 the actual
+00:02:37.120 geometry that we need that we're going
+00:02:38.560 to deform
+00:02:40.239 now let's make this a little larger
+00:02:43.920 so this is the skeleton this is the
+00:02:46.000 rigged skeleton in the pose mode so this
+00:02:48.480 is a t-pose mode this is the resting
+00:02:50.480 position which is sort of like the
+00:02:52.080 default pose and
+00:02:54.000 this animation pose looks exactly like
+00:02:57.040 the rest pose but this is the one that
+00:02:58.560 we're going to manipulate and we're
+00:03:00.159 going to be using this to deform to move
+00:03:03.360 our character
+00:03:04.560 now we're going to use the joint deform
+00:03:07.519 node let's hook this all up and you
+00:03:09.599 won't see anything happening right off
+00:03:11.680 the bat that's because we haven't moved
+00:03:13.519 the character in any way we haven't
+00:03:15.120 manipulated the joints in any sort of
+00:03:17.599 way in order to manipulate the joints or
+00:03:19.920 move the character we'll need to use a
+00:03:23.120 rig pose node now later on i will show
+00:03:26.080 you different ways of manipulating the
+00:03:28.080 character but this is the most basic one
+00:03:30.640 so you drop down on rig pose nose
+00:03:32.239 connect it to the animation pose and
+00:03:36.000 hook it up to the last input of the
+00:03:38.400 joint deform
+00:03:40.159 leave the render flag on this joint
+00:03:42.959 deform
+00:03:44.080 but we're actually going to select this
+00:03:47.440 rig pose node select it now the render
+00:03:49.760 flag is still on the joint deform where
+00:03:52.000 we have the rig post node selected hover
+00:03:55.120 the mouse over to the 3d viewport and
+00:03:57.519 press enter
+00:03:58.879 now you're going to see the skeleton
+00:04:00.319 overlaid on top of the character mesh
+00:04:02.959 which is perfect because we want to see
+00:04:04.640 what we're actually deforming i'm just
+00:04:06.159 going to make something really simple
+00:04:08.159 adjustment i'm going to take the arm and
+00:04:09.920 i'm just going to rotate it
+00:04:11.760 and you're starting you'll see the magic
+00:04:13.840 happening it will start to move the
+00:04:16.399 character in whatever way we deform it
+00:04:19.358 so we can deform we can rotate the elbow
+00:04:22.479 and move the arm
+00:04:24.479 now this is all rotations
+00:04:27.040 i'm going to drop down another rig pose
+00:04:29.600 now you don't have to do this separately
+00:04:31.120 i just wanted to
+00:04:33.120 show you
+00:04:34.400 the difference between the rig pose
+00:04:37.040 rotations and translations i'm going to
+00:04:39.440 label those translations
+00:04:41.840 it here i'm going to highlight the
+00:04:43.600 translations rig post
+00:04:45.840 come over here
+00:04:47.360 and you
+00:04:48.400 you probably can't tell but it's already
+00:04:50.479 activated so we're changing we're
+00:04:52.560 modifying this second rig pose i'm going
+00:04:55.040 to choose the same hand over here but
+00:04:57.600 this time i'm going to translate it so
+00:04:59.440 i'm not going to rotate anything i'm
+00:05:01.360 just going to
+00:05:02.400 click this point here and drag it
+00:05:05.759 now this is what you're starting to see
+00:05:08.080 the stretching this is because we're
+00:05:10.560 we're taking the joint and we're moving
+00:05:12.720 it out of place so we're disjointing
+00:05:14.960 we're disjointing the skeleton the rig
+00:05:17.440 posed node modifies the joint bones
+00:05:20.000 directly and it does so by updating the
+00:05:22.320 local transforms of each joint in order
+00:05:25.199 to visualize the local transforms of
+00:05:27.360 each joint bone we need the help of the
+00:05:29.840 visualize rig node so i'm just going to
+00:05:32.240 drop this note down and what it'll do is
+00:05:34.800 help us visualize the joint transforms
+00:05:38.800 and this is purely for visual purposes
+00:05:41.280 so i'm just going to color this node
+00:05:43.199 black because it doesn't affect any of
+00:05:45.520 the functionality now we still don't see
+00:05:47.919 anything on the viewport so here it
+00:05:49.840 there still isn't any changes made in
+00:05:52.320 the viewport what we need to do is
+00:05:54.560 increase
+00:05:55.840 the joint scale so we can actually see
+00:05:57.840 it right now it's it's there but it's
+00:05:59.600 super tiny so i'm just gonna increase
+00:06:02.240 this and you'll start to see the dots
+00:06:05.520 get bigger and bigger bigger in the
+00:06:07.360 viewport and i'm going to change this to
+00:06:09.680 a darker background
+00:06:13.039 and let's get rid of the grid as well
+00:06:15.919 so you can see here there's these little
+00:06:17.919 green balls it's green just because it's
+00:06:20.560 inheriting the color from the skeleton
+00:06:22.720 which was also green it can be any color
+00:06:25.280 so the color doesn't the color of the
+00:06:27.039 ball and the lines doesn't really matter
+00:06:28.800 the what really matters are these little
+00:06:31.680 hats or these little arrows that are rgb
+00:06:34.639 color now let's zoom into this this one
+00:06:36.960 over here so we can see that there's a
+00:06:38.800 green
+00:06:39.919 hat over here that's pointing upwards
+00:06:41.919 there's a red hat over here pointing to
+00:06:43.919 the side and a blue hat
+00:06:46.880 pointing outwards
+00:06:49.039 where
+00:06:50.080 towards where the hand is facing uh
+00:06:52.560 pointing to
+00:06:54.240 so these are the joints
+00:06:56.000 now this color coding matches the color
+00:06:59.360 coding on the axis over here if only the
+00:07:03.199 the tool
+00:07:04.639 tip would would not get in the way
+00:07:07.599 now you can see it so the y is green the
+00:07:11.280 blue is uh the z axis and the x is the
+00:07:15.280 red axis so this color coding matches
+00:07:17.759 this axis scheme
+00:07:20.240 and this represents what the axes of
+00:07:23.199 each
+00:07:24.160 joint is so each local joint
+00:07:26.960 now let's take a look what the local
+00:07:29.280 axis looks like for the rest pose
+00:07:33.280 you can see that this is pointing up and
+00:07:36.080 the finger that we moved let's see the
+00:07:38.080 one that we moved was
+00:07:40.240 the shoulder okay let's do that let's
+00:07:42.400 take a look at the shoulder so the
+00:07:44.319 shoulder over here has
+00:07:46.479 the axes looking like this before we
+00:07:49.599 applied the rig pose now after we
+00:07:51.840 applied the rig pose let's connect this
+00:07:54.400 and take a look afterwards this has
+00:07:56.639 changed so you can see that this green
+00:07:58.960 is pointing this way now before it was
+00:08:01.919 pointing backwards it was pointing
+00:08:04.240 towards the back after
+00:08:06.720 because we had rotated this joint
+00:08:09.120 towards the front using the rig post
+00:08:11.199 node now what i want you to see out of
+00:08:13.120 all this is that all the children bones
+00:08:15.759 and all the bones after the bone that we
+00:08:18.800 modified for example this shoulder over
+00:08:21.120 here we had rotated the shoulder but all
+00:08:23.759 the children bones that meaning all the
+00:08:26.319 bones over here are the children of this
+00:08:29.680 shoulder bone are inheriting the
+00:08:32.159 rotation of this
+00:08:34.320 shoulder bone once we rotate the
+00:08:36.640 shoulder bone it rotates everything all
+00:08:39.120 the bones after this bone meaning all
+00:08:41.360 the children so it's it's sort of like a
+00:08:43.519 chain reaction even if we translate it
+00:08:46.320 so let's go back to that translate now
+00:08:48.480 let's uh ignore this rotation bone uh
+00:08:51.680 this rotation rig pose let's ignore that
+00:08:53.920 so we're just left with the translate
+00:08:56.480 rig pose now let's see what the
+00:08:58.640 translator is doing
+00:09:00.080 so i'm literally taking the hand and
+00:09:02.640 stretching it outwards but what i really
+00:09:04.880 want you to see is that even though
+00:09:06.800 we're just stretching the hand all the
+00:09:09.360 fingers are following the hand so the
+00:09:12.080 only bone that we're actually stretching
+00:09:14.000 or moving is this bone but the entire
+00:09:17.040 hand is moving with this bone so all the
+00:09:19.760 children bones after this hand bone
+00:09:22.560 inherits the translation as well so
+00:09:24.240 that's something you need to understand
+00:09:25.760 out of this rig pose the whole chain
+00:09:27.760 reaction using the rig pose note to pose
+00:09:30.720 the character one joint at a time is a
+00:09:32.720 very tedious job and requires a lot of
+00:09:35.120 work in the next video basic concept
+00:09:37.680 number two ik controls and anchor points
+00:09:40.080 i'll show you a different way of posing
+00:09:42.080 the character using some of houdini's ik
+00:09:44.720 nodes and we'll really have fun with
+00:09:46.560 this ik controls that allow you to
+00:09:49.360 manipulate the whole skeleton by using a
+00:09:51.440 single bone so you can do 10 things with
+00:09:54.080 a single mouse click and drag houdini
+00:09:56.320 will do most of the heavy lifting and
+00:09:58.160 estimate the rest of the joints where
+00:10:00.080 they should be so you can animate with
+00:10:02.160 ease
+00:10:03.120 thanks for watching and sticking to the
+00:10:05.120 end
+00:10:20.720 you
+
+----------------------------------------
+Contents of YouTube-Transcript/HoudiniSideFx/Favela Dystopia  Single Shack Part1.txt:
+# tactiq.io free youtube transcript
+# Favela Dystopia | Single Shack Part1
+# https://www.youtube.com/watch/Rm4JX2l6PAY
+
+00:00:08.320 hello everyone and welcome back today I
+00:00:10.599 want to show you how to fully
+00:00:12.000 procedurally create this dystopian box
+00:00:14.599 like house it's very simply made just
+00:00:18.320 essentially Boolean operations very
+00:00:20.240 basic modeling techniques um as I said
+00:00:22.519 it's fully procedural so we can generate
+00:00:24.680 infinite amount of um different
+00:00:26.439 variations of this I am using this setup
+00:00:29.400 to instance it on a big environment with
+00:00:33.879 thousands of different stack houses like
+00:00:37.399 this this is an HDA I developed about a
+00:00:40.640 couple of days it took me to generate
+00:00:43.000 this and it has a couple of settings um
+00:00:46.160 I will not be going over how to create
+00:00:47.719 the HDA itself but I will definitely
+00:00:50.280 talk about how I created this procedural
+00:00:53.640 system the whole HDA essentially is this
+00:00:58.640 lots of individal streams they all come
+00:01:01.039 down together here and then everything
+00:01:03.480 is kind of connected there will be you
+00:01:05.799 can see there's lots of Expressions um
+00:01:08.640 going on so lots of linking but the main
+00:01:11.280 gist of this is fairly simple to be
+00:01:13.920 quite honest with you um it just the
+00:01:16.680 amount of items combined kind of makes
+00:01:19.960 it look very Advanced and first of all I
+00:01:22.960 want to thank Simon Houdini um for his
+00:01:26.720 approach how he tackled the placement of
+00:01:29.920 objects and I will show what I mean by
+00:01:32.799 that in a second also in this video
+00:01:34.520 today I will show how to procedurally
+00:01:37.079 shade instances of the same object that
+00:01:40.159 will be a more tutorial based style but
+00:01:42.840 this will be again another overview how
+00:01:44.880 to create this and again the hip file
+00:01:47.280 will be available on my patreon as well
+00:01:50.680 and I'm thinking of actually selling the
+00:01:53.159 HDA not sure yet but potentially it will
+00:01:56.320 go on a gumroad account here we start
+00:01:58.799 out with a simple box as usual we start
+00:02:01.479 out as simple as we can I'm just
+00:02:04.039 isolating the top group here I'm doing a
+00:02:06.880 point Jitter just to kind of get the top
+00:02:10.000 randomly jiggled so it's not straight
+00:02:12.480 you can see from the side there's
+00:02:13.959 definitely some offset to it and then
+00:02:17.200 I'm matching the size technically I'm
+00:02:18.760 just moving it um up to the origin line
+00:02:21.519 so it's not going negatively in y and
+00:02:24.800 then I think the first interesting thing
+00:02:26.640 is the props section and by the props I
+00:02:29.879 mean the elements that essentially go
+00:02:34.080 inside like Windows Doors and all of
+00:02:36.440 that and they are in a subnet and in the
+00:02:39.599 subnet I am creating even one more HDA
+00:02:43.519 that allows me to um proc sedually
+00:02:46.159 create window types like Windows or door
+00:02:49.159 frames and all of that so that's
+00:02:50.720 happening in here um maybe let's have a
+00:02:53.280 quick look how they look like so you can
+00:02:55.599 see there's another subnet one is doing
+00:02:58.120 doors one is doing windows and one is
+00:03:00.519 doing balconies right and you might be
+00:03:03.040 wondering why are these cubes um they
+00:03:05.519 are bounding boxes they will be needed
+00:03:08.040 to actually place them procedurally on a
+00:03:11.080 box right so let's dive into all of this
+00:03:14.040 into this main window HDA so we're
+00:03:16.400 starting out with a simple grid picking
+00:03:18.280 the outside edges matching the
+00:03:21.319 size and then I'm extruding it right so
+00:03:24.000 I'm just creating this Frame reversing
+00:03:26.599 the frame and then I'm giving it some
+00:03:28.760 depth like pushing it out further and
+00:03:31.200 then I'm exerting this to give me some
+00:03:33.560 kind of window framing on the left hand
+00:03:35.799 this is like an optional toggle you can
+00:03:37.920 see it's based driven by a switch to
+00:03:40.040 create these these blinds and these
+00:03:42.280 blinds again have options to make them
+00:03:45.040 thicker you can see this is my profile
+00:03:47.920 so this is then in the end the look of
+00:03:50.480 it and then as I said it's a optional
+00:03:53.319 toggle and then the bounds this is what
+00:03:56.200 I was saying this is why it looks like
+00:03:57.439 so boxy but I'm always using this bound
+00:04:00.040 object to create a perimeter around my
+00:04:03.040 shape this will go into a this will be
+00:04:05.640 merged and then I have my object and my
+00:04:08.079 Geo that's why I have this Geo Group and
+00:04:10.400 on the right I've got my bound so I've
+00:04:11.840 got two different meshes joined together
+00:04:14.599 and then I'm packing it and then we're
+00:04:16.040 going out and with with this single HDA
+00:04:19.478 I can generate quite a few different
+00:04:22.240 variations right if I just for now
+00:04:24.240 disable the blinds and you see this is
+00:04:26.600 my door it's a door frame big and then
+00:04:29.000 I've got a door frame small like it's a
+00:04:30.800 regular 2 m 2x1 m door frame and then
+00:04:35.759 I've got for instance the windows I've
+00:04:37.600 got several different windows but if I
+00:04:39.400 disable the bounce quickly you can see
+00:04:42.520 um got this window and it's just
+00:04:44.639 different settings so I can have more
+00:04:46.720 columns can have more rows and I just um
+00:04:50.199 you know varied these settings based on
+00:04:53.240 what I wanted to achieve so smaller
+00:04:56.280 window boxy window tall window you can
+00:04:59.280 see different
+00:05:00.520 variations I just cread them very
+00:05:02.680 quickly there's nothing crazy about it
+00:05:04.880 and then just make sure the bounds is
+00:05:06.720 there and all of these props they will
+00:05:10.000 be used to generate these windows and
+00:05:13.600 doors and balconies now let's talk how I
+00:05:16.960 was able to place them because that was
+00:05:18.720 the quite tricky part again thanks to
+00:05:20.960 Simon Houdini to help me figure out how
+00:05:24.440 to do it in a smart manner all right so
+00:05:27.600 from the base Geo I'm just getting the
+00:05:29.880 ground the floor converting that to a
+00:05:33.479 single polyline primitive splitting it
+00:05:35.639 to have individual lines from these and
+00:05:39.440 then I'm scaling it down just a regular
+00:05:43.120 scale factor local to each curve and
+00:05:47.319 this will give my my props the bounds of
+00:05:52.120 where it should be placed so they will
+00:05:53.680 be placed somewhere along these two
+00:05:56.360 lines then I'm resampling my curve which
+00:05:59.759 we created on the left stream right
+00:06:01.520 let's talk a little bit about the chain
+00:06:04.520 tool it's probably not designed for this
+00:06:08.639 specific use case but the cool thing
+00:06:11.160 about the chain it kind of knows based
+00:06:14.520 on the bounding boxes you are providing
+00:06:16.520 it how to align pieces next to each
+00:06:19.560 other and it will dynamically fit as
+00:06:22.720 many pieces in this on the line as there
+00:06:26.840 is space to it and you can if if I
+00:06:29.599 create a new chain operator like a new
+00:06:31.639 chain I'm just doing that because it's
+00:06:33.319 not linked to the HDA because a lot of
+00:06:35.360 this is just linked you will notice that
+00:06:38.280 I still have a lot of options here to
+00:06:41.479 actually place things and and offset
+00:06:44.199 them so there's alignment I can give it
+00:06:47.280 a fixed amount of space you can see I
+00:06:49.479 can move the pieces um left to right and
+00:06:51.960 if there's more space another object
+00:06:53.560 will just pop in
+00:06:55.039 automatically and the cool thing is I
+00:06:57.560 can also um force it like this is no
+00:07:00.080 cycling between all my objects I can do
+00:07:03.520 a random so this will just randomly pick
+00:07:05.879 any piece if finds in my input props on
+00:07:09.120 the top left here um but I can also use
+00:07:12.280 a weight of random which is pretty cool
+00:07:15.479 I can initialize the weights and what I
+00:07:17.720 can do now they are not named
+00:07:19.680 unfortunately but I can for instance Say
+00:07:22.680 Hey I want only 20% of P Zer I only want
+00:07:27.919 38% of this piece and this way I can be
+00:07:31.919 a little bit more art directed on what
+00:07:34.520 do we want to see in the end right and
+00:07:37.199 right now it's a little bit hard to see
+00:07:38.360 what is what so after the chain I'm
+00:07:40.759 unpacking everything because the chain
+00:07:42.919 packs the Geo and when I when it's
+00:07:45.400 unpack this this here will match the
+00:07:48.800 size of my incoming object so I'm just
+00:07:50.960 aligning it on the vertical and then I'm
+00:07:54.080 splitting it from um the windows and I
+00:07:57.120 just wanted to give the windows a random
+00:07:59.800 height offset which this is now
+00:08:01.560 currently loged to zero but in the end
+00:08:04.800 you can see they are being a I can
+00:08:07.000 actually offset them if I need to and
+00:08:08.879 here I'm splitting based on bounds my
+00:08:12.000 final output Geo so this will be my Geo
+00:08:16.240 that will be attached to the walls right
+00:08:19.039 so that's my props and all the props
+00:08:21.599 they will be merged somewhere here so
+00:08:23.720 now let's have a look how we deal with
+00:08:25.879 the uling so as you can see here at the
+00:08:28.840 split I'm splitting my Geo Group from
+00:08:31.720 Geo to bounds which we created in in
+00:08:34.519 this HDA section I'm going all the way
+00:08:37.479 back to my walls and I'm bringing in my
+00:08:41.880 pieces here as you can see that these
+00:08:43.839 are my bounding boxes similar thing as
+00:08:46.600 before I'm using the split print by
+00:08:48.600 normal to just get um the floor and the
+00:08:51.800 sides not this not the roof and then all
+00:08:54.880 it's doing the cut Geo is just a
+00:08:57.080 subtraction of my main booing and there
+00:08:59.480 we go and then we have these holes and
+00:09:01.880 that is it technically and then I'm just
+00:09:03.920 giving it some thickness this is my wall
+00:09:06.800 group I'm merging this back in um this
+00:09:09.959 is this already has has a roof but that
+00:09:11.800 doesn't matter and then you can see now
+00:09:14.839 this already looks very sophisticated
+00:09:16.640 right and I just used the chainsaw even
+00:09:19.680 though it's not fully aligned but we get
+00:09:21.560 a more interesting shape of things are
+00:09:23.480 protruding a little bit obviously I can
+00:09:25.959 could have spent way more time to make
+00:09:27.680 this even nicer and I just realized
+00:09:30.079 we're actually putting some air
+00:09:32.160 conditions on the inside fair enough
+00:09:33.959 maybe that's okay doesn't matter now
+00:09:35.880 let's have a quick look at the roof it's
+00:09:38.000 also I think a little bit interesting to
+00:09:39.959 see how I done that so again I'm just
+00:09:42.600 extracting the the roof um I'm
+00:09:45.560 transforming this this was a little bit
+00:09:47.640 tricky to solve because of it's not a
+00:09:50.600 uniform like a flat shape so I cannot
+00:09:52.880 just scale it uniformly I had to do some
+00:09:55.519 Matrix transformations to actually scale
+00:09:58.399 it and in a accurate fashion so Caren
+00:10:02.360 from the CG launch helped me a little
+00:10:04.040 bit to get this Matrix transformation
+00:10:06.240 working and now I have the option to
+00:10:08.360 just scale it properly as I need it to
+00:10:11.440 go then I have a line and it's a cool
+00:10:15.079 thing actually so I'm just creating a
+00:10:16.480 line I'm copying the line on the x-axis
+00:10:19.240 64 times I think it doesn't matter how
+00:10:21.120 many times and then I'm matching it to
+00:10:24.040 the size like I'm using um disabling the
+00:10:27.240 uniform scale that actually then
+00:10:30.519 stretches everything to my incoming Geo
+00:10:34.399 so now I have this these lines and what
+00:10:37.320 I'm doing then I'm raying these lines
+00:10:40.320 and what the ray is doing it's just
+00:10:42.440 because right now this these are
+00:10:45.120 straight but my roof is actually slanted
+00:10:47.920 and the ray just projects them back down
+00:10:50.560 so they're actually matching the
+00:10:52.399 orientation of the normals the group
+00:10:55.120 range allows me to select every other um
+00:10:58.279 primitive which I can just do here I can
+00:11:00.959 also choose the amount technically and
+00:11:03.880 then very basic I'm just moving it up so
+00:11:07.399 um creating this little Steppy thing and
+00:11:08.920 then I'm using the skin that will
+00:11:11.000 generate me a mesh from all these small
+00:11:16.600 uh lines then I'm just doing some
+00:11:18.680 cleanup Atri deletes most probably
+00:11:21.079 fixing up the normals reversing it so
+00:11:23.560 it's pointing upwards beveling it and
+00:11:25.639 the bevel will give me a little bit of a
+00:11:27.320 round shape to it here we go that is my
+00:11:30.680 procedurally scaled roof and it will
+00:11:33.760 conform to every shape the roof roof
+00:11:36.399 will have if um the base shape changes
+00:11:39.120 next up we do have pillars and again
+00:11:42.480 this is I just went by and thought okay
+00:11:44.760 what kind I add more to make it make it
+00:11:46.600 a little bit more interesting similar
+00:11:48.360 thing copy a line on my outside points
+00:11:53.600 and raring it so they are actually
+00:11:56.399 matching the height profile so sweeping
+00:11:59.360 it to give them some thickness and these
+00:12:01.480 are my very basic pillars they are just
+00:12:04.600 on the outside just to give it some more
+00:12:07.600 detail on the edges so it's not a
+00:12:09.160 straight edge but as if there it's like
+00:12:11.120 a wood thing or a metal beam or
+00:12:13.079 something like that so you can see we
+00:12:14.639 got getting a little bit more technical
+00:12:17.240 now here with the roof support and the
+00:12:19.760 final outcome is this from the roof
+00:12:22.800 support some beams and let's have a look
+00:12:26.360 so again we're taking the top section
+00:12:29.079 it's is mostly the same approach I'm
+00:12:31.199 creating lines like a single line and
+00:12:34.320 then I'm non-uniformly scaling it to
+00:12:36.600 stretch it and I'm doing this on the on
+00:12:39.160 both axis so um horizontally and
+00:12:41.760 vertically and then I have this grid of
+00:12:44.079 lines I'm wearing them the same
+00:12:45.920 technique as I did on the roof to just
+00:12:48.120 get get it
+00:12:49.480 slanted and now we have a for each Loof
+00:12:52.079 which is just scaling them essentially
+00:12:54.519 I'm just going over each curve and then
+00:12:58.680 I I have my scale factor these are
+00:13:00.680 linked to my um um HDA so I can do
+00:13:04.279 random this is a random operation based
+00:13:07.760 on um the current iteration and a random
+00:13:10.760 scale that way they are some are longer
+00:13:13.760 some are shorter essentially um then
+00:13:16.720 we're creting bounds this took me some
+00:13:19.000 time again to figure out there's
+00:13:20.199 actually a Boolean curve which I really
+00:13:22.399 love by now um it allows me to create a
+00:13:25.800 shape and cut a curve with it I it's not
+00:13:29.760 I think it doesn't work with the normal
+00:13:31.720 Boolean I tried that I'm sure but now I
+00:13:34.199 have this cutout curve then using Labs
+00:13:36.839 random selection to delete a certain Pro
+00:13:40.199 percent like 10% probability that the
+00:13:42.160 pieces are deleted um I'm sweeping them
+00:13:45.320 based on an input which looks like this
+00:13:47.519 so I can um change the shape of my sweep
+00:13:52.519 if I need to normally it's fine if you
+00:13:54.759 can just use the preset but I'm using
+00:13:56.399 the second input cross-section so I
+00:13:58.800 could still you know change the size of
+00:14:01.800 the the beams if I wanted to sweeping it
+00:14:05.079 then just aligning it cleaning it up
+00:14:06.839 giving it a group and that is um the
+00:14:09.440 support beams it always looks very
+00:14:11.839 complicated if if you look at this but
+00:14:13.480 if you go through it one by one it's
+00:14:15.759 actually very straightforward I think
+00:14:18.600 antennas so they look like it's actually
+00:14:21.320 kit bash models I think but it's it's
+00:14:23.800 not it's it's again another internal HDA
+00:14:27.000 I created for this let's just have a
+00:14:28.519 look again I'm creating the extracting
+00:14:31.040 the top section then I'm scattering
+00:14:33.720 points on it giving it a random P scale
+00:14:36.560 a random orientation a random variant
+00:14:40.320 and all all of these then copy some
+00:14:44.000 antenna model to them and these are all
+00:14:46.240 procedurally generated as well um so now
+00:14:48.639 let's have a quick look how this was
+00:14:50.920 created and you can see there's again it
+00:14:53.160 seems like a lot of parameters but it
+00:14:54.959 didn't box it up very nicely so um let's
+00:14:57.600 just create a new antenna HDA and again
+00:15:00.360 these will be most probably
+00:15:02.279 available um with the scene hello
+00:15:05.399 editing all right so what this is the
+00:15:07.759 HDA it looks actually very simple like
+00:15:10.160 there's not too much going on quite
+00:15:11.920 frankly starting with a line giving it
+00:15:15.240 some random P scale I'm doing a
+00:15:17.800 progressive resample which is a fun node
+00:15:19.800 which can you can give it essentially a
+00:15:22.199 um you can see this is a p scale noise
+00:15:24.839 it has like a very strong values very
+00:15:28.120 strong clamp in here and based on this
+00:15:29.800 noise I can resample it so where there's
+00:15:32.360 high density you get a little bit more
+00:15:33.880 points I just did that to to do some
+00:15:36.360 variations of um this placement of the
+00:15:39.440 vertical lines because if if I wouldn't
+00:15:41.880 have this they will be just uniformly
+00:15:43.720 scaled again a simple line which is just
+00:15:46.600 copied onto onto these base points here
+00:15:50.240 and then we got get already this shape
+00:15:52.120 meshing size sweeping it so now we have
+00:15:54.240 some thickness to it and that's my basic
+00:15:56.519 object I'm packing this so these are my
+00:15:58.920 three basic objects I'm randomizing and
+00:16:01.639 then copying onto the main chain so how
+00:16:06.079 I did the dish sphere a clip a
+00:16:09.920 remesh a thicken to give it some like
+00:16:12.800 Extrusion transforming it on the other
+00:16:14.880 side I'm going sure I did that packing
+00:16:17.160 and then oh I did to actually put it
+00:16:19.839 onto the center point that's one dish
+00:16:22.079 and then the last piece is a whatever
+00:16:25.319 box and nothing crazy I just did a box
+00:16:28.079 of bevel that's my so simple object and
+00:16:30.600 it's just they all live in the origin
+00:16:32.600 and then enumerate will give each prop
+00:16:35.440 its own index you can see it has its own
+00:16:37.839 name int and you will see that 012 on
+00:16:41.160 the right hand side here on this stream
+00:16:43.399 we're starting out with a circle
+00:16:45.360 scattering some points on it and then we
+00:16:48.720 get these pillars these these vertical
+00:16:50.720 lines and again the scatter Here Is
+00:16:52.759 Random so that means that these points
+00:16:55.480 will be not always the same so it's a
+00:16:57.839 random place after this I'm copying as
+00:17:00.720 some single straight line onto those two
+00:17:03.279 points and then I'm doing copying more
+00:17:05.919 points onto these lines then I'm just
+00:17:09.240 you can see I just copied a simple uh
+00:17:12.199 tube cylinder object on these points it
+00:17:14.319 just give give this shape a little bit
+00:17:16.559 more interest you see now it has it has
+00:17:19.000 just a little bit more detail it's it's
+00:17:20.599 I didn't do much it's not a perfect
+00:17:22.679 model it's just a fake model technically
+00:17:25.119 I'm using the clip to not have anything
+00:17:27.599 be copied in the bottom section because
+00:17:29.960 I just want things at the top I'm using
+00:17:32.480 the scatter align tool to Generate
+00:17:34.480 random points on this Geo and this
+00:17:37.840 allows me to specify the Min and Max
+00:17:40.440 scale of my pieces um I'm peing them to
+00:17:43.640 push them outside that's why I created
+00:17:45.600 the normals to do the peaking now I can
+00:17:48.559 if I if I'm very subtle with it you can
+00:17:50.840 see that I'm moving these points
+00:17:53.120 outwards of the normals these are then
+00:17:55.760 copied over so if I use a peak you will
+00:17:57.799 now see that the the dishes are actually
+00:17:59.200 pushed outside Atri from pieces
+00:18:02.280 generates me these the weight the name
+00:18:05.640 weights and placements Which object goes
+00:18:07.679 onto which point and then this is just a
+00:18:10.240 random P scale again and these are then
+00:18:12.799 merged onto this thing on the right hand
+00:18:15.039 side this is where the wires are
+00:18:17.000 happening you can see that makes it a
+00:18:18.480 little bit more sophisticated as well um
+00:18:21.400 the wires are the labs um cable
+00:18:24.120 generator you just um pick random points
+00:18:27.840 I'm just um I'm actually just creating
+00:18:30.120 the points from um from the base goo
+00:18:34.919 like that and then from this I'm getting
+00:18:38.720 the longest connections so I'm just
+00:18:40.640 creting point connections from um one
+00:18:43.520 point to the next and I'm just finding
+00:18:45.000 out the longest pieces and then the
+00:18:47.280 random selection just gives me a maximum
+00:18:49.120 of five Primitives from each of those
+00:18:51.520 points and then the cable generator
+00:18:53.720 happens to create the fake gravity
+00:18:56.200 effect you can see I can play with the
+00:18:58.400 cables I can generate more cables and
+00:19:00.480 you can see everything is bluish which
+00:19:02.320 means it's connected to the outside um
+00:19:05.280 and that is how what single antenna is
+00:19:07.880 made and then I'm doing this big for
+00:19:10.280 Loop and my Global seed this one is
+00:19:13.600 based on the current
+00:19:15.000 iteration and now if I look at it this
+00:19:17.960 is then all the different versions I'm
+00:19:20.640 creating randomly on the points we
+00:19:23.360 created they are just picked randomly
+00:19:26.440 one of these are then copied over and
+00:19:28.480 this makes it very unique AC placement
+00:19:31.360 you will laugh how simple that is it's a
+00:19:33.880 tube and a box and I'm booing it to
+00:19:37.600 create a hole beveling the edges
+00:19:39.840 creating a box um giving it some
+00:19:43.120 vertical divisions extracting a single
+00:19:46.039 line from it raying it back onto my
+00:19:48.240 original bounding box cring giving it
+00:19:51.159 some thickness merging it and now it has
+00:19:53.720 like a little cage around it this is
+00:19:56.919 transforming it for the copy in single
+00:19:59.480 AC out and then we're just copying it
+00:20:02.919 over onto my wall pieces and a similar
+00:20:05.480 thing as before everything is being
+00:20:07.200 merged at some point and that's how
+00:20:11.080 straightforward this whole process is
+00:20:13.720 and again this will be the scene will be
+00:20:16.640 available for you to really dissect it
+00:20:18.679 if you want to but the cool thing is now
+00:20:21.679 um I can just randomly generate so many
+00:20:24.799 different variations of that single
+00:20:26.720 asset and if I just want to change maybe
+00:20:29.039 the roof I can um have a different seat
+00:20:32.080 for the antennas if I want to be very
+00:20:34.080 specific I can change the antenna seat
+00:20:36.320 so that will actually regenerate me a
+00:20:38.120 different antennas and this Shack is
+00:20:41.200 then placed within a for Loop which
+00:20:44.640 generates me
+00:20:46.799 variations so of these Shacks okay for
+00:20:50.120 the alignment I need to have the name
+00:20:51.880 attribute on Primitives in set of points
+00:20:54.720 but then here you can see that I have
+00:20:58.159 have all these different variations
+00:21:00.000 different amount of antennas they are
+00:21:02.720 all unique some of balcony some don't
+00:21:06.480 and then these are in the end used to
+00:21:10.760 stack like to create these this is a
+00:21:13.039 different setup I will go over that at
+00:21:15.880 some point as well but
+00:21:18.480 technically it will then use my setup to
+00:21:22.640 generate me these hero Stacks which has
+00:21:25.760 a lot of different instan of these
+00:21:30.159 individual houses and you can see this
+00:21:32.840 has now props added as well these
+00:21:35.400 containers but in the end it's just I
+00:21:39.080 think 15 different building types
+00:21:42.120 scattered and this is the distance we
+00:21:45.520 will be seeing them that's why I did not
+00:21:48.279 pay too much attention on making sure
+00:21:51.520 the models are perfectly modeled and all
+00:21:53.600 of that so um and then also in the
+00:21:55.840 distance there will be tons of smaller
+00:21:57.840 ones as
+00:22:00.280 [Music]
+00:22:24.960 well
+
+----------------------------------------
+Contents of YouTube-Transcript/HoudiniSideFx/Favela Dystopia  Procedural Shading in USD Part2.txt:
+# tactiq.io free youtube transcript
+# Favela Dystopia | Procedural Shading in USD Part2
+# https://www.youtube.com/watch/w8Hjuu-DHNk
+
+00:00:03.020 thank you
+00:00:12.630 [Music]
+00:00:17.600 hello everyone and welcome back today I
+00:00:21.300 want to show you how I procedurally
+00:00:23.279 created all the shaders and textures for
+00:00:26.180 these lineup of shacks and I need to
+00:00:30.000 have them all to be unique because we
+00:00:33.059 are using them in a bigger scene and I
+00:00:36.180 don't want to have all the different
+00:00:37.860 variations so I want to make sure that
+00:00:41.040 they are all looking unique in my master
+00:00:44.520 scene
+00:00:45.540 and I'm using a couple of techniques to
+00:00:48.480 make sure that everything is varied in
+00:00:50.700 terms of placement in terms of color in
+00:00:53.940 terms of scale so everything will be
+00:00:55.739 adjusted and you can see we are now
+00:00:58.440 inside a stack somewhere in the scene
+00:01:00.420 but yeah just zooming in here on this
+00:01:03.539 area you are noticing that they're all
+00:01:06.360 different which is perfect this is what
+00:01:08.280 I'm what I'm after and this is then the
+00:01:11.159 bigger scene you can see
+00:01:12.840 they are all kind of Summer blue some
+00:01:16.080 are greenish and some are mental some
+00:01:18.600 are wood some are plastic or whatever
+00:01:20.400 they're all varied perfect
+00:01:23.700 so let me show you how I did that so
+00:01:28.259 this is my lineup scene before we get
+00:01:31.619 into it I just want to make sure that
+00:01:34.020 I'm cleaning things up a little because
+00:01:36.060 right now the Shader is we're just
+00:01:38.280 working on the wall Shader but right now
+00:01:40.799 we probably will do do want to just go
+00:01:45.000 to get rid of everything except the
+00:01:46.380 walls quick let's see if we can actually
+00:01:48.060 do it in a quick way
+00:01:51.240 uh yeah we should be able to what's it
+00:01:54.000 called we can't split it most probably
+00:01:56.880 splitted by walls
+00:02:01.740 and
+00:02:03.299 there we go we just have the walls so I
+00:02:07.259 go back up now we just have the walls
+00:02:09.419 and if I render we should be
+00:02:12.120 just dealing with these guys which is
+00:02:14.099 perfect so now I can actually go in and
+00:02:17.340 show you
+00:02:18.420 what was done to get this look
+00:02:22.140 and if I head into my material Network
+00:02:24.720 which is in here and on the walls this
+00:02:28.140 is the whole network and you can already
+00:02:29.520 see there's this random seed section
+00:02:32.700 and then there's a basic Shader here
+00:02:35.760 so let me recreate everything
+00:02:37.920 starting with the standard surface
+00:02:39.239 Shader which is the go-to Shader in
+00:02:41.519 Arnold you always use that because that
+00:02:43.200 is the Uber Shader which does pretty
+00:02:44.819 much everything
+00:02:46.140 and if I render now we've got Gray
+00:02:48.780 so the idea now is how do we get
+00:02:51.420 textures obviously there is no UVS
+00:02:52.980 because I I didn't feel the need to
+00:02:54.780 create UVS for this because we can use
+00:02:56.760 triplanar and triplanar is built for
+00:02:59.160 this exactly this and you will notice on
+00:03:02.879 the left I've got lots of input shaders
+00:03:05.640 textures painted metal
+00:03:08.340 whatever whatever and they all fit into
+00:03:11.220 a triplanar so let me get into it so if
+00:03:15.180 I create a triplaner it's just
+00:03:17.099 essentially one texture which is
+00:03:18.720 projected on X Y and Z and let me find a
+00:03:22.800 nice one maybe I actually don't know
+00:03:25.680 which one is nice let's go input and
+00:03:28.739 hook this up to for now just go to the
+00:03:31.739 surface and we can see that's the metal
+00:03:34.019 I don't like that too much
+00:03:37.459 so let me try this
+00:03:40.260 this will work concrete all right so
+00:03:43.379 this is now my triplanar projection you
+00:03:45.239 can see now each of them have exactly
+00:03:48.659 the same projection and as I said
+00:03:51.900 several times I don't want that so I
+00:03:53.879 want to make variations so one way to
+00:03:57.060 vary this is by offsetting it right so
+00:04:00.480 if I move this maybe
+00:04:03.060 um
+00:04:03.659 to two or whatever 50
+00:04:06.959 nothing happens maybe I need to change
+00:04:08.879 this guy
+00:04:10.260 why is it not updating maybe that's an
+00:04:13.019 update issue
+00:04:18.600 the rotation works I'm not sure why the
+00:04:20.279 offset doesn't work
+00:04:21.720 okay so it doesn't work because I
+00:04:23.880 actually have figured out that it's a
+00:04:25.020 seamless texture and it just doesn't
+00:04:26.220 want to rotate and offset but what we
+00:04:30.120 can use we can use the cell instead
+00:04:32.100 which is working just fine so the cell
+00:04:33.840 is essentially creating clusters which
+00:04:35.880 you then can rotate technically so I can
+00:04:38.940 make random cells that I can offset and
+00:04:42.660 create these random rotations and again
+00:04:44.820 we can still play with the with the
+00:04:46.919 scale
+00:04:48.199 if you go smaller and scale everything
+00:04:51.000 will be scaled up we don't want that so
+00:04:53.520 we probably want to go maybe a unit of
+00:04:55.199 five just to see what we're getting
+00:04:57.780 uh you can see now we're getting these
+00:04:59.940 cells you can see the structure
+00:05:02.100 all right and this will make things more
+00:05:05.040 randomized now because I can rotate them
+00:05:07.199 I can blend these clusters probably five
+00:05:10.259 is just too much so we should probably
+00:05:11.940 just go to two and and work with that
+00:05:14.160 this this will kind of work so but it's
+00:05:16.919 still now doing obviously the same
+00:05:18.419 pattern on everything and we want to
+00:05:20.220 randomize that somehow the idea is to
+00:05:23.460 use some kind of random ID to drive all
+00:05:25.320 of this and this is what's going on here
+00:05:27.180 and it's all coming from this user data
+00:05:30.479 integer and US ID is something I made up
+00:05:33.479 it is just it's a short for Unique stack
+00:05:36.900 ID and when I generated these Stacks I
+00:05:40.080 made sure that each of these individual
+00:05:42.600 Stacks has a unique number one two three
+00:05:46.080 four five fifteen whatever as many I
+00:05:48.660 have I have different numbers and based
+00:05:51.120 on that if I visualize this ID
+00:05:55.440 I just connect this up then to my
+00:05:58.259 Surface you won't see anything but if I
+00:06:00.900 use the random one which you which works
+00:06:03.060 on that integer color so if I just
+00:06:04.800 create a random node and connect the
+00:06:07.440 output of this usid into my integer
+00:06:10.740 input Coke that up you will now see we
+00:06:14.220 get a unique color per item and I can
+00:06:17.699 use this
+00:06:19.139 to drive certain values on the triplano
+00:06:22.199 for example
+00:06:24.000 so this gives me a random color RGB I
+00:06:27.900 can make it give me a random float so
+00:06:29.759 depending on what I need I could
+00:06:31.500 potentially drive maybe the scale factor
+00:06:33.900 why not right so the scale factor right
+00:06:36.240 now is a color and we can just hook up
+00:06:39.000 the color and and technically see what
+00:06:41.160 what we're getting it will probably look
+00:06:42.660 a little bit bizarre
+00:06:44.699 but it kind of will vary the scales and
+00:06:48.240 stretch things you can see now we've got
+00:06:49.919 longer ones here boxy ones there and
+00:06:52.800 everything is already
+00:06:54.600 just doing this random except the first
+00:06:57.900 today looks very similar but I can
+00:07:00.180 change the seed value and then we've got
+00:07:02.160 a completely different result you can
+00:07:03.660 see now
+00:07:04.680 completely different and if I if you
+00:07:06.960 want to control it a little bit you can
+00:07:08.460 do grayscale and now each XYZ component
+00:07:12.300 will get the same kind of scale and it
+00:07:15.240 will not be stretching in one axis and I
+00:07:18.000 can also do a range after that and
+00:07:20.160 forcing it to be a certain Min and
+00:07:22.979 maximum scale so let's use the output
+00:07:26.759 hook that up to scale nothing will
+00:07:28.800 change because we're not changing our
+00:07:30.300 outputs but now let's say we want to be
+00:07:33.539 one so everything should now get back to
+00:07:36.539 the same scale because we are not doing
+00:07:38.039 any variations but let's say we want a
+00:07:41.039 maximum of
+00:07:43.520 0.75 for our minimum scale and our
+00:07:46.440 maximum scale can be maybe 2.5 and now
+00:07:50.819 some are very high frequency and some
+00:07:54.900 should be a little bit lower frequency
+00:07:57.919 potentially these guys here so so this
+00:08:00.660 already works and we can use a similar
+00:08:03.240 idea now to drive the rotation of the
+00:08:06.120 cells potentially so now based on the
+00:08:07.979 cells if I enable cell
+00:08:10.199 should also we get random rotations and
+00:08:12.479 again we can change the amount randomly
+00:08:16.919 if we feel like it
+00:08:19.259 you can see everything is being rotated
+00:08:21.900 in the same way because it's right now
+00:08:23.759 doing the same thing but I could do a
+00:08:25.680 another random make it grayscale change
+00:08:28.500 a seat so it's it's different for for
+00:08:30.960 this kind of thing that we're trying to
+00:08:33.419 do
+00:08:34.140 and we definitely do want to change it
+00:08:37.140 like clamp the input outputs because we
+00:08:39.599 don't want to have it rotate that much
+00:08:43.440 so I'm hooking up the cell rotate to my
+00:08:46.980 range output and I'm just saying okay
+00:08:49.019 you will maximum will be may maybe minus
+00:08:52.860 0.5
+00:08:54.360 and your output Max will be 0.5 so
+00:08:58.200 that's that's a my rotation range so you
+00:09:00.779 can already see now it's very random
+00:09:03.540 it's it's obviously probably too much so
+00:09:05.339 maybe you could just go point one
+00:09:08.580 so they're they're almost they're more
+00:09:10.920 straight I can probably go even less
+00:09:16.980 so that's a way and now you might think
+00:09:19.320 okay I have now so many input textures I
+00:09:21.480 will obviously not replicate all of that
+00:09:22.920 but I have this switch switch rgba I'll
+00:09:26.760 showcase what that is doing so if I do
+00:09:29.220 another switch rgba
+00:09:32.339 switch rgba and I hook up my color
+00:09:36.180 to my input 0.
+00:09:38.700 and I hook the output back to my Surface
+00:09:43.019 nothing changes expected and then I'll
+00:09:46.800 pick another triplaner from one of these
+00:09:49.920 guys and hook that up here
+00:09:52.320 right still nothing changes because our
+00:09:54.540 index is still on zero if I change my
+00:09:56.399 index to one
+00:09:58.019 the textures are swapped all right that
+00:10:01.019 should give you a clue what I'm after so
+00:10:03.060 technically now I'm doing the same thing
+00:10:05.040 using this usid a random which will
+00:10:08.700 drive my index so if I drag this random
+00:10:11.339 with alt drag I I make a copy of the and
+00:10:14.100 keep the connections this will now
+00:10:16.320 create a random
+00:10:17.940 grayscale value between 0 and 1.
+00:10:21.240 depending on how many textures I have in
+00:10:24.000 in my filex result I've got seven
+00:10:26.700 Textures in this case I got just two so
+00:10:31.019 I want to create a range
+00:10:34.440 hook it up and I want to be zero or one
+00:10:40.560 I think if you hook up a
+00:10:43.320 load to an integer it will round it down
+00:10:46.800 I think so what you can do instead to be
+00:10:49.860 sure what's going on
+00:10:51.660 you can use a
+00:10:54.560 float was a flow to integer I believe so
+00:10:57.660 flow to integer
+00:11:00.600 and then you have a couple of options
+00:11:02.220 here
+00:11:03.300 so if I hook it this up now to my index
+00:11:07.620 and it's setting set to round so when
+00:11:10.079 it's 0.6 it will be one if it's 0.5 it
+00:11:14.399 will be one I think if it's 0.4
+00:11:17.339 if it's zero 0.49 it will be zero so
+00:11:21.600 that's it should be now 50 50 roughly
+00:11:24.060 the the swap if I've got more textures I
+00:11:27.120 would increase my output to two so this
+00:11:29.160 will now obviously you can see I don't
+00:11:31.200 have these textures that's why it's
+00:11:32.459 black but that is the idea so I'm the
+00:11:35.399 more textures I have the bigger I make
+00:11:37.079 my output Max and that's exactly what's
+00:11:39.120 going on here I've got the same flow to
+00:11:42.000 end and my range goes up to six and then
+00:11:45.000 it's swapping between those textures
+00:11:46.740 right it's pretty straightforward once
+00:11:48.959 you know how to do it if I hook up my
+00:11:51.420 output of this guy
+00:11:52.980 you can now see these are my random
+00:11:55.320 textures and whenever the US ID changes
+00:11:57.839 so if I make 100 like thousands of
+00:12:00.480 copies of this each unique Car people
+00:12:02.339 get a different usid based on that it
+00:12:04.860 will get a random orientation random
+00:12:06.959 texture random scale all of that happens
+00:12:10.560 and then for this section here
+00:12:13.079 or the bump and the and the the rest
+00:12:15.440 honestly I just use the diffuse color
+00:12:17.820 you can see I'm all going from the
+00:12:19.620 switch and I'm using a range to and
+00:12:23.220 color correct it slightly to create me a
+00:12:25.500 roughness map which will look like this
+00:12:27.300 it's based on the input texture so this
+00:12:29.399 is my roughness map very basic and
+00:12:31.860 similar to The Bump I'm actually just
+00:12:33.180 feeding the fuse to the bump to just get
+00:12:35.579 some breakup and if I visualize the
+00:12:38.339 Shader this is then in the end how it
+00:12:41.519 looks like and you can see if I zoom in
+00:12:43.260 a little bit
+00:12:45.600 where's my spec maybe here here's a
+00:12:48.779 little bit you will see that we do have
+00:12:51.660 pretty cool details there's like a bump
+00:12:53.700 going on and I also I use the color
+00:12:56.639 Jitter actually based on the same
+00:12:59.880 um this is just using object ID
+00:13:01.260 something different but very similar
+00:13:03.240 writing me at random mask and based on
+00:13:06.839 on that I'm I'm just color shifting them
+00:13:10.019 as well
+00:13:10.920 so it's not just a different texture
+00:13:13.740 it's also a different Hue and a
+00:13:15.839 different saturation per ID you can see
+00:13:18.480 if I crank up saturation this is
+00:13:19.920 obviously
+00:13:21.120 exaggerated but it will create me random
+00:13:24.120 colors for all of these stacks and it's
+00:13:27.600 a pretty cool setup to be honest and if
+00:13:30.899 if we go down now to our render section
+00:13:35.639 go down until here we should hopefully
+00:13:39.420 now see
+00:13:41.040 our buildings scattered again and you
+00:13:45.000 can now see that pretty much every
+00:13:47.880 building here is unique
+00:13:50.459 like obviously the color is not
+00:13:52.740 completely over saturated but you will
+00:13:55.260 notice that they're all pretty much
+00:13:57.480 random there's like a dark red here
+00:13:59.519 green and blue and they're all different
+00:14:02.040 based on where they are in space so it's
+00:14:04.260 pretty rad the setup so everything is
+00:14:06.360 unique and that allows me to make very
+00:14:09.480 sophisticated looking scenes quite
+00:14:11.940 easily so I hope this gave you some
+00:14:14.639 insights on how to do the procedural
+00:14:16.079 shading obviously I do very similar
+00:14:18.839 techniques to get the antennas or the
+00:14:21.120 cables or everything else is based on
+00:14:23.040 this us ID to break up the shapes and
+00:14:25.980 and make things a lot more interesting
+00:14:29.160 [Music]
+00:14:38.519 um
+00:14:40.910 [Music]
+
+----------------------------------------
 Contents of YouTube-Transcript/HoudiniSideFx/Houdini 20 HIVE.txt:
 # tactiq.io free youtube transcript
 # Houdini 20 HIVE
@@ -12836,6 +13950,280 @@ Contents of YouTube-Transcript/HoudiniSideFx/Houdini 20 HIVE.txt:
 06:11:00.790 [Applause]
 06:11:06.600 n
 06:11:08.700 [Music]
+
+----------------------------------------
+Contents of YouTube-Transcript/HoudiniSideFx/Kine-FX Animation Basic Concept #2.txt:
+# tactiq.io free youtube transcript
+# Kine-FX Animation Basic Concept #2 IK Controls & Anchor Points
+# https://www.youtube.com/watch/S4Bzhnepovk
+
+00:00:00.160 this is where kin fx gets really fun to
+00:00:02.800 play around with using the full body ik
+00:00:05.040 note in houdini we can drive the entire
+00:00:07.440 character animation with a single bone
+00:00:09.440 or multiple bones for certain poses
+00:00:11.360 nonetheless it makes animation very
+00:00:13.519 quick and easy here i'm moving the left
+00:00:16.160 hand bone to create a high hand wave and
+00:00:19.039 by pinning down the feet and right hand
+00:00:21.359 i'm able to create a realistic hand wave
+00:00:23.760 just by dragging the left hand bone
+00:00:26.080 let's get started with basic concept
+00:00:28.000 number two ik controls and anchor points
+00:00:32.399 let's start with getting rid of these
+00:00:34.640 things but reusing the setup so these
+00:00:37.200 were left off from the previous video so
+00:00:39.600 now we have a very basic setup houdini
+00:00:42.239 has this full body ik node as long as
+00:00:45.840 you're reusing some of the bones from
+00:00:47.760 the skeleton that was imported with the
+00:00:50.320 character you'll find that animating
+00:00:52.079 with this ik note doesn't require any
+00:00:54.960 bone remapping at all throw down a blast
+00:00:57.760 node so delete non-selected now i'm
+00:00:59.760 going to choose a few joints that i'm
+00:01:02.320 going to be using as my i key controls
+00:01:04.400 let's take the hand select that on the
+00:01:07.280 viewport and then press enter now this
+00:01:09.600 is going to delete everything else and
+00:01:11.360 isolate this one hand bone now i'm going
+00:01:13.520 to feed this into my full body ik so
+00:01:17.040 this is going to be my control first
+00:01:19.040 input of the full body ik node we need
+00:01:21.600 the target skeleton just the full
+00:01:23.680 version the complete skeleton of our
+00:01:26.000 character and connect that to the first
+00:01:27.600 input and the second input of the full
+00:01:29.840 body ik will be our ik control so that
+00:01:32.880 would be the hand bone that we have
+00:01:34.560 isolated over here and i'm going to
+00:01:36.159 connect that to the second input of the
+00:01:37.759 full body ik this is where all the magic
+00:01:40.400 happens now this is supposed to connect
+00:01:42.479 to the third input of the joint deform
+00:01:45.439 node but i'm going to do that in just a
+00:01:47.200 second a bit more room so i'm going to
+00:01:48.640 just drag this down i'm going to throw
+00:01:50.320 down rig pose node because i'm going to
+00:01:53.040 move the ik bone which is our hand bone
+00:01:55.439 uh highlight the rig post node come over
+00:01:57.920 here to the 3d viewport and press enter
+00:02:00.560 by leaving the render flag on the full
+00:02:02.320 body ik node we can see the entire rig
+00:02:05.119 or the resulting motion rig in the
+00:02:07.119 viewport next highlight the rig pose
+00:02:09.679 node because we want to manipulate our
+00:02:11.920 ik control and the rig pose node will
+00:02:14.319 help us do that let me change the
+00:02:16.640 background
+00:02:17.760 so that you can
+00:02:19.280 view this a bit better too turn off the
+00:02:21.440 grid highlight the ring post node come
+00:02:23.440 over here press enter so this tool is
+00:02:25.520 activated we're going to select this and
+00:02:27.280 i'm going to start moving this around
+00:02:29.440 nothing absolutely nothing full body ik
+00:02:32.000 node the default option requires us to
+00:02:34.640 manually remap the bones however we're
+00:02:37.120 going to reuse the bone names so we
+00:02:39.440 don't need to remap anything manually
+00:02:41.599 our ik control is reusing the same
+00:02:44.080 skeleton that came with the character
+00:02:46.480 and it has the proper naming already so
+00:02:48.959 we can actually switch this over to
+00:02:51.200 map by attribute instead of mapping
+00:02:54.160 attribute i know the naming is a little
+00:02:56.160 weird but what this will do map
+00:02:58.159 attribute to match
+00:02:59.840 name because it already comes with the
+00:03:01.760 name and that's the original bone names
+00:03:04.080 over here in the animation post so let's
+00:03:06.319 go back over here this character break
+00:03:08.000 actually comes with the proper naming
+00:03:10.080 this hand over here is hand underscore l
+00:03:12.640 all the bones and all the joints have
+00:03:14.400 proper naming already as you can see
+00:03:16.480 here the ik bone is still labeled hand
+00:03:19.440 underscore l so i'm going to go back to
+00:03:21.360 this repose node and i'm going to try
+00:03:22.959 this again and i'm going to move the
+00:03:24.879 hand and you can see it's
+00:03:26.640 moving the entire rig
+00:03:29.280 i know that's not what we want but
+00:03:31.360 this this shows potential we can
+00:03:33.519 actually manipulate the hand without
+00:03:36.720 moving one joint at a time by
+00:03:39.120 manipulating one bone but having houdini
+00:03:42.080 estimate or solve the rest of the other
+00:03:44.319 joints and
+00:03:45.519 this saves us a load of time when you're
+00:03:47.599 animating now this brings us to another
+00:03:50.560 problem though
+00:03:52.000 why is the entire rig moving now i only
+00:03:54.959 want to move the the hand bone i only
+00:03:57.519 want to move the left hand of of eric
+00:04:00.480 well first of all let's connect this
+00:04:02.720 full body ik and connect it to the joint
+00:04:05.200 deform we have two outputs from the full
+00:04:07.519 body ik let's see what they look like
+00:04:09.680 we've got to get rid of the template
+00:04:11.200 this is our output so this is our result
+00:04:14.000 that's the target skeleton now there's a
+00:04:16.880 sore skeleton that's nothing that's
+00:04:18.639 because i haven't stored a rest
+00:04:20.880 transform or a rest pose usually the
+00:04:23.440 second output will give us this result
+00:04:26.320 which is the the original resting
+00:04:28.320 position or default pose if it the
+00:04:30.720 character is set up properly it would be
+00:04:32.400 the a pose or a t pose in this case this
+00:04:35.360 is a t pose we only care about the
+00:04:37.120 resulting pose for this example which is
+00:04:39.360 the first output in this node and i'm
+00:04:41.680 just going to connect this to the third
+00:04:44.320 input in the joint deform and let's see
+00:04:46.400 what this looks like okay eric is
+00:04:49.600 let me bring back the grid
+00:04:51.840 so eric is leaning back and he's flying
+00:04:54.320 up
+00:04:55.360 he's up in the air so let's look at what
+00:04:57.360 he looked uh in original
+00:05:00.160 okay he's on the ground his feet are on
+00:05:02.160 the ground in his original pose in his
+00:05:04.800 original resting pose when we
+00:05:07.039 manipulated the hand ik bone it moved
+00:05:10.720 the entire eric rig up into the air i'm
+00:05:13.759 gonna template the joint
+00:05:16.080 now this bone here higher rig which is
+00:05:19.280 not what we want we want to tell houdini
+00:05:21.360 okay i want everything else to stay in
+00:05:23.360 position
+00:05:24.400 but i just want the hand to move we need
+00:05:26.880 some anchor points what i call anchor
+00:05:29.039 points so i'm going to come over here to
+00:05:31.440 that original to the animation post
+00:05:34.080 let's get rid of the template
+00:05:35.840 and i'm going to isolate some more
+00:05:38.560 bones and these bones are going to be my
+00:05:41.199 anchor points
+00:05:42.560 and i'm going to choose some points to
+00:05:44.960 isolate remember these are the points or
+00:05:47.199 the joints that will not move so choose
+00:05:49.840 them wisely we don't want anything from
+00:05:52.880 the feet to move especially the foot i
+00:05:55.199 think that will do i do want the hip to
+00:05:57.600 move sometimes when you're reaching out
+00:05:59.039 for something really far away your your
+00:06:00.720 body tends to lean forward and your hip
+00:06:03.280 starts to rotate towards your left or
+00:06:05.440 right so let's keep everything free so
+00:06:09.039 houdini can choose for us what to do
+00:06:11.039 with the rest of the bone except for the
+00:06:12.800 feet now my feet will
+00:06:14.560 be the only anchor points that i need
+00:06:16.720 now let's merge this our ik control and
+00:06:20.960 the anchor point so let's merge both of
+00:06:23.440 these and let's connect it to the full
+00:06:26.240 body ik we have our ik do the hard work
+00:06:29.280 for us now let's try this again let's
+00:06:31.840 turn this off now you can see that the
+00:06:34.240 feet are planted on the ground now so
+00:06:36.160 that's important so the ground is right
+00:06:39.759 here i don't know if you can see it's a
+00:06:41.600 very faint line maybe that's a bit
+00:06:44.000 better he's definitely floating above
+00:06:46.160 the ground is what i wanted to show you
+00:06:48.479 now let's connect
+00:06:50.160 our anchor points back in so i want to
+00:06:52.400 take this merge and i'm going to connect
+00:06:54.800 it back into the full body okay and
+00:06:56.560 instantly you see eric has his feet
+00:06:59.039 planted back onto the ground and now
+00:07:01.840 we're modifying
+00:07:03.360 just the hand which is perfect so we can
+00:07:06.240 play around with this
+00:07:07.680 let's go back to this rig pose node
+00:07:10.319 highlight this
+00:07:11.599 come over to the 3d viewport press enter
+00:07:14.400 and we got that nice little widget let's
+00:07:17.199 move this hand around nice
+00:07:20.479 now he could be
+00:07:21.840 washing cars who knows wiping
+00:07:25.759 the
+00:07:26.880 washing windows
+00:07:28.479 this would be awesome for stuff like
+00:07:30.880 proceed a lot of procedural modeling
+00:07:32.960 because we can easily
+00:07:35.120 driving the entire rig with one bone we
+00:07:37.520 can apply a sine wave on this and his
+00:07:40.800 hand could be moving up and down
+00:07:43.199 in order to create different types of
+00:07:45.039 motions could be waving
+00:07:47.199 hi
+00:07:48.720 now his head and hips is leaning
+00:07:51.680 backwards which is
+00:07:53.759 might not be what you want since i'm
+00:07:55.840 trying to do like a high motion here i
+00:07:58.400 don't want his head to be going upwards
+00:08:01.120 or he could be reaching for something
+00:08:03.120 like
+00:08:03.919 you wouldn't stick out like your body
+00:08:06.160 would not make this sort of uh
+00:08:09.440 shape in order to fix this we can add a
+00:08:11.919 few more anchor points let's extend this
+00:08:14.560 grab this and let's choose a few more
+00:08:17.599 bones to add i want his head to stay in
+00:08:20.720 position so let's take this neck bone to
+00:08:24.479 the anchor points
+00:08:27.599 let's come over here to the rig pose and
+00:08:30.000 let's
+00:08:31.039 play around with this again so
+00:08:32.799 definitely his head is not moving
+00:08:35.760 the issue now is the feet are starting
+00:08:38.000 to float around so i think i
+00:08:39.599 accidentally removed the feet from the
+00:08:41.760 anchor points let's go back and add the
+00:08:44.240 feedback to the anchor points so that's
+00:08:46.480 the only thing that's selected and
+00:08:48.560 if you look closely i've lost the feet
+00:08:51.200 so let's add that back in so while i was
+00:08:53.440 choosing the neck bones for anchor
+00:08:55.600 points i accidentally deselected the
+00:08:57.920 feet so let's add the feet back to the
+00:09:00.160 anchor points let's try that again so
+00:09:02.160 let's go back to that rig pose node and
+00:09:04.320 let's try that hand waving one more time
+00:09:07.120 okay that's that's a bit better but you
+00:09:09.279 can still see that the feet are still
+00:09:11.279 floating in mid air if the hand goes up
+00:09:14.399 high enough you can start to see
+00:09:16.800 he's eric is starting to fly and float
+00:09:20.160 above the air his feet are starting to
+00:09:21.760 fly up it's like flying
+00:09:25.680 you're gonna have a lot of fun with this
+00:09:27.600 but that's not what we want because i
+00:09:29.360 don't want him
+00:09:30.640 his feet floating around the air this
+00:09:32.240 brings us to the next topic where we're
+00:09:34.640 gonna add priority to each ik controls
+00:09:38.399 to tell houdini which control which ik
+00:09:41.600 control bones should be followed more
+00:09:44.080 precisely when compared to the other ik
+00:09:46.320 control bones when there's a conflict
+00:09:48.160 that arises just like this example when
+00:09:51.200 we hold up eric's hand high enough
+00:09:54.000 it affects the feet
+00:09:57.360 in the next video we'll finish up with
+00:09:59.360 the eric rig and fix our feet issue by
+00:10:02.079 adding priority to the joints on the
+00:10:04.000 feet demo some examples of an octopus
+00:10:07.040 character i've been working on which
+00:10:08.720 will also be released to perk members so
+00:10:11.200 you can practice some of your houdini
+00:10:13.519 skin effects
+00:10:14.800 thanks for watching and sticking to the
+00:10:16.800 end
+00:10:34.320 you
 
 ----------------------------------------
 Contents of YouTube-Transcript/Entagma/Houdini Tutorial Space Filling Cable Generator.txt:
