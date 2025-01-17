@@ -1,7 +1,7 @@
 import os
 
 # Define the directory of the Git repository
-repo_dir = "path/to/your/repo"
+repo_dir = "Houdini-Tutor-GPT"
 
 # Define the output file
 output_file = "combined.txt"
