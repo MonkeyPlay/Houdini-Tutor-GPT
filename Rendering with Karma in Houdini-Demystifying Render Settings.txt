@@ -1,0 +1,1958 @@
+# tactiq.io free youtube transcript
+# Rendering with Karma in Houdini (Demystifying Render Settings)
+# https://www.youtube.com/watch/dgK5i0cex1Q
+
+00:00:05.700 [Music]
+00:00:10.800 hello everyone and welcome to rev away
+00:00:13.280 my name is sabar chalasi and today we're
+00:00:15.360 going to dive into karma and houdini 19
+00:00:18.080 and cover in depth all the render
+00:00:19.680 settings available and learn how to
+00:00:21.439 efficiently tweak them to produce a fast
+00:00:24.560 and high quality render so let's get
+00:00:27.199 started so for me to be able to
+00:00:29.199 communicate everything i know about
+00:00:30.800 karma i've decided to create uh multiple
+00:00:33.760 wedges many wedges testing every single
+00:00:36.559 parameter available that has effect on
+00:00:39.120 quality and render time uh obviously and
+00:00:42.239 we're gonna go through every single one
+00:00:44.079 of them that is driving the quality of
+00:00:46.320 the
+00:00:47.120 of the noise and the render time i'm
+00:00:49.039 going to test it in a cohesive way and
+00:00:51.120 then by looking at the final results
+00:00:53.280 we're going to be able to make detection
+00:00:54.879 and understand what each setting is
+00:00:56.800 doing
+00:00:57.600 to the render time and the quality now
+00:01:01.280 i'm also going to explain how they work
+00:01:03.440 and what they do in details and but this
+00:01:06.159 workflow of wedging is something that we
+00:01:08.640 always do with effects to learn about
+00:01:10.960 something new or to learn how something
+00:01:13.040 affects the sim the quality you just run
+00:01:15.200 multiple wedges at different values and
+00:01:17.520 let me show uh one quick example here
+00:01:21.759 so this is a
+00:01:23.600 one of the wedges
+00:01:26.159 and in this case i'm
+00:01:27.680 testing the first main control which is
+00:01:29.920 the pixel sample so i have it go from 1
+00:01:33.439 2 4 8 16 32 64 all the way to
+00:01:39.119 2048
+00:01:40.479 and i'm also i'm only rendering this
+00:01:42.640 segment so instead of rendering the
+00:01:44.640 whole image which i'm going to show on
+00:01:46.479 in a second instead of rendering the
+00:01:48.000 whole image
+00:01:49.119 1920 by 1080 i just render a portion of
+00:01:51.920 it and this will be enough for me to
+00:01:53.759 judge
+00:01:54.720 pretty much everything about the image i
+00:01:56.320 don't need the remaining pixels and here
+00:01:58.719 i've
+00:01:59.680 gathered uh
+00:02:01.680 all the data in nuke i put the stamps
+00:02:04.799 uh on the on the images as well as the
+00:02:07.439 render time and i will show this at the
+00:02:10.160 end of the at the end of this video how
+00:02:12.400 to stamp the data and i also
+00:02:14.879 took a segment of the image and scaled
+00:02:17.360 it up two and a half times just so that
+00:02:19.280 we can see the noise pattern more
+00:02:21.520 clearly so this is one example and by
+00:02:24.080 just looking at this
+00:02:25.599 we started a value of one
+00:02:27.840 took six seconds
+00:02:29.280 next it's gonna take 12 seconds i don't
+00:02:32.239 think the render time matches here maybe
+00:02:34.480 it's the same
+00:02:35.760 and then as we go
+00:02:37.440 you can see the quality is getting
+00:02:38.879 better and better and the render time is
+00:02:41.200 getting higher and higher and again i
+00:02:43.120 want to point out that the
+00:02:45.200 everything we're going to look at except
+00:02:46.800 specific tests they are done at
+00:02:49.280 different machines so
+00:02:51.440 a single wedge is run on a separate
+00:02:53.519 machine sometimes it has a 24 cores
+00:02:56.879 sometimes it has 16 cores so the render
+00:02:59.280 time per test is
+00:03:01.519 run on the same
+00:03:03.120 machine but between tests it can be run
+00:03:05.920 on different ones except the final one
+00:03:08.640 where
+00:03:09.519 i need to wedge let's say 2k versus 4k
+00:03:12.000 or 256 or three bounces i can specify
+00:03:15.200 them to run on a specific machine so
+00:03:17.360 this is one of the example and then
+00:03:19.840 after learning after doing all these
+00:03:22.560 wedges i can have a pretty good idea or
+00:03:27.680 i can have a really good preset for what
+00:03:30.159 the settings should be
+00:03:31.680 and i know exactly that i'm not paying
+00:03:33.920 anything else or i'm not doing any extra
+00:03:36.799 calculations so this is one of the final
+00:03:39.120 renders
+00:03:40.159 obviously there's a few flickering but
+00:03:42.640 looking at this coming from houdini with
+00:03:44.799 three bounces and being able to render
+00:03:47.440 this in hd i think it's pretty cool
+00:03:49.599 there's also depth of field
+00:03:51.599 happening here so there's lots of
+00:03:53.360 potential in
+00:03:54.959 in karma
+00:03:56.159 all right so
+00:03:57.599 that's that let's take a look at the
+00:04:00.480 project in this list we will go over it
+00:04:03.599 now you don't have to memorize it but
+00:04:05.680 that's what we're going to be doing and
+00:04:07.439 i'm going to go over each one of them
+00:04:09.040 and take a look at
+00:04:10.560 the settings so this is a project
+00:04:13.439 and
+00:04:14.720 this scene is from 3drender.com
+00:04:19.440 it's called the natural museum
+00:04:23.520 and this is how it looks like now i uh
+00:04:27.440 took this team because it's a quite
+00:04:29.199 complicated topic and it has
+00:04:32.479 lots of opening so we're gonna have lots
+00:04:35.199 of indirect illumination it's an
+00:04:36.960 interior scene but it's not just a light
+00:04:39.360 coming from a window it's coming from
+00:04:41.680 many mini openings so for example all
+00:04:43.840 this is open
+00:04:45.919 and then there's other windows i took
+00:04:48.080 off all the glass i just wanted to have
+00:04:50.479 something with reflection and diffuse
+00:04:53.840 so that's what we're going to be using
+00:04:56.639 and then i have a camera
+00:04:59.600 i think this is just repositioning
+00:05:02.320 no i don't need this one
+00:05:05.199 so this is the camera and then i have
+00:05:06.960 two lights i believe this light is
+00:05:10.400 just a constant and again
+00:05:12.720 i
+00:05:14.320 i've done many tests and we'll talk
+00:05:15.840 about each one of them
+00:05:17.520 i wanted to use the most simple
+00:05:20.320 light rake available an hdr and a sun
+00:05:22.880 light and if i can get those to render
+00:05:25.840 in a clean way then pretty much all the
+00:05:28.479 other
+00:05:29.199 options are going to be able to
+00:05:31.199 we're going to be able to render them
+00:05:34.320 without any noise basically so i have
+00:05:36.800 two uh two hdrs one with texture and one
+00:05:40.240 without and the one that has texture i
+00:05:42.560 clammed it to a value of ten instead of
+00:05:45.120 zero to a hundred and i blurred the
+00:05:47.360 pixel by two so it's not super sharp
+00:05:50.000 because i need i don't need the direct
+00:05:52.080 light to be coming from the hdr i just
+00:05:54.080 need the diffuse illumination off of it
+00:05:56.800 and then i have a sunlight
+00:05:58.960 here
+00:05:59.840 the material is very very simple i use
+00:06:02.880 the material x
+00:06:05.360 and i have two layers of reflection so
+00:06:08.080 coat this is sharper and this is a
+00:06:10.960 blurry reflection so two of them
+00:06:13.520 and i have a diffuse with a diffuse
+00:06:15.680 roughness of two
+00:06:17.520 and that's all there is to the scene i
+00:06:20.160 assigned all of that
+00:06:22.479 and if i look through comma
+00:06:24.720 this is what i have so far
+00:06:27.039 and i'll be providing this along with
+00:06:29.440 all the wedges and all the data needed
+00:06:32.080 and let's start and look at the karma
+00:06:35.520 settings okay so let's talk about the
+00:06:38.639 settings and i'm going to create a karma
+00:06:40.560 node just to start fresh
+00:06:43.919 and
+00:06:44.800 the camera is called that so i don't
+00:06:46.560 need to change it in the final
+00:06:47.840 resolution is 1920 by 1080
+00:06:51.360 and what i'd like to do is i'd like to
+00:06:54.400 change
+00:06:55.599 this to go to mplay
+00:06:57.520 so i can test it if i want to do
+00:06:59.039 something live and also instead of
+00:07:01.440 progressive i use bucket and i do
+00:07:04.400 progressive pass
+00:07:06.080 passes of one and i also remember that i
+00:07:09.120 highly recommend watching the abstract
+00:07:11.520 effects in houdini with karma video
+00:07:14.080 before diving into this because that one
+00:07:15.919 is like a it's more of an intro to karma
+00:07:18.800 and solaris and this one is just going
+00:07:20.720 to dive into karma settings so
+00:07:22.319 definitely check that out i'll i'll have
+00:07:24.160 it in the link but yeah
+00:07:26.479 check that one before this one i don't
+00:07:29.120 need the output checkout file
+00:07:32.479 and i'm going to leave everything as the
+00:07:34.240 default so the first
+00:07:36.560 let's talk about the important parts the
+00:07:39.440 important settings so we have pixel
+00:07:41.039 sample that is the most important it's
+00:07:42.880 going to drive the quality it has an
+00:07:44.879 overall effect on the render time and
+00:07:48.000 the quality of the noise and then we
+00:07:49.680 have the min and max
+00:07:52.160 and i
+00:07:53.919 we're going to use variance because
+00:07:55.280 that's
+00:07:56.160 going to solve most of the noises most
+00:07:59.360 of the noise types in specific scenarios
+00:08:01.840 you may want to use
+00:08:03.759 if you have a specific
+00:08:06.000 type of gla of material that is across
+00:08:08.240 the board and it's refractive for
+00:08:10.479 example or reflective and refractive you
+00:08:13.280 may want to use distributed and lower
+00:08:15.199 the diffuse samples and only have
+00:08:17.840 reflection samples and refraction higher
+00:08:20.240 for me it's easier and better i think to
+00:08:23.199 treat the noise as a uniform problem
+00:08:25.360 especially with how karma is looking and
+00:08:27.120 how it's functioning so we're going to
+00:08:28.879 use variance so this is also going to
+00:08:31.280 drive the uh the quality and this one
+00:08:34.479 affects the pixel sample so each bucket
+00:08:36.880 will be divided in more pixels this one
+00:08:39.440 will affect how many rays get shot from
+00:08:41.440 the shading point and the threshold is
+00:08:44.240 driven by the noise level
+00:08:46.720 so that's one setting that goes in
+00:08:49.040 conjunction with this
+00:08:50.959 the noise level here drives the min and
+00:08:53.279 max so the finer the lower the value the
+00:08:56.720 more
+00:08:57.600 max pixel
+00:08:58.880 max race we're gonna shoot if i set this
+00:09:01.120 to three the image will never never
+00:09:03.279 clear even even if i put this to
+00:09:05.440 something really low we will never be
+00:09:07.440 able to clean the image because there is
+00:09:08.959 not enough rays we can also tell it to
+00:09:11.360 shoot a minimum of three rays so if we
+00:09:13.760 see lots of
+00:09:15.519 uh
+00:09:16.720 low noise
+00:09:18.399 and not so much high frequency noise we
+00:09:20.480 can start with three say i want the
+00:09:22.480 array i know that the three is a minimum
+00:09:25.040 value and set this to nine for example
+00:09:27.600 and then lower the
+00:09:29.040 noise threshold to zero zero six or test
+00:09:31.120 the value and that will basically tell
+00:09:33.600 karma to go between these two values
+00:09:37.360 next is the light quality the light
+00:09:39.279 quality here is a global multiplier it
+00:09:41.839 depending on the scenario of the
+00:09:43.440 lighting that you have you may want to
+00:09:45.519 multiply the
+00:09:47.040 light individual lights with higher
+00:09:49.600 samples because
+00:09:51.360 in this case if the noise was coming
+00:09:53.040 from the sun for example which is not i
+00:09:55.200 would go in and change the light the
+00:09:57.279 sunlight which is this one go under
+00:09:59.440 karma and increase the samples to 3 6 9
+00:10:02.720 12 or something that gives me the result
+00:10:05.360 i need
+00:10:06.720 this one again is a global multiplier
+00:10:11.279 yeah i didn't test the uniform method
+00:10:13.839 but this is more memory efficient and
+00:10:16.839 faster the this is for volume we don't
+00:10:19.600 have any volumes at the moment then
+00:10:21.600 we're going to test the diffuse limit
+00:10:23.839 which is what i'm mainly interested in
+00:10:25.760 in an interior scene you'd want to have
+00:10:27.839 3 to 5 10 bounces we're going to see how
+00:10:31.040 that affects the render time and quality
+00:10:33.200 maybe
+00:10:34.480 if we get a note to say increase the
+00:10:37.040 bounces and after 10 after 10 bounces
+00:10:39.839 there is no visual difference except the
+00:10:42.160 render time maybe we shouldn't be
+00:10:43.839 spending
+00:10:44.800 putting this value higher than 10 if
+00:10:47.519 five or six gives us the result that we
+00:10:49.519 want we're going to see how that affects
+00:10:53.200 the result then we're going to talk
+00:10:54.880 about the russian roulette which will
+00:10:57.120 affect the samples quite a bit
+00:10:59.839 depth of field and mushroom blur we
+00:11:01.440 don't need it we don't need this at the
+00:11:03.200 moment
+00:11:04.640 and then we're going to also talk about
+00:11:06.480 this uh
+00:11:08.399 information this control here the
+00:11:10.399 off-screen quality
+00:11:12.000 it only works it mainly works with
+00:11:14.160 reflection with refractive and
+00:11:16.240 reflection and displacement but i've
+00:11:18.959 tried it in this case because i have
+00:11:20.720 reflection and i have a lot of out
+00:11:22.880 outside the frustum data i have a lot of
+00:11:25.760 uh things that we don't see so maybe
+00:11:28.000 this multiplier is affecting how noisy
+00:11:30.640 the data is going to be outside
+00:11:34.079 then we have
+00:11:35.440 uh the noise which goes in conjunction
+00:11:38.160 with the min and max and then we have
+00:11:40.240 the
+00:11:40.959 pixel article so this is again something
+00:11:44.160 new and it's going to
+00:11:46.800 if i set this to 128 it's going to use
+00:11:49.279 the square root of this value to be the
+00:11:51.279 minimum and this is also doing variance
+00:11:53.920 on the pixel samples so
+00:11:56.480 karma is deciding how much ways it
+00:11:59.200 shoots
+00:12:00.959 how many samples it puts per bucket
+00:12:03.680 based on the noise level and the noise
+00:12:06.399 level has been decided by the sea by the
+00:12:08.800 beauty pass so depending on how your
+00:12:10.880 image looks like it will use this
+00:12:13.760 information to decide how many samples
+00:12:16.399 it shoots
+00:12:18.079 in some cases especially this one i
+00:12:20.079 found out that it's better to have it
+00:12:22.320 off but we're going to see that later we
+00:12:24.160 don't know this yet we're going to see
+00:12:25.839 how that affects the render time and the
+00:12:28.399 quality and it also has a threshold so
+00:12:30.800 we can say
+00:12:32.240 it's 0 0
+00:12:33.440 5 so it's very fine and we know that
+00:12:35.920 it's going to be shooting 128 most cases
+00:12:39.040 now i don't know
+00:12:40.639 i haven't
+00:12:42.079 talked to side effects yet but i don't
+00:12:44.160 know if it's
+00:12:45.760 increasing if it's starting at 11 and
+00:12:48.480 then shooting
+00:12:49.839 64 and then 96 and then 120 if it's
+00:12:52.880 incredible incrementing i believe it is
+00:12:55.120 because of the way
+00:12:56.800 karma is progressing through the render
+00:12:58.800 i believe it's doing that but it could
+00:13:01.040 be
+00:13:02.560 uh doing either 11 or 128. anyway we're
+00:13:06.079 going to test that and see
+00:13:07.839 you can also apply a
+00:13:10.000 lookup table or a display view let's say
+00:13:12.800 we're rendering in this color space but
+00:13:14.560 the image i want the
+00:13:17.519 this oracle algorithm to see the image
+00:13:20.160 with 2.2 gamma so all these dark areas
+00:13:24.000 i want them to be lifted so that i get
+00:13:26.240 more samples they don't get ignored
+00:13:28.079 because the variance will ignore darker
+00:13:30.800 value it only puts
+00:13:32.839 important
+00:13:34.399 rays or care into the areas that are
+00:13:36.560 visible which are brighter generally
+00:13:39.440 so there's that and then what else do we
+00:13:42.000 have
+00:13:43.839 let me see
+00:13:49.360 so the oracle we're going to test that
+00:13:51.199 and then the number of gi bios is we're
+00:13:53.199 going to see how the russian roulette
+00:13:55.040 affects that because they are very
+00:13:56.560 interconnected the off-screen and then
+00:13:59.279 the denoise
+00:14:01.680 uh noise options available and we're
+00:14:04.079 gonna try some ideas using 4k 2k and
+00:14:07.519 comparing 2k to 4k
+00:14:10.240 and the render times i'm going to also
+00:14:12.160 create a lighting that uses area lights
+00:14:15.120 only because
+00:14:16.639 in interior scenes it's best to have
+00:14:18.800 area lights that are placed on the
+00:14:20.399 windows to
+00:14:22.399 make the render less noisy and more
+00:14:24.639 efficient this is what you do with
+00:14:26.720 these types of renders
+00:14:28.399 having a dome light is really hard to
+00:14:30.399 problem to solve and clean uh the noise
+00:14:33.440 for if the if the light is coming from
+00:14:36.160 everywhere so having it unified or
+00:14:38.560 defined in certain areas
+00:14:41.519 helps a lot so we're gonna do a test on
+00:14:43.440 that and see how it affects the quality
+00:14:45.920 we're going to take a look at a denoised
+00:14:48.000 version of
+00:14:49.600 a 4k denoised version a 2k and then a
+00:14:52.240 quick test with gpu and then some
+00:14:54.639 lighting techniques the upscale
+00:14:56.240 technique which is linked to this as
+00:14:57.839 well the denoise and the length shader
+00:15:00.000 i'm going to show
+00:15:01.199 all of that
+00:15:02.320 all right that's that looks like another
+00:15:04.399 overview but let's take a look at the
+00:15:06.800 first parameter which is the uh
+00:15:10.959 the pixel sample so
+00:15:15.839 this is the first one
+00:15:18.320 and we can see that starting with one we
+00:15:20.959 have
+00:15:21.839 six seconds
+00:15:23.279 at two i believe it's 12 seconds or 9
+00:15:25.920 seconds and then 4 11 seconds and as you
+00:15:29.360 can as we go
+00:15:32.000 we get
+00:15:33.680 a more
+00:15:35.279 basically cleaner and cleaner image
+00:15:37.920 all the way to 1024 but
+00:15:41.519 2048 and here's the other thing i wanted
+00:15:44.560 to talk about i'm only rendering a
+00:15:46.399 segment i don't want you guys to forget
+00:15:48.160 this the render time here is only for a
+00:15:51.040 third of the image and that is defined
+00:15:53.680 here i'm just cropping the image output
+00:15:56.560 under aspect ratio let us set this to
+00:15:59.040 0.2
+00:16:00.759 0.5
+00:16:02.480 and 0.7 something like that and that
+00:16:04.800 will just crop
+00:16:06.320 the segment to be like this
+00:16:08.720 now
+00:16:09.680 one thing i noticed and i liked
+00:16:12.480 is the change in this value versus the
+00:16:15.279 render time so here we have four and
+00:16:17.440 then it's eight and look at the render
+00:16:19.440 time it's doubling
+00:16:22.079 and again
+00:16:23.759 from 22 to 44 and precisely
+00:16:27.440 44
+00:16:28.800 and then two times that
+00:16:30.959 and then two times that
+00:16:35.120 and it keeps going to increase
+00:16:37.519 uh
+00:16:38.399 following this scale and this is
+00:16:40.480 something
+00:16:41.519 really important because it's
+00:16:43.360 predictable i can say at eight
+00:16:46.720 pixel samples i get 22 minutes and then
+00:16:50.240 for final quality it's going to be four
+00:16:51.920 times that if i need 64 for example so
+00:16:54.560 it's a very very uh
+00:16:56.800 good thing to be able to predict the
+00:16:58.399 render time and we're going to see other
+00:17:00.320 benefits of this as well so it looks
+00:17:02.639 like to me uh
+00:17:04.480 that a pixel value of 64 maybe 128
+00:17:08.160 produces a clean render but after that
+00:17:10.559 the noise is not
+00:17:13.039 it is getting better but maybe here and
+00:17:15.439 here there's not so much difference 256
+00:17:19.359 and
+00:17:20.559 512 and then 1024
+00:17:23.599 and 2048 so it looks like we're not
+00:17:26.559 getting
+00:17:27.919 bigger difference
+00:17:30.400 with these values but the render time is
+00:17:32.640 going so it's shooting
+00:17:34.559 the rays it's doubling every time so the
+00:17:37.120 rays are going up it's it's doing
+00:17:39.039 something but the final result is not
+00:17:40.880 changing so this is a great thing
+00:17:43.440 because i know that 64 is going to be
+00:17:45.440 enough maybe 128 and with this workflow
+00:17:48.960 you definitely have to use the denoise
+00:17:50.559 so 128 if we run it through the denoise
+00:17:53.520 it's going to look
+00:17:54.720 clean like i shown in the final round so
+00:17:57.039 this is our first control and i'm hoping
+00:18:00.799 that you guys learned something i'm
+00:18:02.640 going to go over the remaining settings
+00:18:05.200 a bit faster just so that we don't take
+00:18:08.320 forever to finish this
+00:18:10.559 okay so i've done another test and what
+00:18:13.280 i've decided to do in this case is start
+00:18:15.600 in the reverse and i've tweaked this
+00:18:17.760 settings to give me a very clean render
+00:18:20.799 and i've used the higher min and max i
+00:18:22.640 believe it was not the same as the
+00:18:24.320 previous example and just to clarify
+00:18:27.520 these three points
+00:18:29.440 are not a render
+00:18:31.440 flicker it's not a firefly it's an
+00:18:33.679 actual point in the render that came
+00:18:35.760 with the mesh and i didn't delete it i
+00:18:38.240 just thought at first it's it's a
+00:18:40.240 firefly but it's not it's part of the
+00:18:42.400 mesh so there's nothing
+00:18:44.320 here that we have to fix with the
+00:18:46.000 settings i just have to delete those
+00:18:47.919 points
+00:18:48.960 and what i've done in this test is i
+00:18:51.200 cleaned the render as good as possible
+00:18:53.200 and then i wanted to go backwards i
+00:18:54.960 wanted to start lowering the samples
+00:18:57.120 until i reached the point where it's
+00:18:59.600 really bad and i have to go back it's
+00:19:02.160 the same as the other one but this one i
+00:19:04.640 started from a clean render versus
+00:19:06.400 waiting it to go
+00:19:07.919 uh to go up and then i work backwards i
+00:19:10.960 also put the direct and indirect
+00:19:13.679 passes here because it's very very
+00:19:15.600 important
+00:19:17.600 now in arnold and pr man and i believe
+00:19:21.039 other engines as well
+00:19:23.679 if your direct pass has noise the
+00:19:26.080 indirect will always have noise and so
+00:19:28.400 the first thing to do is to
+00:19:30.880 turn off any indirect bounces and start
+00:19:33.520 focusing on getting a clean as clean as
+00:19:36.000 possible direct light because if this
+00:19:38.080 pass let's say here has noise in the
+00:19:41.280 shadow that noise then we have an
+00:19:44.160 indirect bounce
+00:19:45.679 the noise will simply explode it will
+00:19:48.000 continue
+00:19:49.039 spreading
+00:19:50.320 in all the other passes and there's no
+00:19:52.320 way to clean indirect illumination if
+00:19:54.880 you don't have a clean path so i wanted
+00:19:56.720 to show that here and it looks like at
+00:19:58.720 this setting we have a nice clean direct
+00:20:01.440 pass as well as a cleanish indirect
+00:20:04.320 bands it's not perfect but it's good
+00:20:06.880 and we are at 30 minutes render time and
+00:20:09.840 then i started reducing this by
+00:20:13.039 half like
+00:20:14.320 instead of going the power of two i just
+00:20:16.720 do the square root of that sorry
+00:20:19.280 divided by two so 128
+00:20:22.960 64 and i do feel that 64 may be
+00:20:27.120 good enough for us to denoise it
+00:20:30.240 and be able to use but 128 looks better
+00:20:33.520 so i think at 10 minutes it's a good
+00:20:36.320 render time and again this is only a
+00:20:38.080 portion of the image
+00:20:39.600 and you can see the direct is clean this
+00:20:42.480 is clean
+00:20:43.679 and then as we go lower and lower
+00:20:47.039 you can see it's getting noisier and
+00:20:48.400 noisier and in both of them the noise on
+00:20:51.280 both passes the direct and indirect is
+00:20:53.760 very very
+00:20:54.799 linked
+00:20:56.159 all right so the next option the next
+00:20:58.400 setting we have is the
+00:21:00.640 min and max so
+00:21:03.120 the main ray let's take a look with on
+00:21:06.240 the for the min first and what i do is i
+00:21:08.799 lock all the other settings when i watch
+00:21:10.960 a parameter when i change one i lock all
+00:21:13.360 the other settings so in this case i
+00:21:15.440 locked the samples at 64 i believe the
+00:21:17.760 pixel sample and then the max ray at 10
+00:21:20.880 and i only changed the min
+00:21:23.280 value
+00:21:24.320 and by doing so
+00:21:26.000 i don't see
+00:21:27.679 any change
+00:21:29.440 happening
+00:21:32.159 in the image and this was quite
+00:21:33.840 surprising because i
+00:21:35.919 i expected maybe there's a bug
+00:21:38.720 in karma currently but i expected the
+00:21:41.039 render to get cleaner and cleaner
+00:21:43.360 based on how i think it's working
+00:21:45.600 but it looks like even a value of min 10
+00:21:48.799 is not
+00:21:50.240 is not pushing
+00:21:51.919 every point to use 10 and 10.
+00:21:54.960 so
+00:21:56.000 and i also use the 0.05
+00:21:58.480 uh
+00:21:59.200 noise
+00:22:00.400 sorry i used a 0.01 noise threshold
+00:22:03.280 which is the default so maybe that
+00:22:05.120 affected it but it looks like i
+00:22:07.440 find with one especially that the render
+00:22:09.520 time is is the same so we'll just keep
+00:22:11.679 it at one and that's what i've been
+00:22:13.120 doing keep them in a way at one so let's
+00:22:15.919 see how the max is going to affect the
+00:22:18.720 the render time and the quality
+00:22:22.559 so i increased the rate to three just to
+00:22:26.080 have something higher than one to be
+00:22:28.320 safe and then as we increase this as we
+00:22:31.679 continue
+00:22:32.960 increasing the value you can see the
+00:22:34.400 render time is going up but it's not
+00:22:37.200 going in a crazy way it's not exploding
+00:22:41.600 going between
+00:22:43.360 uh 12 to 16 the render time is not
+00:22:46.640 exploding like two or three times so it
+00:22:49.520 feels like this control is actually very
+00:22:51.760 very safe even if we have a value of 12
+00:22:56.000 1 and 12 the render time between
+00:23:00.400 this and this
+00:23:02.400 is not the difference the big of
+00:23:04.720 different
+00:23:05.600 if you look at how much
+00:23:07.360 rays we're shooting
+00:23:09.200 so
+00:23:10.080 this is with 30 31 that's the maximum
+00:23:14.000 but don't remember that we have the
+00:23:16.159 pixel threshold so if let's say that
+00:23:18.880 threshold is a threshold is met the ray
+00:23:22.480 shooting would have stopped anyway even
+00:23:25.120 if we have 60 because that threshold is
+00:23:27.760 telling karma that's enough i'm
+00:23:30.080 satisfied with the variance between the
+00:23:31.840 pixels we're good stop shooting and uh
+00:23:36.080 and it could be the case why this is so
+00:23:38.880 safe and
+00:23:40.000 it's not exploding so i think a value of
+00:23:44.159 a value of nine maybe would be a good
+00:23:47.679 point here and have more pixel samples
+00:23:50.720 to clean this noise
+00:23:52.240 but
+00:23:53.120 the other thing that i realized when
+00:23:55.039 doing this is that even if we go
+00:23:57.440 to
+00:23:58.159 all the way to 31 i still the render
+00:24:01.200 time changed quite a bit but i still
+00:24:03.520 feel that the image is not clean enough
+00:24:05.520 i feel that the pixel samples are gonna
+00:24:07.360 do most of the cleaning
+00:24:10.080 so i uh what i did is i decided to use a
+00:24:13.679 save value which is the default one to
+00:24:16.000 nine or one to 7 and rely on the pixel
+00:24:19.039 samples increasing the pixel samples and
+00:24:21.679 playing with the thresholds to get the
+00:24:23.440 render to clean
+00:24:25.120 alright so then i did the other test
+00:24:28.559 which is very similar
+00:24:30.799 but it's reversed i know it it may not
+00:24:33.520 make a lot of sense but it does
+00:24:36.960 if you start with a clean and work
+00:24:39.039 backwards you can see how
+00:24:42.000 a very clean unoptimized
+00:24:44.480 render
+00:24:45.600 you can see how low you can go
+00:24:49.200 and what kind of quality
+00:24:51.120 you get the other one we're just relying
+00:24:53.360 on that control to clean the image
+00:24:55.760 whether it's going to clean it or not we
+00:24:57.520 don't know but in this case i started
+00:24:59.679 with a clean image so i've done probably
+00:25:02.960 pixel samples is higher and i have all
+00:25:04.880 the files for you guys to look at so you
+00:25:06.559 can see the settings and i
+00:25:09.200 included the av so i have the sun
+00:25:11.279 separate and the sky dome it's not on
+00:25:14.080 all the renders but it's when it's
+00:25:15.840 available i put it here and this is just
+00:25:18.159 auvs there's nothing here
+00:25:20.000 and you can see with samples of 12 and
+00:25:22.640 if we start going backwards
+00:25:27.120 the difference between this and this
+00:25:29.200 it's
+00:25:30.159 not
+00:25:31.200 that big in terms of noise but the
+00:25:32.880 render time is quite different like from
+00:25:35.120 now we're basically saving five minutes
+00:25:38.159 so we can
+00:25:40.000 we don't have to go all the way the
+00:25:42.159 conclusion is we don't have to go all
+00:25:44.159 the way to 12
+00:25:45.679 to produce a clean render we can get
+00:25:47.600 something clean maybe even seven is good
+00:25:50.559 or eight
+00:25:51.679 so that's why i do these reverse because
+00:25:53.679 i start with a final result and then
+00:25:55.440 they work backward
+00:25:58.640 okay let's take a look at the next
+00:26:01.039 important setting so we've done playing
+00:26:03.360 with the min and max
+00:26:06.080 and we've done some tests with the pixel
+00:26:07.919 samples so the next thing that still
+00:26:10.480 drives these two things is the noise
+00:26:12.320 threshold and so what i've done is i
+00:26:16.480 did the wedge obviously
+00:26:18.400 and this is the min and max 3 to 12 i
+00:26:21.440 just used a high range to give karma
+00:26:24.080 enough room to go between these two
+00:26:26.480 wrenches i didn't want to limit
+00:26:28.799 limited and then 128 and the render time
+00:26:32.480 at the moment is hun is eight minutes
+00:26:34.720 and i lock these i don't change them
+00:26:37.279 the noise threshold noise level is very
+00:26:40.080 high zero one value is very very high
+00:26:43.520 and the default is zero zero one but i
+00:26:45.919 wanted to see how that affects pretty
+00:26:48.559 much everything and as i start going
+00:26:51.039 down
+00:26:53.760 you can see between zero and zero one
+00:26:57.679 let's see
+00:26:59.600 sorry between zero and
+00:27:01.760 zero one and zero zero two
+00:27:04.640 there's no not so much difference
+00:27:09.919 before we get here
+00:27:13.440 all this is the same and the noise is
+00:27:15.520 the same so
+00:27:17.120 the threshold start this control is very
+00:27:20.240 very fine so a value of
+00:27:22.480 0 2
+00:27:23.679 is very noisy you can see that already
+00:27:25.919 then once we start going below that
+00:27:28.640 again this is particular to the scene
+00:27:30.480 once we start going below that you can
+00:27:32.159 see the render time is exploding but
+00:27:34.240 this is dangerous this is a dangerous
+00:27:36.480 setting because
+00:27:37.840 look
+00:27:38.720 zero fifteen
+00:27:40.559 and zero zero one and look at the render
+00:27:42.640 time five minutes difference obviously
+00:27:44.559 it's cleaner
+00:27:46.399 but it's different and then beyond that
+00:27:50.159 look now if we go
+00:27:51.919 if we start going below the default
+00:27:54.480 value in karma
+00:27:56.240 you can see that the result is not
+00:27:58.720 getting cleaner and cleaner and cleaner
+00:28:00.799 it's not super super clean we are
+00:28:04.799 grinding it like we're going super low
+00:28:06.880 right now but all i see is the render
+00:28:09.760 time exploding
+00:28:12.159 so to me it feels like a value of zero
+00:28:14.159 zero one maybe zero zero
+00:28:16.880 six
+00:28:18.799 tops
+00:28:20.080 is a good range and again this value is
+00:28:22.640 very uh very sensitive so
+00:28:25.440 i think
+00:28:26.880 one five
+00:28:29.200 to zero six is a good range
+00:28:32.880 but i was quite surprised that at this
+00:28:34.880 level i'm not seeing any difference and
+00:28:38.080 the reason for this
+00:28:41.120 but me regardless of how low the value
+00:28:43.600 is going to go
+00:28:45.279 there's a max
+00:28:46.559 there's a maximum of 12 samples that we
+00:28:49.039 can shoot so even if karma is not
+00:28:50.799 satisfied
+00:28:52.080 with the variance it's not going to have
+00:28:53.840 any race to shoot anymore so that's why
+00:28:56.720 we're not seeing any difference and but
+00:28:58.799 if i leave the room put this to 64 and
+00:29:02.640 start going lower then we're gonna start
+00:29:04.720 seeing the render time explode like
+00:29:06.799 crazy so i think a zero one is a zero
+00:29:10.159 zero one is a good start and maybe zero
+00:29:12.960 zero one five is also good
+00:29:15.840 but this was a very interesting test
+00:29:18.480 to see
+00:29:21.360 all right let's talk about the next
+00:29:24.559 important section and which is the
+00:29:27.679 article
+00:29:28.799 the next important setting is the oracle
+00:29:32.080 and this is something new in
+00:29:34.480 karma and houdini 19 and what it does is
+00:29:37.200 basically
+00:29:39.279 switches the value of the pixel samples
+00:29:41.360 based on the variance and this happens
+00:29:43.600 when the render is still progressing
+00:29:45.600 when the bucket when karma is still
+00:29:47.600 refining the buckets uh over and over it
+00:29:50.399 can play within min and max and so what
+00:29:52.799 the way it works right now has this
+00:29:54.559 expression that accomplished the square
+00:29:56.559 root of this value so 128 the square
+00:29:59.120 root of that is 11 and it's analyzing
+00:30:02.080 the plane the beauty pass to determine
+00:30:05.760 its noise threshold and it has a
+00:30:09.039 variance value to tell it how sensitive
+00:30:12.080 it's going to be similar to the noise
+00:30:13.679 threshold so first of all the
+00:30:16.720 i need to test
+00:30:18.559 what this does
+00:30:21.440 on and off first because we haven't we
+00:30:23.600 can turn
+00:30:24.720 it on and off so this is with it on the
+00:30:28.320 render time is 11 57
+00:30:30.960 and again i have direct and indirect
+00:30:34.559 then
+00:30:35.360 off it's 12
+00:30:37.440 43
+00:30:39.120 but it's it's a bit noisier not so much
+00:30:42.240 so i'm not saving a lot
+00:30:45.440 with this
+00:30:46.480 and i think because uh
+00:30:49.120 this scenario this lighting scenario is
+00:30:52.159 quite complicated we have lots of
+00:30:54.080 indirect lighting it's an interior scene
+00:30:56.640 so
+00:30:57.600 we don't have an area that is let's say
+00:30:59.440 a flat wall with white texture on it
+00:31:02.159 that is getting hit directly by the sun
+00:31:04.640 and something else being shaded
+00:31:07.120 so everything is being hit
+00:31:10.159 by indirect rays
+00:31:12.240 i think that's why the
+00:31:13.840 uh the noises across the board so the
+00:31:16.559 oracle algorithm is simply going to the
+00:31:19.039 highest pixel samples
+00:31:21.519 that's why the render
+00:31:23.360 is not that different maybe this area is
+00:31:26.720 treated as
+00:31:28.240 clean like it doesn't have a lot of
+00:31:29.600 samples because the brightness and
+00:31:31.279 honestly it is the cleanest area but i
+00:31:34.240 think it's because the direct light
+00:31:36.320 is hitting here you can see it here is
+00:31:37.840 cleaner as well
+00:31:39.279 so
+00:31:40.080 with it on and off not so much of a
+00:31:42.320 difference but let's let's see i'm still
+00:31:45.679 we need to test this more so what i've
+00:31:47.440 done is i've tested the
+00:31:50.000 threshold
+00:31:52.240 and i kept the value between
+00:31:56.080 11 and 128
+00:31:58.720 and i decided to set the min and max to
+00:32:01.360 four and four both of them so it's
+00:32:03.600 locked i didn't want any variance uh
+00:32:06.080 other variants i do think
+00:32:08.240 it uh it's doing something that karma is
+00:32:10.880 still deciding how many ways it shoots
+00:32:12.799 because that my intention is to lock it
+00:32:15.200 and only have the variance from the
+00:32:16.880 pixel samples
+00:32:18.240 so i started with a value of zero zero
+00:32:20.480 two
+00:32:21.519 and then i'm going to walk
+00:32:23.120 uh
+00:32:24.080 yeah work all the way down
+00:32:26.720 to 0.001
+00:32:29.840 and at this point
+00:32:32.480 if i go all the way down first of all
+00:32:34.720 looking at the quality not so much
+00:32:36.799 difference
+00:32:38.080 i don't see
+00:32:39.360 let me show the
+00:32:41.200 frame so i don't see a big difference in
+00:32:43.840 the noise looking at specifically this
+00:32:46.399 zoomed in section
+00:32:48.960 nothing and then if i go to zero zero
+00:32:51.039 one it's almost the same render time
+00:32:54.559 as if
+00:32:55.679 it's off
+00:32:59.760 so here
+00:33:01.039 well it's not the same this one has a
+00:33:03.200 higher setting but i think
+00:33:06.559 at this ratio it's almost as is as if
+00:33:09.279 it's off so it it's only shooting
+00:33:11.919 high
+00:33:13.840 128
+00:33:16.159 so i'm not sure
+00:33:17.919 how
+00:33:18.720 uh to use this control yet and where
+00:33:21.679 it's going to be useful again this is a
+00:33:23.600 very complex lighting scenario and
+00:33:25.039 that's why i picked it because it will
+00:33:27.360 push the render to its limit
+00:33:29.760 but this
+00:33:30.799 oracle i think the idea is very useful
+00:33:33.519 but maybe not in this specific scenario
+00:33:36.399 where we have lots of indirect if you
+00:33:38.480 had a car for example in an exterior
+00:33:40.799 scene and you have
+00:33:42.960 you know everything is being hit
+00:33:45.440 from the sun or
+00:33:47.760 it has uniform textures or uniform
+00:33:50.000 colors maybe this would be helpful like
+00:33:52.159 you don't need lots of ways there and it
+00:33:54.080 can skip tons of areas
+00:33:56.320 quickly and then when it comes to the
+00:33:57.919 shadow areas maybe you need more samples
+00:34:00.159 there but again in this case that's what
+00:34:02.399 happens with the oracle we can simply
+00:34:04.399 have it off and just be safe that it's
+00:34:06.720 not going to
+00:34:07.679 make any cause any issues
+00:34:10.800 all right so the next heading that we're
+00:34:12.480 going to take a look at is the light
+00:34:14.239 quality talk about it in this
+00:34:17.119 video
+00:34:18.320 so let me open it in rv and
+00:34:22.399 digital
+00:34:23.599 and
+00:34:25.119 i set it i started with a value of zero
+00:34:27.679 and you can see we have no indirect
+00:34:30.399 illumination happening once i set it to
+00:34:32.879 one it's the render is back to life so
+00:34:35.760 the minimum value is one you can see the
+00:34:37.679 render time is not changing really um
+00:34:41.199 here and then i started increasing it
+00:34:43.440 and i have the sun in the sky dome
+00:34:46.960 and most renders they have a much easier
+00:34:49.679 time solving noise on direct lights like
+00:34:52.560 a point like area light uh
+00:34:55.359 disk light in sun distant light
+00:34:58.400 versus a sky dome sky dome is always
+00:35:00.960 harder to solve the noise for especially
+00:35:03.119 if it has a texture so let's keep going
+00:35:06.160 and
+00:35:07.760 i have a zoomed in section here and as
+00:35:10.320 you can see even going all the way to 15
+00:35:14.880 does not change anything other than the
+00:35:17.119 render time
+00:35:18.320 i don't see
+00:35:20.480 this changing i think it's just the seed
+00:35:23.920 changing
+00:35:25.040 so if you if i pick between the first
+00:35:27.040 and last i don't see a huge difference
+00:35:29.280 other than the render time so i think
+00:35:31.920 keeping it at the value of one and
+00:35:33.839 trying to solve the noise with other
+00:35:36.000 settings like the pixel samples and the
+00:35:38.079 noise threshold is a safer route to go
+00:35:41.200 through
+00:35:42.320 there's also a very very important uh
+00:35:46.079 parameter that may affect all our
+00:35:49.040 testing that i'm going to talk about
+00:35:50.400 later but more in the indirect lights so
+00:35:53.040 it could be that all of this is coming
+00:35:54.720 from the indirect light
+00:35:56.480 and our direct light has always been
+00:35:58.400 clean anyway
+00:35:59.839 so yeah the light quality
+00:36:01.839 not something to worry about so much but
+00:36:04.800 we can always play with that a value
+00:36:06.800 between one and three let's see
+00:36:09.359 yeah one and three
+00:36:11.520 is a safe value because the render time
+00:36:13.200 is not changing and if we see
+00:36:14.800 improvement on based on this control we
+00:36:17.520 can uh
+00:36:18.800 proceed based on that so just to go back
+00:36:21.520 the very the oracle is here turning it
+00:36:23.760 off by setting it to uniform and then
+00:36:26.480 the light quality is this one
+00:36:28.880 so that's the
+00:36:30.400 setting we just talked about next we're
+00:36:32.560 going to talk about the indirect guide
+00:36:34.640 one of the new features of karma in
+00:36:36.880 houdini 19 is this thing called indirect
+00:36:39.280 guide and in a lot of in
+00:36:41.839 interior scenes you would have sources
+00:36:43.920 that are not visible to camera they are
+00:36:45.839 far away you could have a very
+00:36:48.240 long haul and you're at the end of it
+00:36:50.320 and the light needs to bounces to reach
+00:36:52.320 the final camera and in that case
+00:36:54.400 it's
+00:36:55.200 it would be very useful to tell the
+00:36:57.280 shading point where to place the samples
+00:36:59.440 where the light may be coming from to
+00:37:01.440 guide it to direct it and this is
+00:37:03.599 something that redshift has
+00:37:06.560 v-ray has and i believe other engines as
+00:37:08.800 well it's like a light cache pass that
+00:37:11.520 runs before the render
+00:37:14.320 and
+00:37:15.359 karma can use that to determine
+00:37:19.119 what is the most important place to
+00:37:21.200 place the raise at like guided basically
+00:37:24.960 and so that option can be found here
+00:37:27.520 under
+00:37:29.200 rendering sorry under advanced sampling
+00:37:32.320 enable indirect guiding you can tell how
+00:37:34.800 many passes
+00:37:36.560 you can use and it will run as a
+00:37:38.480 pre-pass before the render you'll have
+00:37:40.320 its own progress you can see it in in
+00:37:42.560 play
+00:37:43.760 happening and then the render will start
+00:37:45.920 so what i've done is i started with a
+00:37:47.599 value of two
+00:37:48.880 and then i started increasing it
+00:37:51.440 all the way to 256
+00:37:54.960 and
+00:37:56.000 what i i first of all when it's at value
+00:37:59.200 of 2 i did not see a big difference in
+00:38:02.480 the quality so that's my main thing is
+00:38:04.800 quality regardless of the render time
+00:38:07.359 and so even a value of 512
+00:38:10.240 the quality has not changed so this
+00:38:12.320 indirect guide may not be ideal for
+00:38:15.920 this type of scenario maybe it's best to
+00:38:18.560 have like an interior scene with a
+00:38:20.480 single
+00:38:21.599 light source like a specific window open
+00:38:24.160 this one is an interior but also
+00:38:26.240 exterior like it's very open
+00:38:28.960 that also has lots of windows so it's
+00:38:30.800 very complicated maybe it's not ideal
+00:38:33.040 for this but what we can see is
+00:38:35.520 the samples can have a big effect on
+00:38:38.240 render time so those samples it's not a
+00:38:41.520 karma is not playing it's doing proper
+00:38:43.119 calculation and it's expensive so
+00:38:44.960 whatever we put there we have to be very
+00:38:46.880 careful
+00:38:48.160 as to how much we put and whether it's
+00:38:50.079 affecting the
+00:38:51.440 the quality or not
+00:38:54.880 yeah so that's the uh one of the new
+00:38:57.520 things in
+00:38:58.720 the in karma i didn't use it in the
+00:39:01.280 final render because as you guys see it
+00:39:03.440 doesn't affect the font quality
+00:39:05.760 so let's take a look at another setting
+00:39:09.599 okay
+00:39:10.400 the next important
+00:39:12.480 control for me is the depth of
+00:39:16.000 the indirect illumination
+00:39:17.839 or the diffuse limit currently it's set
+00:39:20.079 to one most test is the most of the
+00:39:22.560 tests that we looked at have either
+00:39:24.720 value of one or three
+00:39:26.720 and i what i've decided to do is start
+00:39:28.960 with zero see how much render time it's
+00:39:31.680 gonna take and i kept all the other
+00:39:34.079 settings locked i believe i have 64 on
+00:39:36.480 the pixel samples or 32 and
+00:39:39.520 one and six on the min and max but
+00:39:42.079 that's not very important what i'm
+00:39:43.599 looking at here is really the quality of
+00:39:46.079 the image not the noise but the actual
+00:39:48.480 lighting and likely you have both of
+00:39:51.040 these
+00:39:53.520 both of these
+00:39:55.520 auvs so we can see how many
+00:39:58.880 uh how the bounces are affecting each
+00:40:00.560 light and
+00:40:02.079 i wish there was a control which maybe
+00:40:04.400 it does i haven't seen it yet
+00:40:06.480 to limit the number of pounds bounces
+00:40:09.280 per light this is something that arnold
+00:40:10.960 has that you can say this light only
+00:40:13.839 bounces two times after that don't
+00:40:15.839 consider it and looking at this result
+00:40:18.800 if i go all the way to 10
+00:40:21.839 and going back especially looking at the
+00:40:24.640 sky dome
+00:40:26.480 a value of two bounces maybe three
+00:40:29.200 is enough for this
+00:40:31.200 that's it
+00:40:32.240 after that the result is not changing
+00:40:34.240 them as it's basically a gain or you're
+00:40:37.040 lifting the gamma
+00:40:38.400 but on the light on the sunlight the
+00:40:41.359 effect is much bigger you can see if i
+00:40:44.000 go back here you can see this area
+00:40:47.760 and all this is getting properly
+00:40:50.319 illuminated by all these indirect
+00:40:52.079 bounces so to me i want to control
+00:40:54.960 i want to turn off indirect bounces on
+00:40:57.440 the skydome because i know it's slow i
+00:40:59.680 don't need it but i want the aerial the
+00:41:01.839 sunlight to bounce as many times
+00:41:04.240 so the only way to do it right now is to
+00:41:06.000 do two separate renders
+00:41:08.079 one with uh gi bounces one with the
+00:41:11.760 sky dome and set bounces to one or zero
+00:41:15.040 and then a separate render with just the
+00:41:17.440 sunlight
+00:41:18.640 but maybe there is a setting too limited
+00:41:21.119 on the aerial light
+00:41:22.800 let me take a look
+00:41:26.480 so here we have sampling quality
+00:41:28.720 we have force uniform
+00:41:31.200 activation radius
+00:41:33.040 yeah there's nothing that says
+00:41:40.079 that says bounces
+00:41:42.400 and this i'm not so sure it contains one
+00:41:45.920 either so yeah maybe i'll do some more
+00:41:48.640 research but it would be great to have
+00:41:50.319 that now
+00:41:51.440 the important thing we want to look at
+00:41:52.960 is obviously the quality and looking at
+00:41:55.760 this
+00:41:56.480 maybe after five bounces
+00:42:00.000 we are not seeing any difference like
+00:42:02.720 here
+00:42:03.520 after this
+00:42:04.800 maybe this
+00:42:06.079 it feels like almost a lift like you
+00:42:08.400 would just do it in comp but we're
+00:42:10.480 paying a huge overhead for this uh like
+00:42:14.160 if you go 29 passes off obviously you
+00:42:16.240 don't need it
+00:42:17.440 but look from three minutes we can end
+00:42:20.640 up with 12 minutes
+00:42:23.200 uh but i think for this even this entire
+00:42:26.000 scene which is quite complicated i think
+00:42:28.880 three to four bounces is enough and the
+00:42:31.119 render time is still reasonable again i
+00:42:33.359 use the lower setting setting to
+00:42:37.359 to be able to render this quickly
+00:42:39.680 but i think
+00:42:41.280 three
+00:42:42.319 maybe five tops if the render time is
+00:42:44.400 not crazy is enough for anterior scenes
+00:42:47.280 for this type of scenario other cases
+00:42:50.000 may um
+00:42:51.760 may require more
+00:42:53.280 so
+00:42:54.000 the next important control that we need
+00:42:56.160 to talk about is called the russian
+00:42:58.319 roulette and this is a very
+00:43:00.960 tricky and dangerous control because
+00:43:04.560 i'll try to explain it
+00:43:08.640 so
+00:43:09.920 so see the russian roulette what it's
+00:43:12.000 doing is it's set to value of two in
+00:43:15.920 uh in many of my tests i've set this to
+00:43:19.119 a value of hundred
+00:43:21.440 now why is that well
+00:43:23.599 the way the russian roulette works let's
+00:43:25.920 say i have a value of 128
+00:43:29.680 on
+00:43:30.560 the samples or a value of 128 on first
+00:43:34.160 balance
+00:43:35.520 the second bounce will still have a
+00:43:37.520 value of
+00:43:38.960 128
+00:43:41.599 but then
+00:43:42.640 if this set to 2 the russian roulette is
+00:43:45.520 going to kick in
+00:43:46.720 and what it's going to start doing is
+00:43:48.560 it's going to start chopping off the
+00:43:50.319 samples
+00:43:51.359 every single bounce so the third bounce
+00:43:54.079 is going to have maybe 90
+00:43:57.040 third bounce the fourth is going to have
+00:43:59.839 maybe 60
+00:44:01.280 and it's going to keep reducing this
+00:44:03.520 number
+00:44:04.640 all the way to
+00:44:06.319 nothing
+00:44:07.599 and this is dangerous because if i
+00:44:10.400 increase my
+00:44:12.480 value here to 10
+00:44:14.480 and this russian roulette is kicking in
+00:44:16.640 on the second bounce then doesn't matter
+00:44:18.720 how many many samples they should they
+00:44:20.720 are getting destroyed by the russian
+00:44:23.119 roulette
+00:44:24.160 now
+00:44:25.119 it's not destroying unimportant bits
+00:44:27.520 it's only destroying things that are not
+00:44:30.160 necessary for the quality of the second
+00:44:32.160 and third bounces
+00:44:33.599 but to be able to do this evaluation
+00:44:36.880 without anything interfering
+00:44:39.359 that russian roulette needs to be off
+00:44:42.400 so that's the next thing i have
+00:44:45.440 i will show you a test
+00:44:49.040 and uh right now it's set to seven
+00:44:52.800 and i'm gonna go down
+00:44:54.960 so seven means it hasn't kicked in yet
+00:44:57.680 and look i have min and max one nine and
+00:44:59.920 i have six bounces of gi and i put
+00:45:03.280 on purpose put the russian root light to
+00:45:05.200 7 so i didn't want it to kick in
+00:45:07.920 yet
+00:45:09.040 and look at the render times 45
+00:45:11.440 and then if i go to the next frame
+00:45:14.000 it's 43. so the russian roulette i
+00:45:16.640 believe has not it it has kicked in
+00:45:19.359 because the render time has changed but
+00:45:21.440 we need to be very careful with the
+00:45:22.800 quality now
+00:45:23.920 five the russian roulette has
+00:45:26.319 uh worked on two bounces
+00:45:28.720 it's gonna work on four uh yeah three
+00:45:31.599 two three bounces and then four bounces
+00:45:34.640 and now it's starting from the second
+00:45:36.400 bounce and you can see the results
+00:45:37.680 getting noisier and noisier we haven't
+00:45:39.839 changed the samples yet but the render
+00:45:42.160 time is changing
+00:45:43.760 so the render time is changing quite a
+00:45:45.599 bit
+00:45:47.200 and i think on an interior scene it's
+00:45:49.520 very very important to set to use the
+00:45:51.520 russian roulette because after the
+00:45:53.200 second bounce the rays are not that
+00:45:55.200 important to the image and maybe here
+00:45:58.160 maybe a value of three is good
+00:46:01.040 but
+00:46:02.000 look if we have it at 45
+00:46:04.240 again the render time is very high and
+00:46:06.400 we haven't changed any of the bounces
+00:46:08.240 yet so being able to render this
+00:46:12.560 at uh
+00:46:14.960 in 20 minutes versus uh 45 minutes is
+00:46:18.319 very important yes we're reducing the
+00:46:20.079 quality but yeah so the other thing is
+00:46:23.520 if you set it to zero the russian
+00:46:25.200 roulette will kick in very very quickly
+00:46:27.520 which means it will produce more noise
+00:46:29.599 and will start chopping off rays and
+00:46:32.160 even if you increase the samples you
+00:46:33.680 will not
+00:46:34.960 that will not be reflected because it
+00:46:36.560 will be working against you so it's best
+00:46:38.960 to have it start at a value of two or
+00:46:40.800 three so that's what the russian mullet
+00:46:42.960 does
+00:46:43.839 most settings most wedges i did i have
+00:46:46.240 had this at a higher value so i can
+00:46:48.480 evaluate pixel samples and the min and
+00:46:51.040 max and other things without the
+00:46:52.720 interference of the russian roulette
+00:46:55.359 killing my samples hope you guys find
+00:46:57.680 this useful let's continue to learn some
+00:46:59.680 more stuff
+00:47:00.960 so i have been able to produce clean
+00:47:03.599 renders
+00:47:05.040 out of karma we've noticed that
+00:47:07.599 even increasing the settings to
+00:47:09.119 something really high we are not able to
+00:47:11.520 100
+00:47:12.480 clean
+00:47:13.440 the noise and because the way
+00:47:16.400 karma functions the type of noise we're
+00:47:18.480 getting is
+00:47:20.960 fits perfectly into a denoise algorithm
+00:47:23.520 and they ship with the optics denoise as
+00:47:26.880 well as the intel ai based units which
+00:47:29.839 is amazing so the newest version of the
+00:47:32.000 intel ii is actually
+00:47:34.400 really really cool and quite impressive
+00:47:36.240 to be honest and we're gonna try to get
+00:47:39.040 the result to look as good as possible
+00:47:41.200 the type of noise that we need to be
+00:47:42.880 worried about is the fireflies which is
+00:47:45.200 something non-uniform something that
+00:47:46.800 happens in a specific region and that's
+00:47:48.960 a little bit worrisome and can be
+00:47:51.200 problematic to solve
+00:47:53.599 in post
+00:47:54.800 so what i've done is i have uh
+00:47:58.160 did a render with
+00:48:00.720 only updating the pixel samples so after
+00:48:02.720 we looked at everything i think we can
+00:48:05.839 safely assume that using a min and max
+00:48:09.040 value of one and eight one two nine is a
+00:48:12.160 good
+00:48:13.119 starting point a good base to give us
+00:48:15.839 nice clean renders and then the second
+00:48:18.079 control is the pixel samples now we can
+00:48:21.200 play with the threshold but we can also
+00:48:24.000 assume that the 0.01 the default value
+00:48:27.200 should be able to give us a clean render
+00:48:29.520 as long as there is enough pixel samples
+00:48:32.559 so what i've done in this test is i went
+00:48:35.040 ahead and
+00:48:36.720 rendered with pixel
+00:48:38.880 samples increasing from 2 4 8
+00:48:42.400 16 32 64. and you can see the render
+00:48:45.520 time is going higher and higher and
+00:48:48.319 towards the end it's
+00:48:50.079 really it's almost clean and this is the
+00:48:52.079 entire frame by the way i'm not working
+00:48:54.000 on a segment anymore
+00:48:56.079 i was able to get this super clean
+00:48:58.559 render
+00:48:59.599 i'm going to have it on the side now i
+00:49:01.280 talked in the other video how to use the
+00:49:03.200 noise ai and i'm going to show it
+00:49:05.440 briefly so basically once you render you
+00:49:08.000 have to have
+00:49:09.599 normals and albedo
+00:49:12.319 so these two passes these two auvs are
+00:49:14.880 important and again this talked about in
+00:49:16.800 the previous video so you can go into
+00:49:19.200 the render settings and export the
+00:49:21.599 albedo as well as the
+00:49:24.400 n
+00:49:25.839 so n smooth normals and if you go to the
+00:49:28.880 image load in your
+00:49:30.880 xr render
+00:49:32.880 so let's load in
+00:49:35.040 one of the renders
+00:49:41.440 using file node
+00:49:47.200 and let's switch to a comp
+00:49:51.359 queue
+00:49:54.640 so this is the render and i'm going to
+00:49:56.400 use a denoise ai node
+00:50:00.480 and obviously i have n and albedo i'm
+00:50:03.119 going to drag and drop this
+00:50:05.920 and boom
+00:50:07.599 we have a super clean render
+00:50:11.599 this is the input
+00:50:13.040 and this is the output and this is how
+00:50:16.000 i think
+00:50:16.960 side effects expected expects us to use
+00:50:20.720 karma i don't think the goal is to
+00:50:23.359 produce a super clean
+00:50:25.040 render out of the box
+00:50:26.960 so the cool thing if you want to you
+00:50:28.559 know it's avs as well which works nicely
+00:50:31.599 you just type in a start here and it
+00:50:33.520 will go and denotes all of them in the
+00:50:35.599 dnos process is quite fast you can see
+00:50:37.680 it's already done it takes a couple of
+00:50:39.520 seconds per frame
+00:50:41.200 all right so
+00:50:43.680 what i've done is this
+00:50:46.720 let me check
+00:50:48.720 yeah so
+00:50:50.160 i've rendered this with pixel samples
+00:50:53.520 and what i did is i at the same time i
+00:50:57.200 run a denoise process on them so this is
+00:51:00.559 my render and i'm going to open the
+00:51:02.720 denoised version
+00:51:04.319 just a second
+00:51:06.319 that would be denoise 2k stills
+00:51:10.720 so this is the denoised version
+00:51:13.280 and i believe yeah so i put
+00:51:16.400 the same setting and but this result is
+00:51:19.280 the denoise result
+00:51:21.040 so this is matching to this
+00:51:24.400 to this one
+00:51:25.760 okay
+00:51:27.520 so after denoised this is what you get
+00:51:30.160 from that low res settings and
+00:51:33.119 again this is the input and this is
+00:51:35.440 going to be the output so here i left
+00:51:37.599 everything but there's no preview it
+00:51:39.599 should probably have done that so the
+00:51:41.680 first with only two samples you can see
+00:51:44.400 we're not able to just reconstruct the
+00:51:46.880 image and this is going to flicker
+00:51:49.040 a lot when we start moving the camera so
+00:51:51.040 that's another equation we're gonna talk
+00:51:53.200 about
+00:51:54.079 so
+00:51:55.599 uh then four pixels
+00:51:58.000 eight pixels uh yeah eight pixel samples
+00:52:02.000 32 and 64. and i think at 64 we're
+00:52:06.240 producing something really clean at 128
+00:52:09.599 it's it's perfectly good there's no
+00:52:12.640 no issues anymore and again if we
+00:52:14.880 compare it side by
+00:52:16.839 side this is the original
+00:52:22.000 and
+00:52:22.880 this is the cleaned up version so the
+00:52:25.520 reason i did this test this way is to
+00:52:27.520 see how low i can actually render the
+00:52:31.119 the the image and still be able to
+00:52:35.440 get a good result now what this one does
+00:52:38.720 not have textures and with or with the
+00:52:41.040 textures because of the way the albedo
+00:52:42.960 works it's not going to affect
+00:52:45.280 the textures you we will always get
+00:52:47.520 clean textures
+00:52:48.960 now
+00:52:50.000 what we can lose is the detail obviously
+00:52:51.920 you can see how it's smudging all this
+00:52:54.000 geometry details here and as we increase
+00:52:56.880 the resolution it's getting sharper and
+00:52:58.400 sharper
+00:53:00.240 and so i think 128 for final would
+00:53:03.599 definitely be enough for this uh for
+00:53:06.800 this
+00:53:07.920 type of scene what did you notice
+00:53:10.720 okay so
+00:53:12.960 one more thing one more idea
+00:53:16.000 is
+00:53:17.920 i that i know
+00:53:19.359 pixar and other studios are doing is to
+00:53:23.760 render instead of hd
+00:53:26.400 you render at a higher resolution you
+00:53:28.480 render at 4k
+00:53:30.160 you do the d noise at 4k
+00:53:32.720 but then scale it down
+00:53:35.040 okay
+00:53:36.000 so because i need i'm spending let's say
+00:53:39.599 i'm producing an hd image in 15 minutes
+00:53:45.040 okay
+00:53:47.119 so let's say i have 1920 by 1080
+00:53:50.319 in 15 minutes
+00:53:53.920 with
+00:53:55.599 six it was 64 samples
+00:53:59.040 i will answer this to you guys so 2k is
+00:54:02.319 going to be 3
+00:54:04.319 8 40
+00:54:06.079 multiplied by twin
+00:54:08.079 two one six zero
+00:54:10.480 and if we want to get
+00:54:13.119 the same render in 15 minutes
+00:54:16.160 we need to divide 64 by four so we need
+00:54:18.800 to use 16 samples
+00:54:21.280 this
+00:54:22.160 and this will be exactly the same render
+00:54:24.960 time and this is something amazing in
+00:54:26.880 karma and so what we're doing now is
+00:54:29.359 we're scaling the render we're rendering
+00:54:31.839 4k
+00:54:33.200 denoising that and then scaling it
+00:54:35.920 with the same render time the only
+00:54:38.000 overhead is going to be
+00:54:39.599 in the
+00:54:40.720 disk space the because the 4k is going
+00:54:43.119 to be
+00:54:44.000 heavier and i have proof of that
+00:54:47.040 so here
+00:54:49.200 i have a 2k render the default that we
+00:54:52.559 did with eight samples this is the same
+00:54:55.680 and run through the denoise this is the
+00:54:58.240 same render
+00:54:59.839 4k
+00:55:01.280 with two samples and look at the render
+00:55:03.280 time
+00:55:05.280 it's identical
+00:55:06.960 impressive
+00:55:08.079 but with the 4k if i now zoom in
+00:55:11.920 it's going to be cleaner
+00:55:13.680 or it's going to have more details than
+00:55:15.760 this but again i'm i'm
+00:55:18.160 rendering the same render time so if i
+00:55:20.160 go to 16
+00:55:21.839 and i align them so that the render time
+00:55:23.760 always matches
+00:55:25.200 if i start going through you can see the
+00:55:26.799 render time is the same this
+00:55:30.000 but for hd to produce a clean result we
+00:55:32.240 need to use 64 on 4k we need to use 16
+00:55:36.079 but this is where the difference is
+00:55:37.599 going to happen is when you start
+00:55:39.359 producing when you start rendering with
+00:55:41.520 16 look at this area for example
+00:55:45.760 and look at this
+00:55:47.359 much sharper
+00:55:48.799 day and night so we're able with the
+00:55:51.359 same render time
+00:55:53.280 to produce a much cleaner image that
+00:55:55.200 would have taken much longer
+00:55:58.480 to get and i don't have unfortunately i
+00:56:00.880 mean i do have it
+00:56:02.400 one second so i want to show the full
+00:56:05.040 render
+00:56:06.319 because this area where the
+00:56:09.520 where the skeleton is
+00:56:11.200 is
+00:56:12.160 huge different let me go through
+00:56:14.839 this and this is with
+00:56:17.760 64 samples so that's two hours let's
+00:56:20.240 look at this 15 minutes so this
+00:56:23.119 versus
+00:56:24.720 the denoise result
+00:56:27.839 and let me open that so denoise 2k
+00:56:34.319 versus this
+00:56:35.680 so here this is
+00:56:37.440 a 2k denoised
+00:56:40.160 and same render time i'll pick the same
+00:56:42.480 render time make sure that we're not
+00:56:46.240 cheating so 64 samples 15 minutes
+00:56:49.680 this is what we get
+00:56:51.200 if we do this 4k technique
+00:56:54.720 look how sharp right it is and this is
+00:56:56.559 same render time
+00:56:58.720 okay
+00:56:59.599 so 15 minutes
+00:57:02.400 maybe it's a bit complicated i mean let
+00:57:04.720 me know if you guys find this
+00:57:06.400 complicated i'll try to clarify it a bit
+00:57:08.720 more but yeah you render 2x the
+00:57:10.960 resolution ud noise
+00:57:14.079 but we didn't spend more time because we
+00:57:16.400 lowered the samples and then when you
+00:57:18.559 downres it you get more resolution more
+00:57:21.359 details and this is it's going to hold a
+00:57:23.920 lot more details everywhere
+00:57:27.040 all right so
+00:57:28.640 that's really it um it's a workflow it
+00:57:32.319 still needs to be explored to render 4k
+00:57:34.880 with the same render but we're going to
+00:57:36.880 take a look at rendering a sequence and
+00:57:39.200 see how that is going to look like so
+00:57:41.920 that all this is great on still frame
+00:57:44.960 well we need to see it moving so that's
+00:57:46.720 another factor that we need to take into
+00:57:48.799 consideration we're almost done looking
+00:57:51.040 at all the parameters that have an
+00:57:52.720 effect on the quality
+00:57:54.559 in the render settings the last option i
+00:57:56.559 want to take a look at
+00:57:58.480 is the
+00:58:00.160 off screen control which controls the
+00:58:03.040 dicing of the geometry outside the
+00:58:05.440 camera so basically anything that we
+00:58:07.599 don't see that is being reflected
+00:58:10.240 or
+00:58:11.040 used in the indirect illumination would
+00:58:13.200 have would be affected by this
+00:58:15.599 multiplier and this generally applies to
+00:58:18.960 reflection refraction and displacement
+00:58:22.480 and in this case we don't have a lot of
+00:58:24.160 those things i mean we don't have we
+00:58:25.920 have reflection we don't have a lot of
+00:58:27.760 displacement but anyway i wanted to uh
+00:58:30.880 make sure that we test it out i think in
+00:58:33.599 the cases uh like ocean surfaces with
+00:58:36.960 ships they where you have something
+00:58:38.960 visible something not visible definitely
+00:58:41.440 we're gonna see
+00:58:42.640 more of this uh affecting the render
+00:58:45.040 time and not so much supply so
+00:58:48.000 it's basically reducing the dicing
+00:58:50.640 of data that we don't see so i started
+00:58:52.960 off with a value of one
+00:58:55.520 and the render time
+00:58:57.119 again min and max one and eight and uh
+00:58:59.920 sample 64.
+00:59:01.520 and as i play through
+00:59:04.000 you can see
+00:59:05.119 especially the quality
+00:59:07.599 nothing is really changing
+00:59:09.520 i mean here it changed a bit but nothing
+00:59:11.839 drastic
+00:59:13.200 i think it's just
+00:59:15.680 you know some load time or something but
+00:59:18.240 overall there's nothing that's going to
+00:59:20.720 affect our scene
+00:59:22.480 or this type of scene so that's a safe
+00:59:24.960 control to leave as the default
+00:59:27.680 now i think
+00:59:29.440 we're pretty much done the next
+00:59:33.440 the next thing that we're going to look
+00:59:34.720 at obviously how can we produce our
+00:59:37.040 final
+00:59:38.240 resolution and what is the setting that
+00:59:40.880 we have to put in
+00:59:42.480 the technique of using 4k and 2k
+00:59:45.680 can be very useful in many many cases i
+00:59:48.559 mean this is a simple example here
+00:59:51.040 but i think it can save a lot of time
+00:59:53.200 and what i've decided to do is i wanted
+00:59:55.200 to do a test with 2k
+00:59:58.079 1920 by 1080 at 64 samples and this is
+01:00:01.680 the final result with the noise and if i
+01:00:04.240 play it through there is a flick there
+01:00:06.319 is a little bit of flickering but again
+01:00:08.319 i have depth of field going on and
+01:00:11.359 we it's a very complex render in terms
+01:00:13.440 of illumination so i think using 128
+01:00:16.559 would have produced a much better
+01:00:20.799 result but again this is only 30 minutes
+01:00:24.160 per frame and using 64 samples
+01:00:26.880 so the same render the same result
+01:00:31.119 render it at 4k
+01:00:34.240 denoised downscale same render time same
+01:00:37.200 everything
+01:00:38.880 same render time
+01:00:40.640 on both and this is the 4k
+01:00:44.319 and when we look at it
+01:00:46.960 the 4k is more stable and has much more
+01:00:50.480 details
+01:00:51.760 and i
+01:00:53.040 i mean i know why this is happening but
+01:00:55.680 it's very interesting to see it in
+01:00:57.520 motion that it's much more stable now
+01:01:00.160 there is flickering on both but again
+01:01:02.559 the original render which i need to show
+01:01:05.760 is very very noisy so
+01:01:08.240 give me a second i'm gonna find the
+01:01:09.839 original
+01:01:10.960 render so if i go to
+01:01:14.079 out
+01:01:21.119 okay i have
+01:01:23.280 found
+01:01:24.160 the files
+01:01:26.000 and i just want to show how noisy it is
+01:01:29.680 on 4k
+01:01:31.520 and show this workflow of rendering it
+01:01:35.680 high-risk
+01:01:37.040 and this is only this only works because
+01:01:39.359 of the type of noise karma produces so
+01:01:42.559 this is the 4k using 16 samples
+01:01:46.000 but then if we do this
+01:01:48.240 if we denoise it
+01:01:54.400 it's gonna be
+01:01:56.079 clean
+01:01:57.839 it's gonna try to clean as much as
+01:01:59.440 possible
+01:02:02.799 and it's a bit slower so that's the 4k
+01:02:07.520 and then we need to scale it
+01:02:09.440 scale
+01:02:13.039 and i'm gonna divide it by half
+01:02:16.160 so you get 1920 by 1080 and this is the
+01:02:18.640 original the original is
+01:02:22.640 three me
+01:02:28.720 yes three eight four zero multiplied by
+01:02:31.039 two one six zero so that's the 4k then
+01:02:33.520 if i scale it down boom
+01:02:35.839 that's my render
+01:02:37.680 and again there's flickering but
+01:02:40.480 uh
+01:02:42.079 actually this is a very low res version
+01:02:44.880 so i need to go to frame
+01:02:46.799 five yeah this rendered like with two
+01:02:49.039 samples or something
+01:02:51.680 so if i go to frame five it's gonna have
+01:02:53.839 128 this is the sequence where i watch
+01:02:56.160 the render settings and boom there you
+01:02:58.720 go super clean super sharp
+01:03:01.839 details and i think it's it's going to
+01:03:03.760 be great
+01:03:04.880 so that's the technique of rendering 2k
+01:03:07.440 the goal is again to
+01:03:11.039 keep the the render time the same
+01:03:13.119 without
+01:03:14.319 having to spend more
+01:03:16.640 but
+01:03:17.440 with that same time we're able to
+01:03:19.119 basically get 2x the quality uh
+01:03:23.520 in the final image so let me show the
+01:03:25.200 render again the comparison again
+01:03:30.480 and this is 4k
+01:03:32.559 with
+01:03:33.359 always a fourth of the
+01:03:36.319 the pixel samples because we're
+01:03:37.760 rendering four times more pixels
+01:03:40.079 and denoising each of them
+01:03:44.160 i think at 128 this would be
+01:03:46.799 a perfect result
+01:03:50.160 and this one is good as well
+01:03:52.559 we're almost done talking about karma
+01:03:55.039 in
+01:03:56.000 explaining all the options it offers i
+01:03:57.920 hope you guys learned something and feel
+01:04:00.160 more comfortable to use it now and i
+01:04:02.480 wanted to talk briefly about the gpu the
+01:04:05.520 lighting techniques the aerial lights
+01:04:07.440 and the lens shader and just various
+01:04:10.079 topics so the first thing is the gpu and
+01:04:13.200 there's nothing
+01:04:15.440 crazy here we just increase the
+01:04:18.240 uh
+01:04:19.039 change this to xpu and hit render we
+01:04:21.839 need more samples let me take a note so
+01:04:24.240 i remember this and
+01:04:27.280 power okay so let me show a test render
+01:04:31.280 of the
+01:04:32.400 gpu
+01:04:34.319 and this is done on a 3090 rtx
+01:04:38.480 versus a dual xeon cpu with 32 cores so
+01:04:42.640 the render time on this one is four
+01:04:44.400 minutes and i used 10 24 samples i think
+01:04:47.920 if we render at 512 or maybe 256 at 4k
+01:04:51.280 with gpu i'll probably be clean enough
+01:04:55.680 and it will be done in four minutes
+01:04:57.119 maybe two minutes even
+01:05:00.240 but yeah this is very promising i hope
+01:05:02.319 side effects continues to support it and
+01:05:05.359 add all the features but i think it's
+01:05:08.480 going to have it's going to support more
+01:05:10.640 material x versus the
+01:05:13.280 effects related workflows which relies
+01:05:15.440 heavily on you know doing a lot of
+01:05:17.680 complex things
+01:05:20.000 at render time using point clouds and
+01:05:21.760 displacement and things like that so
+01:05:23.760 that's the gpu i don't have
+01:05:26.319 a big comment i think
+01:05:28.319 all the settings that we talked about uh
+01:05:30.720 are not so applicable to this so once
+01:05:33.200 you switch to xp you only have this one
+01:05:36.480 and then the
+01:05:37.680 lighting samples and then the diffuse
+01:05:39.680 limit so the main controller is here but
+01:05:42.799 and you have to increase that so
+01:05:45.039 and it's a progressive rendering
+01:05:47.280 cool the next topic i wanted to talk
+01:05:49.920 about is using area lights so instead of
+01:05:52.319 having environment light what if we
+01:05:54.880 place
+01:05:56.400 area lights
+01:05:59.839 and let me change let me turn off depth
+01:06:01.839 of field
+01:06:04.079 so i placed area lights around this and
+01:06:07.200 turned off the
+01:06:08.880 environment dome
+01:06:10.240 because this supposed to be faster in
+01:06:12.960 some cases maybe it needs to be built in
+01:06:15.520 a specific ways or yeah
+01:06:18.799 but i've done that with four area lights
+01:06:21.359 basically in the same sunlight
+01:06:23.920 and this is how it looks like through
+01:06:25.440 the camera
+01:06:29.839 and i did a render
+01:06:34.000 let me pause the viewport
+01:06:36.799 it's different obviously
+01:06:39.599 so this is the render with area lights
+01:06:43.280 and with two samples four samples the
+01:06:46.480 render time is pretty good it's not uh
+01:06:49.839 faster or slower i think maybe it's a
+01:06:52.000 bit faster
+01:06:53.200 64 samples we are getting a very similar
+01:06:57.440 noise type
+01:06:59.839 but i'm not so sure that this is going
+01:07:01.839 to be faster in any way again we're
+01:07:03.599 rendering a segment here we're not
+01:07:05.680 rendering the final image
+01:07:07.359 but looking at the noise type i don't
+01:07:09.440 think especially the indirect i don't
+01:07:11.760 think this is going to be hugely
+01:07:14.000 different
+01:07:15.119 but i
+01:07:16.000 do think that the direct diffuse is
+01:07:17.920 cleaner so which will produce overall
+01:07:20.000 cleaner render but in terms of render
+01:07:22.079 time using hdr or area light seems to be
+01:07:25.599 producing the same
+01:07:27.119 quality
+01:07:29.280 image as well as the render time so
+01:07:31.440 that's something to keep in mind
+01:07:34.000 all right what is what's next
+01:07:39.760 portal lights
+01:07:41.039 all right let's talk about portal lights
+01:07:43.760 so when you have complex scene
+01:07:47.280 it is let me see
+01:07:50.799 when you have complex scenes like this
+01:07:53.440 vendors like arnold and pr man and
+01:07:56.480 redshift they offer area lights that are
+01:07:59.440 called portal lights where you place
+01:08:01.440 them when you want the
+01:08:03.200 the render to focus basically and it
+01:08:05.839 helps optimize the
+01:08:08.319 the waist so that
+01:08:10.160 the shaders only
+01:08:12.480 uses those bounding box or those domains
+01:08:15.839 and shoot more ways towards that so the
+01:08:17.920 way it works in in karma is you have to
+01:08:20.719 create geometry
+01:08:22.399 to place the areas that are interesting
+01:08:26.799 for the environment light what you want
+01:08:28.479 to focus on and i placed
+01:08:31.679 these grids
+01:08:33.439 on the windows maybe there's a better
+01:08:35.120 way to do it but that's how it's
+01:08:36.799 supposed to work and then you put down a
+01:08:39.679 render geometry settings note
+01:08:42.399 and here you scroll down and you say it
+01:08:44.960 is a portal and it's going to affect
+01:08:47.359 all
+01:08:48.319 uh
+01:08:49.040 all the lights
+01:08:50.399 and
+01:08:51.198 inside the domed light
+01:08:53.600 now once you go here let me pin this
+01:08:56.880 you will see a new type called portals
+01:08:59.600 let me enable it first so if i enable
+01:09:02.000 this we'll see a new type called portals
+01:09:04.399 and all you have to do is drag and drop
+01:09:06.479 this
+01:09:07.439 here
+01:09:09.520 and now it's being used to guide this
+01:09:12.319 dome or karma to basically focus more
+01:09:15.198 and place more ways there now let's see
+01:09:17.759 if i have
+01:09:18.960 a render oh i didn't save it but i
+01:09:21.120 didn't see any difference render time
+01:09:23.040 quality it was pretty much the same so
+01:09:25.520 at the moment i'm not sure how this is
+01:09:28.080 going to work maybe this case is very
+01:09:30.319 complicated i think it is so it's we're
+01:09:33.439 not seeing a huge effect and
+01:09:35.920 karma is already spending a lot of time
+01:09:37.920 trying to solve it anyway so this is not
+01:09:40.880 saving but i think if you had an
+01:09:42.560 interior with exactly one opening that
+01:09:44.960 could save and improve things quite a
+01:09:46.960 bit all right
+01:09:49.120 let's see
+01:09:50.238 uh length shader okay
+01:09:52.640 so the next thing i wanted to show
+01:09:55.120 let me look through the camera
+01:09:57.600 and let's turn on karma
+01:09:59.920 so with the shader with the lens shader
+01:10:02.640 you have to create a matte network
+01:10:04.640 and here
+01:10:06.640 you create a physical lens shader
+01:10:09.679 and inside the camera
+01:10:12.080 you go
+01:10:13.280 and
+01:10:14.000 click on take on the useless shader and
+01:10:16.960 then you can drag it
+01:10:19.040 actually can just copy
+01:10:21.520 the path here copy the path this one
+01:10:24.400 because it's a matte network it's not a
+01:10:26.080 material library and this is what i
+01:10:28.159 found that needs to happen i couldn't
+01:10:30.800 get it to work inside the material
+01:10:32.320 library and dragging and dropped the
+01:10:34.480 path here so it needs to be explicit
+01:10:36.960 and if i enable this again
+01:10:40.560 and let's go to the material let's go to
+01:10:43.199 the first frame
+01:10:46.400 and let's go to the physical
+01:10:48.640 lens
+01:10:49.760 we can add distortion
+01:10:53.679 we can add chroma operation
+01:10:57.840 this is how i used i how i got the
+01:11:00.159 operation this version on the
+01:11:02.800 glass
+01:11:04.239 from the previous tutorial the arrows
+01:11:06.239 scene
+01:11:07.199 this is how i got that
+01:11:09.600 dispersion effect
+01:11:11.280 and then you can tint you can add
+01:11:13.520 exposure you can add vignette which is
+01:11:15.440 pretty cool
+01:11:17.360 and it's honestly it's quite fast
+01:11:21.520 so that's
+01:11:22.960 it and then you can play with the
+01:11:26.960 with the depth of field
+01:11:29.600 here we can shrink the range
+01:11:33.920 and let's go to the end frame
+01:11:38.000 and you can see we're getting more depth
+01:11:39.840 of field now
+01:11:41.600 oh it's not in the viewport sorry
+01:11:43.920 i think i have it off
+01:11:45.840 yeah
+01:11:47.600 so enable
+01:11:49.360 and now we're only
+01:11:50.880 yeah everything is blurry basically
+01:11:54.880 all right and the last thing is the
+01:11:57.679 power function
+01:11:59.360 and how i created the settings so let me
+01:12:02.239 pause this
+01:12:06.080 so many can and many times you
+01:12:08.400 have seen
+01:12:09.760 the render changes
+01:12:11.840 let's see let me pick a scene where this
+01:12:14.480 is working
+01:12:16.480 so denoise hairlights
+01:12:19.840 samples reduction for example
+01:12:23.199 so you see the samples go from 128
+01:12:27.600 and down or up so the function i'm using
+01:12:30.880 is
+01:12:32.239 the full
+01:12:34.000 resolution like 24 divided by the power
+01:12:36.640 of
+01:12:38.080 two
+01:12:38.960 sorry divided by the two power of
+01:12:42.159 exponential of
+01:12:43.440 uh frame
+01:12:44.560 so this is what you get you get a
+01:12:46.719 growing number
+01:12:48.719 that matches the settings so you get 2 4
+01:12:51.360 8 16 32 6 428
+01:12:55.760 and then in other settings like the
+01:12:58.400 threshold let me open this up
+01:13:02.719 and the uh not the russian lid
+01:13:05.600 the off screen for example yeah the
+01:13:07.679 off-screen quality
+01:13:10.320 i just subtract the frame number divided
+01:13:13.679 by 10.
+01:13:14.880 i go to advanced sampling
+01:13:18.800 under renders geometry so here the
+01:13:22.000 off screen is one minus the frame so
+01:13:24.640 this just offset it divided by ten so
+01:13:27.440 the first frame is going to be zero one
+01:13:29.280 minus zero the next frame is gonna be
+01:13:31.440 one minus zero zero one minus zero two
+01:13:34.800 you can see it's going down now we can
+01:13:36.719 have a more gla granular threshold
+01:13:40.080 if we just divide this by ten
+01:13:43.120 you can see it's going
+01:13:44.719 the more precise
+01:13:46.560 so that's how i did it it's very very
+01:13:48.480 simple and um
+01:13:51.120 yeah that's how i watched pretty much
+01:13:52.960 all the parameters
+01:13:54.400 let's recap everything we talked about
+01:13:56.960 and uh just a note about carmen houdini
+01:13:59.679 19 all this is very very new so there's
+01:14:02.320 very little documentation there's very
+01:14:04.320 little test about it in fact the
+01:14:06.159 documentation is almost non-existing so
+01:14:09.040 we have to it's our job to do all these
+01:14:11.520 tests explore try things out and see how
+01:14:15.199 it works and maybe point out things that
+01:14:17.280 are not working to side effects or
+01:14:19.840 let them know how they can improve
+01:14:21.440 certain things i definitely feel that
+01:14:24.239 it's heading in the right direction as a
+01:14:26.560 second release was a production ready
+01:14:29.040 the first version it's a very very
+01:14:31.120 robust render now i picked a complex
+01:14:33.760 scenario and that's what i'm probably
+01:14:36.320 going to be doing next is pick another
+01:14:38.800 complex topic i want to explore
+01:14:41.199 rendering different uh things with
+01:14:43.520 carmen and share with you guys uh how
+01:14:46.080 that's going and how to tweak settings
+01:14:48.000 and if i run into any problems
+01:14:50.560 but overall the main takeaway from this
+01:14:53.120 is that pixel samples are important min
+01:14:55.600 and max arrays
+01:14:57.440 are safe to keep
+01:14:59.679 as the default maybe you can lower them
+01:15:02.000 a bit the noise level is very sensitive
+01:15:04.400 you have to be careful oracle is
+01:15:06.960 something new it's not working in this
+01:15:09.199 type of scenario maybe it works in other
+01:15:11.280 cases so that's something and it it's
+01:15:13.760 not having an effect on render time uh
+01:15:16.880 light quality you guys learned about
+01:15:18.400 that indirect guide is still
+01:15:21.360 up in the air i don't know what's what's
+01:15:22.960 happening there uh the gi bill since
+01:15:25.520 that in this example is very very uh
+01:15:27.920 clear the russian roulette very
+01:15:30.159 dangerous but very important in various
+01:15:33.600 aspects so keep that in mind offscreen
+01:15:36.000 is not helping here
+01:15:37.679 with the type with this type of effects
+01:15:40.000 the denoise technique for the 2k 4k has
+01:15:43.120 lots of potential maybe you guys can
+01:15:45.120 explore some of that uh sky dome versus
+01:15:47.760 area light seems like it's pretty much
+01:15:50.000 the same
+01:15:51.199 and then the rendering of the entire
+01:15:52.960 sequence to see how the noise
+01:15:55.120 holds up for
+01:15:57.120 you know an animated camera
+01:15:59.920 gpu very very promising
+01:16:02.960 if it works if you have a scene and
+01:16:05.199 everything is looking good through gpu
+01:16:07.199 just use it it's going to be faster
+01:16:10.320 lighting techniques we talked about the
+01:16:12.560 area lights and stuff the upscale i
+01:16:14.560 talked about that and then the denoise
+01:16:16.560 is very crucial with karma in this
+01:16:18.640 workflow as well as the red lint shader
+01:16:20.960 it's it's very cool has lots of uh
+01:16:23.280 features
+01:16:24.320 and
+01:16:25.360 yeah i'm gonna keep digging all this
+01:16:27.120 i'll provide all the files provide
+01:16:30.320 all the final renders and uh hope you
+01:16:33.840 enjoyed this and talk to you soon bye
+01:16:36.400 now
+01:16:53.120 you

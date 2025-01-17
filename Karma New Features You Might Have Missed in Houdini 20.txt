@@ -1,0 +1,392 @@
+# tactiq.io free youtube transcript
+# Karma New Features You Might Have Missed in Houdini 20
+# https://www.youtube.com/watch/lXbFhtaj3tg
+
+00:00:00.160 Houdini 20 brings a bunch of new
+00:00:02.320 features to Karma so let's take a look
+00:00:05.120 at what some of the new stuff is that's
+00:00:06.839 available to
+00:00:12.320 us so just uh start off here this scene
+00:00:15.719 everything that's in this including the
+00:00:16.920 lighting the materials and the models
+00:00:18.960 this is all from the grayscale gorilla
+00:00:21.359 plus Library so I did a video on that a
+00:00:24.199 couple days ago I'm not sponsored by
+00:00:25.920 them but they did give me access to
+00:00:28.240 their Library so just keep that in mind
+00:00:30.560 as you're watching through that and
+00:00:32.360 looking at everything in here but I'm
+00:00:34.239 going to use their stuff for
+00:00:35.440 demonstration purposes here so check out
+00:00:37.480 that other video if you're interested
+00:00:38.840 and I'll also leave a link in the
+00:00:40.120 description to their website so you can
+00:00:42.200 take a look at it if you're interested
+00:00:43.800 in grabbing their stuff but anyways
+00:00:47.840 let's go ahead and take a look at the
+00:00:49.199 render Gallery that's the first thing I
+00:00:50.760 want to take a look at so we'll come to
+00:00:52.280 this little plus icon go to new pan type
+00:00:55.399 and then we're coming down to Solaris
+00:00:57.559 and then render gallery and the reason
+00:01:00.399 we want to take a look at that is
+00:01:01.480 because of the new render stats so let's
+00:01:03.519 press alt shift and c and we can pop out
+00:01:06.400 a new window here just to give us a
+00:01:09.119 little bit more
+00:01:10.479 space and we can render out um our scene
+00:01:15.400 so we can just render out in the
+00:01:16.960 background so I'll just go ahead and
+00:01:18.320 click that and it's going to start to
+00:01:20.159 render out our scene in the background
+00:01:22.479 you can see that it pops up here and if
+00:01:25.159 we just go ahead and click on it you can
+00:01:26.880 see that it's starting to render out our
+00:01:29.079 scene which is pretty sweet and that
+00:01:32.439 just allows us to just render that while
+00:01:35.040 we're working and we can change some
+00:01:37.159 things so let's go ahead let's take a
+00:01:38.960 snapshot of this so we'll snapshot that
+00:01:42.680 and then we can come and maybe we change
+00:01:45.000 some things so let's come over to this
+00:01:47.560 uh material
+00:01:48.960 Linker and let's go ahead and just lower
+00:01:52.079 that out for now so I'll come to the
+00:01:53.960 material Linker maybe we want to change
+00:01:55.680 the material maybe on our pyramids here
+00:01:58.320 so I have this
+00:02:00.439 corroded copper material on them right
+00:02:02.000 now let's go ahead and just disable that
+00:02:04.520 let's maybe come
+00:02:06.520 to um I don't know
+00:02:09.000 maybe
+00:02:11.760 the dirty brass we'll use this one and
+00:02:14.760 let's drag our pyramids over actually
+00:02:17.480 we'll double click on this and then drag
+00:02:19.160 our pyramids over and accept there and
+00:02:22.680 now we have our our pyramid set to that
+00:02:25.000 brass material and we can bring back our
+00:02:27.640 render Gallery here and we can again
+00:02:30.080 click this little render in the
+00:02:31.599 background icon and we start to have
+00:02:34.319 that render in the
+00:02:35.879 background so let's go ahead let's take
+00:02:38.080 a look at this one first actually we can
+00:02:40.040 take a look at the render stats so that
+00:02:44.040 is in this little icon right here so I
+00:02:47.480 click that icon you can see you get a
+00:02:49.959 bunch of information that pops up so you
+00:02:52.400 can see what you're using so we have xpu
+00:02:55.680 we have our pass samples we have how
+00:02:57.640 much time it takes so it took 48 seconds
+00:03:00.040 to render that out we have the aovs our
+00:03:03.360 xpu devices our memory all that stuff we
+00:03:06.879 have available to us let's go ahead and
+00:03:08.400 just maximize that
+00:03:10.760 here and you can see your different
+00:03:13.400 information down here we have our how
+00:03:17.200 much our xpu devices are being utilized
+00:03:20.400 so I just want to point this out real
+00:03:22.000 quick too because if we take a look
+00:03:24.080 actually at uh right here in our
+00:03:26.400 viewport we have this rendering showing
+00:03:28.640 up and we have this Optics Optics and
+00:03:31.480 then the Ember it kind of went away
+00:03:33.000 there says idle now but that is not how
+00:03:36.439 much um like it's
+00:03:40.159 not I I don't know what my brain's
+00:03:43.040 trying to say right now but the way like
+00:03:44.920 these numbers right here the 49% the 37%
+00:03:47.560 and the 15% that's how much contribution
+00:03:50.799 is being made by each device so my 390
+00:03:54.280 is uh rendering 49% of the image my
+00:03:57.360 A4000 IS rendering 37%
+00:04:00.200 and my CPU is is rendering 15% so that's
+00:04:04.439 how much of the contribution of each
+00:04:07.040 individual um piece of Hardware that you
+00:04:10.079 have is um contributing to the
+00:04:13.720 render so we have all sorts of different
+00:04:15.840 things in here this is really good for
+00:04:17.440 debugging you have resolution and all
+00:04:19.120 that stuff too uh you have different
+00:04:21.279 things that can show you how much time
+00:04:24.199 is being taken and everything like that
+00:04:26.600 so you can really dial in everything for
+00:04:29.320 your seen maybe find the bottlenecks and
+00:04:31.520 get rid of them and we can click on this
+00:04:33.560 one and then you can see that the
+00:04:35.360 information updates so this one took a
+00:04:37.440 little bit longer it looks like for some
+00:04:38.960 reason this material is a little bit
+00:04:40.919 harder to calculate uh and then or maybe
+00:04:44.199 it was CU I was had the the scene
+00:04:47.479 running in the viewport as well but
+00:04:49.919 either way this one took four a minute
+00:04:52.120 and 15 seconds to render out and again
+00:04:54.800 we have similar stuff showing up in our
+00:04:57.680 different settings here and we we can so
+00:05:00.440 we have our scene set up to this right
+00:05:02.800 here we should be able to take a a
+00:05:04.520 snapshot so if we we took this snapshot
+00:05:06.759 we take a look at this we can revert
+00:05:09.120 Network to the snapshot this isn't new
+00:05:11.000 to Houdini 20 but it is something that
+00:05:13.560 is super cool that you can do so just
+00:05:15.960 take a look at at that you can also
+00:05:18.000 render multiple cameras at a time which
+00:05:19.800 I forgot to take a look at before this
+00:05:21.759 video so uh just know that you can
+00:05:23.759 render out multiple shots at once and uh
+00:05:26.639 that's available in Houdini 20 uh part
+00:05:29.680 of the new stuff um one other thing that
+00:05:31.919 I do want to point out here so if we I
+00:05:34.919 do have the karma render settings hooked
+00:05:36.759 up so if I go ahead and just get rid of
+00:05:39.759 that inside of our scene here we can
+00:05:41.960 press D in the viewport and we have
+00:05:44.560 something new in this little display
+00:05:46.680 options so we have this render section
+00:05:48.960 where our Houdini GL is but more
+00:05:51.039 importantly we have Karma CPU and Karma
+00:05:53.280 xpu settings so this is basically just
+00:05:55.919 what these Karma render settings are but
+00:05:58.319 if you don't have one of these in your
+00:05:59.520 your scene or in your tree you can
+00:06:01.520 actually start to render just directly
+00:06:04.199 with the settings that it has available
+00:06:06.800 to you from the display option so I go
+00:06:09.360 ahead and load up our xpu you can see
+00:06:11.680 that it is just starting to render based
+00:06:14.039 off those settings which is super nice
+00:06:16.080 you don't actually have to drop that
+00:06:17.400 down now you can just start to render
+00:06:19.759 just speed things up a little bit uh
+00:06:21.840 more in your
+00:06:23.599 workflows so let's hop out of there for
+00:06:25.639 now we do have some new things to
+00:06:27.599 materials so let's go ahead and I'm just
+00:06:29.120 going to maybe dive into one of these
+00:06:32.960 materials or maybe I'll make a new one
+00:06:34.400 so karma material
+00:06:38.319 Builder we'll jump in there so we have
+00:06:40.720 some new things in here we have a new
+00:06:42.880 ramp parameter so karma ramp parameter
+00:06:46.120 this is new to Houdini 20 so that should
+00:06:48.759 make it
+00:06:49.880 available um so make it available all
+00:06:52.680 the way up on
+00:06:54.160 the H it's probably in the material if
+00:06:56.440 you edit the material properties so um
+00:06:58.479 it makes the
+00:07:00.080 this ramp parameter available to you um
+00:07:02.759 not just inside here but you can edit it
+00:07:05.360 from from actually some of the stuff in
+00:07:07.759 Solaris there's also a rounded Edge Bop
+00:07:11.720 which is kind of cool um not sure let's
+00:07:16.039 see this is from the normal so we need
+00:07:17.919 to plug this into normal so I haven't
+00:07:19.199 actually used this so let's go ahead and
+00:07:21.919 pipe this in here so we'll do the normal
+00:07:24.560 in there looks like we have some
+00:07:27.560 different settings in here to to adjust
+00:07:30.319 some things let's go ahead and make
+00:07:32.879 a box and we'll bring this into our
+00:07:36.240 scene
+00:07:38.000 here so maybe we raise this up a little
+00:07:42.080 bit bring down the uniform
+00:07:45.960 scale maybe something like that and we
+00:07:49.560 can apply that material to it so in our
+00:07:52.039 material Linker just bring this over
+00:07:54.280 here and we can drag our cube in there
+00:07:58.240 and accept now now if we load up Karma
+00:08:00.639 xpu let's go ahead and bring our render
+00:08:02.520 settings
+00:08:04.599 back and we load this up we should have
+00:08:08.560 some rounded edges on our on our box
+00:08:12.400 let's see what we
+00:08:14.680 get so maybe let's zoom in a little bit
+00:08:20.879 here all right so yeah we start to have
+00:08:24.199 some some rounded edges there so if we
+00:08:26.199 bring this back up we can change the
+00:08:28.599 radius Maybe set this to like 0.1 it
+00:08:30.360 should be very yeah so it's it's very
+00:08:32.360 pronounced there so you have this new
+00:08:34.120 rounded edges just to give you some nice
+00:08:37.000 little rounded fake rounded edges on
+00:08:40.159 your geometry if you want to to use that
+00:08:42.799 we also have some other new things
+00:08:45.040 inside of materials here so we have a
+00:08:48.440 new
+00:08:49.760 verono 2D and 3D noise so we got two new
+00:08:54.440 Bops here so the R 2 2D and 3D so apply
+00:08:59.200 play around with those some new noises
+00:09:00.600 are always welcome we also have a second
+00:09:04.160 set of noises that are new so these are
+00:09:07.279 material X noises so circles
+00:09:11.920 2D these should be new as well so you
+00:09:14.519 can play around with that inside um
+00:09:17.320 Houdini 20 let's go ahead and just wire
+00:09:20.000 this into maybe the base
+00:09:22.959 color see that's just a float but it
+00:09:25.440 shouldn't matter let's just load up our
+00:09:28.760 view there yep so we have a new noise
+00:09:32.120 here that we can play with so you can
+00:09:33.640 change the circle scale this be good for
+00:09:36.440 creating um some some new procedural
+00:09:39.440 materials using material X and stuff
+00:09:41.600 always welcome to see some new noises
+00:09:43.640 inside of karma I'm looking forward to
+00:09:47.160 hopefully seeing some more with uh
+00:09:49.560 material X and stuff as that starts to
+00:09:51.920 develop further but we also have a new
+00:09:54.360 hex tiling so karma hex tile texture we
+00:09:58.079 have two different on ones in here so we
+00:09:59.720 have tripler and we have a UV one so we
+00:10:02.120 can just pop that
+00:10:05.240 down and we
+00:10:07.800 can wire that into our base color or
+00:10:12.480 whatever and if we selected
+00:10:15.680 a material so let's go ahead we'll move
+00:10:19.399 to one let's
+00:10:21.959 see uh actually they are on a different
+00:10:24.800 hard drive so me find them real quick CG
+00:10:28.560 NOP
+00:10:32.519 wrong wrong hard drive again sorry about
+00:10:35.560 that give this a second to load
+00:10:38.920 up I did cover this in my first
+00:10:41.639 impressions video so take a look at that
+00:10:44.200 if you're interested but let's go ahead
+00:10:46.760 and just load in any one of these maybe
+00:10:49.920 maybe a fabric would be good to this
+00:10:52.760 we'll do a blue fabric here and we'll
+00:10:54.440 select just a diffuse
+00:10:57.399 there and it's going to take a second to
+00:10:59.440 load into material X but this is a new
+00:11:01.839 way to get rid of some of the tiling
+00:11:03.560 that you have in regular sort of
+00:11:06.600 texturing processes so if I take a real
+00:11:10.720 close look
+00:11:12.120 here you can you can really see it in
+00:11:14.760 here so let zoom in super far you can
+00:11:18.079 see we have these little they're it's
+00:11:19.480 kind of hard to tell what shape they are
+00:11:21.680 but we have these textures that are
+00:11:23.839 being randomly rotated um let's see
+00:11:26.839 random rotation if we set this to zero
+00:11:28.560 we should get
+00:11:30.079 some of that back looks a little bit
+00:11:32.959 less crazy but we get some of that
+00:11:34.240 tiling kind of showing a little bit more
+00:11:36.560 um so you can mess around with with that
+00:11:39.040 and get rid of some tiling in your
+00:11:40.800 scenes so definitely nice to have a new
+00:11:43.160 way to to get rid of some tiling you
+00:11:44.760 don't have to manually set up bunch of
+00:11:46.480 masks and everything you can maybe get
+00:11:48.000 away with using this hex tiled um
+00:11:51.160 texture and then the other thing that
+00:11:54.040 they have that's new that I want to
+00:11:55.360 cover real quick is a new PBR texture
+00:11:59.720 set vop so this is a way to just set up
+00:12:04.440 your whole material I'm going to go
+00:12:06.040 ahead and just delete some of these so
+00:12:08.360 instead of having to load in a ton of
+00:12:10.560 different uh image textures we have just
+00:12:13.079 one node that kind of controls all of
+00:12:15.040 these so we can bring in all of our
+00:12:16.880 different material information in here
+00:12:19.279 so if I wanted to bring in our fabric
+00:12:22.160 we'll do our
+00:12:24.240 diffuse um I don't see specular
+00:12:27.639 roughness do
+00:12:29.680 roughness can do
+00:12:32.040 our look like it doesn't have height in
+00:12:36.519 here um it didn't have color or opacity
+00:12:40.760 I mean um I don't think metal it's not a
+00:12:44.040 metal so don't need that one didn't have
+00:12:46.760 any subsurface we'll just leave it like
+00:12:48.360 this so let's just wire in our base
+00:12:49.959 color and then we have our specular
+00:12:52.320 roughness so we can wire that into our
+00:12:53.839 specular input and specular
+00:12:57.639 roughness and and if I restart this
+00:13:01.399 render we should get that to to show up
+00:13:05.399 and even if you don't um if you wire in
+00:13:09.199 just the the default um like all these
+00:13:13.160 the defaults we have these default
+00:13:14.639 values allow us to um affect things so
+00:13:19.000 even if I didn't have something loaded
+00:13:21.000 into here so let's just delete
+00:13:24.320 out these it's Sor it's going to load in
+00:13:26.920 the default values of these so we have
+00:13:28.519 one node that kind of controls
+00:13:29.800 everything in the standard surface or
+00:13:31.880 most of the things that you'd have in
+00:13:33.040 the standard surface anyways so if I
+00:13:35.160 change this base color you're going to
+00:13:36.360 see there we get an update there um we
+00:13:38.760 can change the specular roughness and
+00:13:40.480 all that stuff as well so that's a super
+00:13:43.320 nice node just to clean things up you
+00:13:45.600 may not want it in every context but you
+00:13:48.079 can use that uh to set up your textures
+00:13:51.000 and just keep things a little bit more
+00:13:53.160 clean it doesn't have everything from
+00:13:55.600 the standard surface like it has the
+00:13:58.320 emission color but it doesn't have like
+00:14:00.560 the emission amount so if I come in here
+00:14:02.839 come to emission it doesn't have this
+00:14:04.480 emission like toggle so I'm not sure why
+00:14:08.160 they did that but uh just know that
+00:14:09.839 you'll have to do some things on the
+00:14:11.440 standard surface still but most of it
+00:14:13.800 will be on this pbrr texture set which
+00:14:15.680 is super nice just to keep things a
+00:14:17.480 little bit cleaner but anyways that
+00:14:20.000 wraps up uh my little overview of some
+00:14:22.199 of the things that you may not have
+00:14:23.279 noticed that they have added to Karma
+00:14:25.360 there is a bunch more of stuff obviously
+00:14:27.560 uh some of the bigger things they
+00:14:28.920 covered like the thin wall materialss
+00:14:31.320 they have um thin wall stuff in the
+00:14:34.800 transmission um some dispersion and
+00:14:37.160 transmission stuff that they didn't have
+00:14:38.680 before um so check uh the documentation
+00:14:41.560 for all that stuff if you're interested
+00:14:44.000 but um may take a look at that in the
+00:14:45.920 future as well but anyways that is kind
+00:14:49.480 of some of the newer stuff to Karma that
+00:14:51.279 wasn't focused on super heavily in any
+00:14:54.079 of the videos um that they showed off in
+00:14:57.800 like the the demo so um just take a look
+00:15:00.720 at all the new stuff take a look at the
+00:15:02.320 documentation and see the new things
+00:15:04.560 that you might have missed because
+00:15:05.600 there's a lot there's actually a lot was
+00:15:07.160 added to Karma ton of different things
+00:15:09.199 in there but anyways thank you for
+00:15:11.920 watching I have a bunch of other stuff
+00:15:13.600 on Houdini on my channel so if you want
+00:15:15.320 to learn more about Houdini make sure to
+00:15:17.720 check out those videos I also run a
+00:15:20.519 patreon which is free to follow by the
+00:15:22.000 way if you want to follow that you can
+00:15:24.480 do that the link is in the description
+00:15:27.320 I'm going to be dropping some free stuff
+00:15:29.480 on there so make sure you follow that um
+00:15:31.720 and don't miss any of that stuff I've
+00:15:33.720 already put up some of the stuff some
+00:15:35.360 stuff for free so grab that if you're
+00:15:37.000 interested obviously I have some paid
+00:15:38.560 stuff on there as well you want to grab
+00:15:40.319 a bunch of my project files basically
+00:15:41.920 from the last like year and a half or so
+00:15:44.160 then make sure to jump on over there and
+00:15:46.480 grab those if you're interested I've got
+00:15:48.160 a ton of different things on there
+00:15:51.240 anyways thank you guys for watching like
+00:15:52.720 said check out the other videos on my
+00:15:54.000 channel if you want to learn more about
+00:15:55.399 Houdini and have a good day
+00:16:04.079 oh
